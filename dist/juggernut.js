@@ -81,20 +81,21 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports) {
+/******/ ({
 
-const dastan = "dastan is reAASDASDady";
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-var test = function () {
-  console.log(dastan);
-};
-
-test();
+"use strict";
+eval("\n\nconsole.log(\"planning\");\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
-/******/ ]);
+
+/******/ });

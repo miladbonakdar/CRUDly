@@ -5,6 +5,7 @@ const common = require("./webpack.common.js");
 const path = require("path");
 
 module.exports = merge(common, {
+    mode: "production",
     output: {
         path: path.join(__dirname, "dist"), // Folder to store generated bundle
         filename: "juggernut.min.js", // Name of generated bundle after build

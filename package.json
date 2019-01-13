@@ -32,9 +32,13 @@
         "eslint": "^5.11.0",
         "eslint-config-node": "^4.0.0",
         "eslint-plugin-node": "^8.0.0",
+        "jest": "^23.6.0",
         "uglifyjs-webpack-plugin": "^2.1.1",
         "webpack": "^4.28.1",
         "webpack-cli": "^3.2.1",
         "webpack-merge": "^4.2.1"
+    },
+    "dependencies": {
+        "axios": "^0.18.0"
     }
 }

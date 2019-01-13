@@ -5,12 +5,13 @@ const path = require("path");
 const outFileName = "juggernut";
 
 module.exports = merge(common, {
+    mode: "development",
     optimization: {
-        minimize: false,
+        minimize: false
     },
     output: {
         path: path.join(__dirname, "dist"),
         filename: `${outFileName}.js`,
-        sourceMapFilename: `${outFileName}.map`,
-    },
+        sourceMapFilename: `${outFileName}.map`
+    }
 });
