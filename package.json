@@ -4,9 +4,9 @@
     "description": "pure javascript helper to call your API in human readable way",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack",
-        "build": "webpack -p",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "dev": "webpack --config webpack.dev.js",
+        "test": "jest",
+        "build": "webpack --config webpack.prod.js"
     },
     "repository": {
         "type": "git",
@@ -29,11 +29,12 @@
         "@babel/preset-env": "^7.2.3",
         "babel-loader": "^8.0.5",
         "babel-minify-webpack-plugin": "^0.3.1",
+        "eslint": "^5.11.0",
+        "eslint-config-node": "^4.0.0",
+        "eslint-plugin-node": "^8.0.0",
         "uglifyjs-webpack-plugin": "^2.1.1",
         "webpack": "^4.28.1",
         "webpack-cli": "^3.2.1",
-        "eslint": "^5.11.0",
-        "eslint-config-node": "^4.0.0",
-        "eslint-plugin-node": "^8.0.0"
+        "webpack-merge": "^4.2.1"
     }
 }

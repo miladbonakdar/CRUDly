@@ -21,6 +21,7 @@
         "node/prefer-global/process": ["error", "always"],
         "node/prefer-global/url-search-params": ["error", "always"],
         "node/prefer-global/url": ["error", "always"],
-        "node/no-unsupported-features/es-syntax": ["off","always"]
+        "node/no-unsupported-features/es-syntax": ["off", "always"],
+        "node/no-unpublished-require": "off"
     }
 }
