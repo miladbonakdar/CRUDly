@@ -1,6 +1,7 @@
+"use strict";
 const validator = require("./dataValidator");
 const Route = require("./route");
-const Action = require("./Action");
+const actionCreator = require("./actionCreator");
 
 class controller extends Route {
     constructor(ctrl, baseRoute, defaults) {
@@ -12,11 +13,5 @@ class controller extends Route {
         this.createActions(ctrl);
     }
 }
-
-controller.prototype.createActions = ctrl => {
-    for (const action of ctrl.actions) {
-        this[ctrl.name] = new Action(action, this.route);
-    }
-};
 
 module.export = controller;
