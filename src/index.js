@@ -1,2 +1,11 @@
 "use strict";
-console.log("planning");
+//the gate class
+const gate = require("./gate");
+//default axios functions
+const utils = require("./utils");
+//copy functions to the juggernut object
+const juggernut = { ...utils };
+
+juggernut.gate = gate;
+
+module.exports = juggernut;
