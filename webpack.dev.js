@@ -11,7 +11,6 @@ module.exports = merge(common, {
     },
     output: {
         path: path.join(__dirname, "dist"),
-        filename: `${outFileName}.js`,
-        sourceMapFilename: `${outFileName}.map`
+        filename: "[name].js"
     }
 });
