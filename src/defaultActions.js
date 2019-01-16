@@ -2,13 +2,13 @@
 
 const actionConfigCreator = require("./gate/actionCreator").createActionConfig;
 
-const get = actionConfigCreator("get", "get", ["id"], false, null);
-const post = actionConfigCreator("post", "create", null, true, null);
-const put = actionConfigCreator("put", "update", null, true, null);
-const patch = actionConfigCreator("patch", "patch", null, true, null);
-const remove = actionConfigCreator("delete", "delete", ["id"], false, null);
-const head = actionConfigCreator("head", "head", null, false, null);
-const getAll = actionConfigCreator("get", null, null, false, null);
+const get = actionConfigCreator("get", "get", ["id"], null);
+const post = actionConfigCreator("post", "create", null, null);
+const put = actionConfigCreator("put", "update", null, null);
+const patch = actionConfigCreator("patch", "patch", null, null);
+const remove = actionConfigCreator("delete", "delete", ["id"], null);
+const head = actionConfigCreator("head", "head", null, null);
+const getAll = actionConfigCreator("get", null, null, null);
 
 module.exports = {
     all: [get, post, put, patch, remove, head, getAll],
@@ -16,7 +16,7 @@ module.exports = {
     post,
     put,
     patch,
-    remove,
+    delete: remove,
     head,
     getAll
 };

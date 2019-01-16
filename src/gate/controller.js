@@ -8,7 +8,7 @@ class Controller extends Route {
         super(`${baseRoute}/${ctrl.name}`);
         this.actions = [];
         validator(ctrl, "actions") || [];
-        // this.createActions(ctrl);
+        //FIXME:  this.createActions(ctrl);
     }
 }
 
