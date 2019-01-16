@@ -3,15 +3,13 @@ const validator = require("./dataValidator");
 const Route = require("./route");
 const actionCreator = require("./actionCreator");
 
-class controller extends Route {
-    constructor(ctrl, baseRoute, defaults) {
+class Controller extends Route {
+    constructor(ctrl, baseRoute) {
         super(`${baseRoute}/${ctrl.name}`);
         this.actions = [];
         validator(ctrl, "actions") || [];
-        ctrl.actions = [...ctrl.actions, ...defaults];
-        Action.prototype.gate = this.gate;
-        this.createActions(ctrl);
+        // this.createActions(ctrl);
     }
 }
 
-module.export = controller;
+module.export = Controller;

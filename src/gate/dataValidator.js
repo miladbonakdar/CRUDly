@@ -1,4 +1,5 @@
 "use strict";
+
 module.exports = (data, datapropertyKey, exception = null) => {
     if (exception) {
         if (!data) throw new Error(exception);

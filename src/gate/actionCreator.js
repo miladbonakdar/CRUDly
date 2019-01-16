@@ -1,6 +1,7 @@
 "use strict";
-const Action = require("./Action");
+const Action = require("./action");
 const validator = require("./dataValidator");
+
 module.exports = {
     generateActions: actions => {
         for (const action of actions) {
@@ -15,5 +16,13 @@ module.exports = {
         );
         this[action.name] = new Action(action, this.route);
         this.actions.push(this[action.name]);
-    }
+    },
+    //FIXME:
+    createActionConfig: (
+        actionType = "get",
+        actionName = null,
+        params = null,
+        hasData = false,
+        actionUrl = null
+    ) => {}
 };

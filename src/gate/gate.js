@@ -1,7 +1,8 @@
 "use strict";
+
 const utils = require("../utils");
 const Controller = require("./controller");
-const Action = require("./Action");
+const Action = require("./action");
 const validator = require("./dataValidator");
 const Route = require("./route");
 const actionCreator = require("./actionCreator");
@@ -9,23 +10,26 @@ const actionCreator = require("./actionCreator");
 createControllers = config => {
     for (const ctrl of config.controllers) {
         validator(ctrl, "name", "please fill the controller name"); //check if ctrl name is valid
-        //FIXME: nameless actions should be one in the controllers
-        actionCreator.generateActions(
-            ctrl.actions
-                .filter(action => !action.name)
-                .forEach(action => (action.name = ctrl.name))
-        );
-        this[ctrl.name] = new Controller(ctrl, this.route, config.defaults);
+        let getAction = ctrl.actions.filter(
+            //find get action that it is nameless => gate.users()
+            action =>
+                !action.name &&
+                (!action.type || action.type.toLowerCase() == "get")
+        )[0];
+
+        if (getAction)
+            actionCreator.addAction({ ...getAction, name: ctrl.name }); //replace action name with controller name
+        this[ctrl.name] = new Controller(ctrl, this.route);
         this.controllers.push(this[ctrl.name]); //save in controller list
     }
 };
-class gate extends Route {
+class Gate extends Route {
     constructor(config) {
         super(config.root); //set this object route default "/"
 
         if (!config) {
             throw new Error(
-                "config file for controllers does not exist. please pass a valid config file to the gate controller"
+                "config file for controllers does not exist. please pass a valid config file to the Gate controller"
             );
         }
         config.controllers = validator(config, "controllers") || [];
@@ -35,8 +39,8 @@ class gate extends Route {
         //FIXME: fill the requests in the actions call
         this.pendingRequests = []; //request that will be send to the server and they are pending
 
-        Controller.prototype.gate = this; //set Controllers gate object
-        Action.prototype.gate = this; //set Actions gate object
+        Controller.prototype.gate = this; //set Controllers Gate object
+        Action.prototype.gate = this; //set Actions Gate object
         //create actions from config file
         if (Array.isArray(config)) actionCreator.generateActions(config);
         else {
@@ -46,28 +50,34 @@ class gate extends Route {
 }
 
 //set default prototypes from utils object
-Object.keys(utils).forEach(key => (gate.prototype[key] = utils[key]));
+Object.keys(utils).forEach(key => (Gate.prototype[key] = utils[key]));
 
-gate.prototype.addController = ctrl => {
+Gate.prototype.addController = ctrl => {
     validator(ctrl, "name", "please fill the controller name"); //check if ctrl name is valid
     this[ctrl.name] = new Controller(ctrl, this.route);
     this.controllers.push(this[ctrl.name]); //save in controller list
 };
 
-gate.prototype.addAction = actionCreator.addAction;
+Gate.prototype.addAction = actionCreator.addAction;
 
-gate.prototype.isRequestPending = () => {
+Gate.prototype.isRequestPending = () => {
     return this.pendingRequests.length != 0;
 };
 
 //FIXME: call this function if exist
-gate.prototype.afterAll = fn => {
+Gate.prototype.afterAll = fn => {
     this.afterAllRequests = fn;
 };
 
 //FIXME: call this function if exist
-gate.prototype.beforeAny = fn => {
+Gate.prototype.beforeAny = fn => {
     this.beforeAnyRequest = fn;
 };
+//FIXME:
+Gate.prototype.addDefaultsActions = actions => {
+    this.controllers.forEach(ctrl => {
+        ctrl.addActions(actions);
+    });
+};
 
-module.export = gate;
+module.export = Gate;
