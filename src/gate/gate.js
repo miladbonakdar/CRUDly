@@ -9,6 +9,7 @@ const actionCreator = require("./actionCreator");
 createControllers = config => {
     for (const ctrl of config.controllers) {
         validator(ctrl, "name", "please fill the controller name"); //check if ctrl name is valid
+        //FIXME: nameless actions should be one in the controllers
         actionCreator.generateActions(
             ctrl.actions
                 .filter(action => !action.name)
@@ -43,6 +44,7 @@ class gate extends Route {
         }
     }
 }
+
 //set default prototypes from utils object
 Object.keys(utils).forEach(key => (gate.prototype[key] = utils[key]));
 
@@ -57,10 +59,15 @@ gate.prototype.addAction = actionCreator.addAction;
 gate.prototype.isRequestPending = () => {
     return this.pendingRequests.length != 0;
 };
-//TODO: they are empty
-gate.prototype.afterAll = () => {};
 
-//TODO: they are empty
-gate.prototype.beforeAny = () => {};
+//FIXME: call this function if exist
+gate.prototype.afterAll = fn => {
+    this.afterAllRequests = fn;
+};
+
+//FIXME: call this function if exist
+gate.prototype.beforeAny = fn => {
+    this.beforeAnyRequest = fn;
+};
 
 module.export = gate;

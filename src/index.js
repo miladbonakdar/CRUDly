@@ -1,11 +1,11 @@
 "use strict";
 //the gate class
 const gate = require("./gate/gate");
-//default axios functions
-const utils = require("./utils");
-//copy functions to the juggernut object
-const juggernut = { ...utils };
+//copy functions to the crudly object
+const crudly = function(config) {
+    return new gate(config);
+};
 
-juggernut.gate = gate;
+crudly.gate = gate;
 
-module.exports = juggernut;
+module.exports = crudly;

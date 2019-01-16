@@ -2,7 +2,7 @@ const common = require("./webpack.common.js");
 const merge = require("webpack-merge");
 const path = require("path");
 
-const outFileName = "juggernut";
+const outFileName = "crudly";
 
 module.exports = merge(common, {
     mode: "development",

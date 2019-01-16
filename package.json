@@ -1,5 +1,5 @@
 {
-    "name": "juggernut",
+    "name": "CRUDly",
     "version": "0.0.0",
     "description": "pure javascript helper to call your API in human readable way",
     "main": "index.js",
@@ -10,20 +10,20 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/miladbonakdar/juggernut.git"
+        "url": "git+https://github.com/miladbonakdar/CRUDly.git"
     },
     "keywords": [
         "api",
         "hxr",
-        "juggernut",
+        "CRUDly",
         "http"
     ],
     "author": "Milad Bonakdar",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/miladbonakdar/juggernut/issues"
+        "url": "https://github.com/miladbonakdar/CRUDly/issues"
     },
-    "homepage": "https://github.com/miladbonakdar/juggernut#readme",
+    "homepage": "https://github.com/miladbonakdar/CRUDly#readme",
     "devDependencies": {
         "@babel/core": "^7.2.2",
         "@babel/preset-env": "^7.2.3",

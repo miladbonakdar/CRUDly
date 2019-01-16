@@ -1,1 +1,1 @@
-module.exports = require("./dist/juggernut");
+module.exports = require("./dist/crudly");
