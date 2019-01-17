@@ -2,12 +2,12 @@
 
 const utils = require("../utils");
 const Controller = require("./controller");
-const Action = require("./action");
+const Action = require("./actionFunctionCreator");
 const validator = require("./dataValidator");
 const Route = require("./route");
 const actionCreator = require("./actionCreator");
 
-createControllers = config => {
+createControllersAndActions = config => {
     for (const ctrl of config.controllers) {
         validator(ctrl, "name", "please fill the controller name"); //check if ctrl name is valid
         let getAction = ctrl.actions.filter(
@@ -44,7 +44,7 @@ class Gate extends Route {
         //create actions from config file
         if (Array.isArray(config)) actionCreator.generateActions(config);
         else {
-            createControllers(config); //create controllers from config file
+            createControllersAndActions(config); //create controllers from config file
         }
     }
 }

@@ -1,5 +1,5 @@
 "use strict";
-
+//function to create action config
 const actionConfigCreator = require("./gate/actionCreator").createActionConfig;
 
 const get = actionConfigCreator("get", "get", ["id"], null);

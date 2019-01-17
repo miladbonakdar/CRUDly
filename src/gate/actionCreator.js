@@ -1,5 +1,6 @@
 "use strict";
-const Action = require("./action");
+
+const Action = require("./actionFunctionCreator");
 const validator = require("./dataValidator");
 const statics = require("./statics");
 
@@ -32,7 +33,7 @@ module.exports = {
             throw new Error(`Action type '${actionType}' is not valid`);
         let actionConfig = {};
         actionConfig.type = actionType;
-        if (actionType !== "get" && !params)
+        if (actionType !== "get" || params)
             actionName = statics.actionTypeMaps["actionType"];
         if (actionName) actionConfig.name = actionName;
         if (actionUrl) actionConfig.url = actionUrl;
