@@ -19,7 +19,7 @@ class Action extends Route {
     }
 }
 
-Action.prototype.run = async () => {
+Action.prototype.run = async (...args) => {
     let config = {};
     //TODO: create axios config here
     return await request(config);
