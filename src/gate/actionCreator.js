@@ -1,23 +1,28 @@
 "use strict";
 
-const Action = require("./actionFunctionCreator");
-const validator = require("./dataValidator");
+const Action = require("./action");
 const statics = require("./statics");
 
 module.exports = {
     generateActions: actions => {
         for (const action of actions) {
-            this[action.name] = new Action(action, this.route);
+            addAction(action);
         }
     },
     addAction: action => {
-        validator(
-            action,
-            "name",
-            "action name is invalid. please fill the action name"
-        );
-        this[action.name] = new Action(action, this.route);
-        this.actions.push(this[action.name]);
+        if (!action) throw new Error("action config is not valid");
+        actionConfig.type = (actionConfig.type || "get").toLowerCase();
+
+        if (!statics.actionTypes.filter(type => type === actionConfig.type)[0])
+            throw new Error(`Action type '${actionConfig.type}' is not valid`);
+
+        if (!action.name) action.name = statics.actionTypeMaps[actionConfig.type];
+        if (this[action.name])
+            throw new Error("this action was created before");
+
+        let newAction = new Action(action, this.route);
+        this.actions.push(newAction);
+        this[action.name] = action.run;
     },
     createActionConfig: (
         actionType = "get",
@@ -25,16 +30,12 @@ module.exports = {
         params = null,
         actionUrl = null
     ) => {
-        if (
-            !statics.actionTypes.filter(
-                type => actionType.toLowerCase() === actionType
-            )[0]
-        )
+        actionType = actionType.toLowerCase();
+        if (!statics.actionTypes.filter(type => type === actionType)[0])
             throw new Error(`Action type '${actionType}' is not valid`);
         let actionConfig = {};
         actionConfig.type = actionType;
-        if (actionType !== "get" || params)
-            actionName = statics.actionTypeMaps["actionType"];
+        if (!actionName) actionName = statics.actionTypeMaps[actionType];
         if (actionName) actionConfig.name = actionName;
         if (actionUrl) actionConfig.url = actionUrl;
         if (

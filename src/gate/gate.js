@@ -2,7 +2,6 @@
 
 const utils = require("../utils");
 const Controller = require("./controller");
-const Action = require("./actionFunctionCreator");
 const validator = require("./dataValidator");
 const Route = require("./route");
 const actionCreator = require("./actionCreator");
@@ -10,15 +9,6 @@ const actionCreator = require("./actionCreator");
 createControllersAndActions = config => {
     for (const ctrl of config.controllers) {
         validator(ctrl, "name", "please fill the controller name"); //check if ctrl name is valid
-        let getAction = ctrl.actions.filter(
-            //find get action that it is nameless => gate.users()
-            action =>
-                !action.name &&
-                (!action.type || action.type.toLowerCase() == "get")
-        )[0];
-
-        if (getAction)
-            actionCreator.addAction({ ...getAction, name: ctrl.name }); //replace action name with controller name
         this[ctrl.name] = new Controller(ctrl, this.route);
         this.controllers.push(this[ctrl.name]); //save in controller list
     }
@@ -40,7 +30,6 @@ class Gate extends Route {
         this.pendingRequests = []; //request that will be send to the server and they are pending
 
         Controller.prototype.gate = this; //set Controllers Gate object
-        Action.prototype.gate = this; //set Actions Gate object
         //create actions from config file
         if (Array.isArray(config)) actionCreator.generateActions(config);
         else {
@@ -76,7 +65,7 @@ Gate.prototype.beforeAny = fn => {
 //FIXME:
 Gate.prototype.addDefaultsActions = actions => {
     this.controllers.forEach(ctrl => {
-        ctrl.addActions(actions);
+        if (ctrl.loadDefaults) ctrl.addActions(actions);
     });
 };
 

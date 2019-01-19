@@ -8,6 +8,6 @@ module.exports = {
         post: "create",
         delete: "delete",
         patch: "patch",
-        head: "heas"
+        head: "head"
     }
 };
