@@ -19,8 +19,8 @@ const createControllersAndActions = config => {
 
 class Gate extends Route {
     constructor(config) {
+        if (config.root && !config.root.endsWith("/")) config.root += "/";
         super(config.root); //set this object route default "/"
-
         if (!config) {
             throw new Error(
                 "config file for controllers does not exist. please pass a valid config file to the Gate controller"
@@ -35,9 +35,7 @@ class Gate extends Route {
 
         //create actions from config file
         if (Array.isArray(config)) actionCreator.generateActions(config);
-        else {
-            createControllersAndActions(config); //create controllers from config file
-        }
+        else createControllersAndActions(config); //create controllers from config file
     }
 }
 
@@ -66,16 +64,16 @@ Gate.prototype.isRequestPending = () => {
 };
 //FIXME: call this function if exist
 /**
- * @description runs after all pending requests are done and you have data and params 
- * @param fn function you want to execute  
+ * @description runs after all pending requests are done and you have data and params
+ * @param fn function you want to execute
  */
 Gate.prototype.afterAll = fn => {
     this.afterAllRequests = fn;
 };
 //FIXME: call this function if exist
 /**
- * @description runs before any request send and you have data and params 
- * @param fn function you want to execute  
+ * @description runs before any request send and you have data and params
+ * @param fn function you want to execute
  */
 Gate.prototype.beforeAny = fn => {
     this.beforeAnyRequest = fn;
