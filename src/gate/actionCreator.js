@@ -4,11 +4,13 @@ const Action = require("./action");
 const statics = require("./statics");
 
 module.exports = {
+
     generateActions: actions => {
         for (const action of actions) {
             addAction(action);
         }
     },
+
     addAction: action => {
         if (!action) throw new Error("action config is not valid");
         actionConfig.type = (actionConfig.type || "get").toLowerCase();
@@ -24,6 +26,7 @@ module.exports = {
         this.actions.push(newAction);
         this[action.name] = action.run;
     },
+    
     createActionConfig: (
         actionType = "get",
         actionName = null,
