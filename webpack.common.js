@@ -2,8 +2,8 @@ const path = require("path");
 
 module.exports = {
     entry:{
-        "crudly": path.join(__dirname, "src", "index.js"),
-        "crudly.min": path.join(__dirname, "src", "index.js"),
+        "crudly": path.join(__dirname, "src", "crudly.js"),
+        "crudly.min": path.join(__dirname, "src", "crudly.js"),
     },
     watch: true,
     module: {
