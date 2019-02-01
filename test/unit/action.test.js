@@ -1,0 +1,1 @@
+const checkFunctions = require("../checkFunctions");
