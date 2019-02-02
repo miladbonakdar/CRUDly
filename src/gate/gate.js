@@ -9,10 +9,12 @@ const actionCreator = require("./actionCreator");
  * @description add controllers listed in the config object to the gate object
  * @param config crudly config object for craeting controllers
  */
-const createControllersAndActions = config => {
+const createControllers = config => {
     for (const ctrl of config.controllers) {
         validator(ctrl, "name", "please fill the controller name"); //check if ctrl name is valid
         this[ctrl.name] = new Controller(ctrl, this.route);
+        this[ctrl.name].gate = this;
+        this[ctrl.name].config = config;
         this.controllers.push(this[ctrl.name]); //save in controller list
     }
 };
@@ -27,15 +29,18 @@ class Gate extends Route {
             );
         }
         config.controllers = validator(config, "controllers") || [];
-
         this.controllers = []; //list of controllers object
         this.actions = []; //list of actions object
         //FIXME: fill the requests in the actions call
         this.pendingRequests = []; //request that will be send to the server and they are pending
+        this.config = config;
+        Object.freeze(this.config);
 
         //create actions from config file
         if (Array.isArray(config)) actionCreator.generateActions(config);
-        else createControllersAndActions(config); //create controllers from config file
+        else createControllers(config); //create controllers from config file
+        if (config.defaultActions && config.defaultActions.length != 0)
+            this.addDefaultsActions(config.defaultActions);
     }
 }
 

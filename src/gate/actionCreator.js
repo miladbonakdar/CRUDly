@@ -12,6 +12,7 @@ module.exports = {
     },
 
     addAction: action => {
+        //TODO: Merge with default action config
         if (!action) throw new Error("action config is not valid");
         actionConfig.type = (actionConfig.type || "get").toLowerCase();
 
@@ -24,6 +25,10 @@ module.exports = {
 
         let newAction = new Action(action, this.route);
         this.actions.push(newAction);
+        newAction.gate = this.gate;
+        newAction.config = this.config;
+        if(this.config.defaultActionsConfig)
+            newAction.mergeConfig(this.config.defaultActionsConfig);
         this[action.name] = action.run;
     },
     

@@ -10,6 +10,7 @@ class Controller extends Route {
         this.actions = [];
         validator(ctrl, "actions") || [];
         this.loadDefaults = validator(ctrl, "loadDefaults") || true;
+        this.addActions(ctrl.actions);
     }
 }
 /**
@@ -23,7 +24,7 @@ Controller.prototype.addAction = actionCreator.addAction;
  */
 Controller.prototype.addActions = actions => {
     if(!actions) throw new Error("actions is not defained");
-    if(actions.__proto != Array.prototype) throw new Error("actions most be array");
+    if(!Array.isArray(actions)) throw new Error("actions most be array");
     actions.forEach(action => {
         this.addAction(action);
     });
