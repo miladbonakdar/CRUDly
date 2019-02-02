@@ -10,9 +10,23 @@ test("check simple get request", () => {
             res.end();
         })
         .listen(4567, () => {
-            request({ url: "localhost:4567/", method: "get" }).then(res => {
-                expect(res).toBeDefined();
-                server.close();
-            });
+            request({ url: "localhost:4567/", method: "get" })
+                .then(res => {
+                    expect(res).toBeDefined();
+                    expect(res.status).toBe(200);
+                    expect(res.body).toBe("Hello World!");
+                    if (server) {
+                        server.close();
+                        server = null;
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    expect(err).toBeUndefined();
+                    if (server) {
+                        server.close();
+                        server = null;
+                    }
+                });
         });
 });
