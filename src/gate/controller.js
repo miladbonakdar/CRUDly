@@ -5,11 +5,12 @@ const Route = require("./route");
 const actionCreator = require("./actionCreator");
 
 class Controller extends Route {
-    constructor(ctrl, baseRoute) {
+    constructor(ctrl, baseRoute, config) {
         super(`${baseRoute}/${ctrl.name}`);
         this.actions = [];
         validator(ctrl, "actions") || [];
         this.loadDefaults = validator(ctrl, "loadDefaults") || true;
+        this.config = config;
         this.addActions(ctrl.actions);
     }
 }
@@ -22,12 +23,12 @@ Controller.prototype.addAction = actionCreator.addAction;
  * @description add list of actions to the controller
  * @param actions list of actions config
  */
-Controller.prototype.addActions = actions => {
-    if(!actions) throw new Error("actions is not defained");
-    if(!Array.isArray(actions)) throw new Error("actions most be array");
+Controller.prototype.addActions = function(actions) {
+    if (!actions) throw new Error("actions is not defained");
+    if (!Array.isArray(actions)) throw new Error("actions most be an array");
     actions.forEach(action => {
         this.addAction(action);
     });
 };
 
-module.export = Controller;
+module.exports = Controller;

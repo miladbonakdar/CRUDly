@@ -11,15 +11,15 @@ module.exports = {
         }
     },
 
-    addAction: action => {
+    addAction: function(action){
         //TODO: Merge with default action config
         if (!action) throw new Error("action config is not valid");
-        actionConfig.type = (actionConfig.type || "get").toLowerCase();
+        action.type = (action.type || "get").toLowerCase();
 
-        if (!statics.actionTypes.filter(type => type === actionConfig.type)[0])
-            throw new Error(`Action type '${actionConfig.type}' is not valid`);
+        if (!statics.actionTypes.filter(type => type === action.type)[0])
+            throw new Error(`Action type '${action.type}' is not valid`);
 
-        if (!action.name) action.name = statics.actionTypeMaps[actionConfig.type];
+        if (!action.name) action.name = statics.actionTypeMaps[action.type];
         if (this[action.name])
             throw new Error("this action was created before");
 

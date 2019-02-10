@@ -7,27 +7,24 @@ const Route = require("./route");
 const actionCreator = require("./actionCreator");
 /**
  * @description add controllers listed in the config object to the gate object
- * @param config crudly config object for craeting controllers
  */
-const createControllers = config => {
-    for (const ctrl of config.controllers) {
+const createControllers = function() {
+    for (const ctrl of this.config.controllers) {
         validator(ctrl, "name", "please fill the controller name"); //check if ctrl name is valid
-        this[ctrl.name] = new Controller(ctrl, this.route);
+        this[ctrl.name] = new Controller(ctrl, this.route, this.config);
         this[ctrl.name].gate = this;
-        this[ctrl.name].config = config;
         this.controllers.push(this[ctrl.name]); //save in controller list
     }
 };
-
 class Gate extends Route {
     constructor(config) {
-        if (config.root && !config.root.endsWith("/")) config.root += "/";
-        super(config.root); //set this object route default "/"
         if (!config) {
             throw new Error(
                 "config file for controllers does not exist. please pass a valid config file to the Gate controller"
             );
         }
+        if (config.root && !config.root.endsWith("/")) config.root += "/";
+        super(config.root); //set this object route default "/"
         config.controllers = validator(config, "controllers") || [];
         this.controllers = []; //list of controllers object
         this.actions = []; //list of actions object
@@ -38,7 +35,7 @@ class Gate extends Route {
 
         //create actions from config file
         if (Array.isArray(config)) actionCreator.generateActions(config);
-        else createControllers(config); //create controllers from config file
+        else createControllers.bind(this)(); //create controllers from config file
         if (config.defaultActions && config.defaultActions.length != 0)
             this.addDefaultsActions(config.defaultActions);
     }
@@ -50,7 +47,7 @@ Object.keys(utils).forEach(key => (Gate.prototype[key] = utils[key]));
  * @description you can add new controller to the gate object
  * @param ctrl controller you want to add
  */
-Gate.prototype.addController = ctrl => {
+Gate.prototype.addController = function(ctrl) {
     validator(ctrl, "name", "please fill the controller name"); //check if ctrl name is valid
     this[ctrl.name] = new Controller(ctrl, this.route);
     this.controllers.push(this[ctrl.name]); //save in controller list
@@ -64,7 +61,7 @@ Gate.prototype.addAction = actionCreator.addAction;
  * @description check if is there any request pending now
  * @returns boolean indicate that any request is pending or not
  */
-Gate.prototype.isRequestPending = () => {
+Gate.prototype.isRequestPending = function() {
     return this.pendingRequests.length != 0;
 };
 //FIXME: call this function if exist
@@ -72,7 +69,7 @@ Gate.prototype.isRequestPending = () => {
  * @description runs after all pending requests are done and you have data and params
  * @param fn function you want to execute
  */
-Gate.prototype.afterAll = fn => {
+Gate.prototype.afterAll = function(fn) {
     this.afterAllRequests = fn;
 };
 //FIXME: call this function if exist
@@ -80,17 +77,17 @@ Gate.prototype.afterAll = fn => {
  * @description runs before any request send and you have data and params
  * @param fn function you want to execute
  */
-Gate.prototype.beforeAny = fn => {
+Gate.prototype.beforeAny = function(fn) {
     this.beforeAnyRequest = fn;
 };
 /**
  * @description add default actions to the controllers
  * @param actions list of default actions
  */
-Gate.prototype.addDefaultsActions = actions => {
+Gate.prototype.addDefaultsActions = function(actions) {
     this.controllers.forEach(ctrl => {
         if (ctrl.loadDefaults) ctrl.addActions(actions);
     });
 };
 
-module.export = Gate;
+module.exports = Gate;

@@ -3,7 +3,7 @@
 const Route = require("./route");
 const request = require("./request");
 
-const urlParamsGenerator = () => {
+const urlParamsGenerator = function() {
     let param = null;
     for (let i = 0; i < this.url.length; i++) {
         if (
@@ -30,14 +30,13 @@ class Action extends Route {
             throw new Error("Base route config is not valid in action");
         super(`${baseRoute}/${action.name}`);
         this.params = action.params || [];
-        this.method = action.type || "get";
-        this.method = this.method.toLowerCase();
+        this.method = (action.type || "get").toLowerCase();
         this.name = action.name;
         this.urlParams = [];
         this.extra = action;
         this.loadDefaultConfig = action.loadDefaultConfig || true;
         if (this.method === "get" || this.method === "delete")
-            urlParamsGenerator();
+            urlParamsGenerator.bind(this)();
     }
 }
 
@@ -109,4 +108,4 @@ Action.prototype.run = async (...args) => {
     return await request(this.getAxiosConfig(...args));
 };
 
-module.export = Action;
+module.exports = Action;
