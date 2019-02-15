@@ -26,4 +26,26 @@ describe("controller object check", () => {
             );
         })
     );
+
+    test(
+        "check controller addactions 'not defined' exception",
+        checkFunctions.checkForException(() => {
+            controller.addActions();
+        }, "actions is not defained")
+    );
+
+    test(
+        "check controller addactions 'most be an array' exception",
+        checkFunctions.checkForException(() => {
+            controller.addActions({});
+        }, "actions most be an array")
+    );
+
+    // test(
+    //     "check controller addactions function",
+    //     checkFunctions.check(() => {
+    //         controller.addActions(testData.testActions);
+    //         expect(controller.delete).toBeDefined();
+    //     })
+    // );
 });
