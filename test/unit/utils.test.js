@@ -14,3 +14,7 @@ test(
         expect(Object.keys(utils).length).toBe(7);
     })
 );
+
+test("check for nothing", () => {
+    expect(1).toBeTruthy();
+});

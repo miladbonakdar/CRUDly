@@ -10,10 +10,7 @@ const actionCreator = require("./actionCreator");
  */
 const createControllers = function() {
     for (const ctrl of this.config.controllers) {
-        validator(ctrl, "name", "please fill the controller name"); //check if ctrl name is valid
-        this[ctrl.name] = new Controller(ctrl, this.route, this.config);
-        this[ctrl.name].gate = this;
-        this.controllers.push(this[ctrl.name]); //save in controller list
+        this.addController(ctrl);
     }
 };
 class Gate extends Route {
@@ -36,8 +33,6 @@ class Gate extends Route {
         //create actions from config file
         if (Array.isArray(config)) actionCreator.generateActions(config);
         else createControllers.bind(this)(); //create controllers from config file
-        if (config.defaultActions && config.defaultActions.length != 0)
-            this.addDefaultsActions(config.defaultActions);
     }
 }
 
@@ -49,8 +44,11 @@ Object.keys(utils).forEach(key => (Gate.prototype[key] = utils[key]));
  */
 Gate.prototype.addController = function(ctrl) {
     validator(ctrl, "name", "please fill the controller name"); //check if ctrl name is valid
-    this[ctrl.name] = new Controller(ctrl, this.route);
+    this[ctrl.name] = new Controller(ctrl, this.route, this.config);
+    this[ctrl.name].gate = this;
     this.controllers.push(this[ctrl.name]); //save in controller list
+    if (this.config.defaultActions && this.config.defaultActions.length != 0)
+        this.addDefaultsAction(this[ctrl.name], this.config.defaultActions);
 };
 /**
  * @description you can add actions to the gate object
@@ -86,8 +84,15 @@ Gate.prototype.beforeAny = function(fn) {
  */
 Gate.prototype.addDefaultsActions = function(actions) {
     this.controllers.forEach(ctrl => {
-        if (ctrl.loadDefaults) ctrl.addActions(actions);
+        this.addDefaultsAction(ctrl, actions);
     });
+};
+/**
+ * @description add default actions to the just one controller
+ * @param actions list of default actions
+ */
+Gate.prototype.addDefaultsAction = function(ctrl, actions) {
+    if (ctrl.loadDefaults) ctrl.addActions(actions);
 };
 
 module.exports = Gate;

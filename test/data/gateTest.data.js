@@ -54,6 +54,23 @@ const config = {
     ]
 };
 
+const testController = {
+    name: "todos",
+    loadDefaults: true,
+    actions: [
+        { type: "post" },
+        { type: "put" },
+        {
+            type: "delete",
+            url: "remove/:id" //TODO: check if it starts with '/' or not
+        },
+        { type: "get", params: ["id"] }, //get?id=123123
+        { type: "head" },
+        { type: "patch" }
+    ]
+};
+
 module.exports = {
-    testConfig: config
+    testConfig: config,
+    testController
 };

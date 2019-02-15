@@ -7,18 +7,19 @@ const actionCreator = require("./actionCreator");
 class Controller extends Route {
     constructor(ctrl, baseRoute, config) {
         super(`${baseRoute}/${ctrl.name}`);
-        this.actions = [];
-        validator(ctrl, "actions") || [];
+        this.actions = validator(ctrl, "actions") || [];
         this.loadDefaults = validator(ctrl, "loadDefaults") || true;
         this.config = config;
         this.addActions(ctrl.actions);
     }
 }
+
 /**
  * @description you can add actions to the gate object
  * @param action action you want to add
  */
 Controller.prototype.addAction = actionCreator.addAction;
+
 /**
  * @description add list of actions to the controller
  * @param actions list of actions config
