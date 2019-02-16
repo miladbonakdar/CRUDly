@@ -41,11 +41,13 @@ describe("controller object check", () => {
         }, "actions most be an array")
     );
 
-    // test(
-    //     "check controller addactions function",
-    //     checkFunctions.check(() => {
-    //         controller.addActions(testData.testActions);
-    //         expect(controller.delete).toBeDefined();
-    //     })
-    // );
+    test(
+        "check controller addactions function",
+        checkFunctions.check(() => {
+            controller.addActions(testData.testActions);
+            expect(controller.testAction).toBeDefined();
+            expect(controller.testAction.call).toBeDefined();
+            expect(controller.testAction.bind).toBeDefined();
+        })
+    );
 });

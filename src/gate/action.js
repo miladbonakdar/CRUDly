@@ -101,7 +101,7 @@ Action.prototype.getAxiosConfig = (...args) => {
     return config;
 };
 
-Action.prototype.run = async (...args) => {
+Action.prototype.run = async function(...args) {
     //url params + params in get or delete action
     if (!args) args = [];
     this.validateParams(...args);

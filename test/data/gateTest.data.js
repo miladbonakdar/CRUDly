@@ -70,10 +70,13 @@ const testController = {
     ]
 };
 
-const testActions = [{
-    type: "delete",
-    url: "remove/:userId/:postId" //TODO: check if it starts with '/' or not
-}];
+const testActions = [
+    {
+        type: "delete",
+        name: "testAction",
+        url: "remove/:userId/:postId" //TODO: check if it starts with '/' or not
+    }
+];
 
 module.exports = {
     testConfig: config,
