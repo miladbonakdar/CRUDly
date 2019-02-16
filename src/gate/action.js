@@ -8,7 +8,7 @@ class Action extends Route {
     constructor(action, baseRoute) {
         if (!action) throw new Error("Action config is not valid");
         if (!baseRoute)
-            throw new Error("Base route config is not valid in action");
+            throw new Error("Base route is not valid");
         super(`${baseRoute}/${action.name}`);
         this.params = action.params || [];
         this.method = (action.type || "get").toLowerCase();
