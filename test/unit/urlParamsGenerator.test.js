@@ -7,12 +7,12 @@ describe("urlParamsGenerator function test", () => {
         checkFunctions.check(() => {
             const fakeThis = {
                 url: "remove/:userId/:postId",
-                params: []
+                urlParams: []
             };
             generator.bind(fakeThis)();
-            expect(fakeThis.params[0]).toBe("userId");
-            expect(fakeThis.params[1]).toBe("postId");
-            expect(fakeThis.params.length).toBe(2);
+            expect(fakeThis.urlParams[0]).toBe(":userId");
+            expect(fakeThis.urlParams[1]).toBe(":postId");
+            expect(fakeThis.urlParams.length).toBe(2);
         })
     );
 
@@ -21,10 +21,10 @@ describe("urlParamsGenerator function test", () => {
         checkFunctions.check(() => {
             const fakeThis = {
                 url: "remove/",
-                params: []
+                urlParams: []
             };
             generator.bind(fakeThis)();
-            expect(fakeThis.params.length).toBe(0);
+            expect(fakeThis.urlParams.length).toBe(0);
         })
     );
 
@@ -33,10 +33,10 @@ describe("urlParamsGenerator function test", () => {
         checkFunctions.check(() => {
             const fakeThis = {
                 url: "remove",
-                params: []
+                urlParams: []
             };
             generator.bind(fakeThis)();
-            expect(fakeThis.params.length).toBe(0);
+            expect(fakeThis.urlParams.length).toBe(0);
         })
     );
 
@@ -45,12 +45,12 @@ describe("urlParamsGenerator function test", () => {
         checkFunctions.check(() => {
             const fakeThis = {
                 url: "a/:test:dastan",
-                params: []
+                urlParams: []
             };
             generator.bind(fakeThis)();
-            expect(fakeThis.params[0]).toBe("test");
-            expect(fakeThis.params[1]).toBe("dastan");
-            expect(fakeThis.params.length).toBe(2);
+            expect(fakeThis.urlParams[0]).toBe(":test");
+            expect(fakeThis.urlParams[1]).toBe(":dastan");
+            expect(fakeThis.urlParams.length).toBe(2);
         })
     );
 
@@ -59,12 +59,12 @@ describe("urlParamsGenerator function test", () => {
         checkFunctions.check(() => {
             const fakeThis = {
                 url: "dastan/:ajjab?:mohandes",
-                params: []
+                urlParams: []
             };
             generator.bind(fakeThis)();
-            expect(fakeThis.params[0]).toBe("ajjab");
-            expect(fakeThis.params[1]).toBe("mohandes");
-            expect(fakeThis.params.length).toBe(2);
+            expect(fakeThis.urlParams[0]).toBe(":ajjab");
+            expect(fakeThis.urlParams[1]).toBe(":mohandes");
+            expect(fakeThis.urlParams.length).toBe(2);
         })
     );
 });

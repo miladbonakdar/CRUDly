@@ -13,7 +13,7 @@ const config = {
                 { type: "put" },
                 {
                     type: "delete",
-                    url: "remove/:id" //TODO: check if it starts with '/' or not
+                    url: "remove/:id"
                 },
                 { type: "get", params: ["id"] }, //get?id=123123
                 { type: "head" },
@@ -21,17 +21,17 @@ const config = {
                 {
                     type: "get",
                     name: "dastan",
-                    url: "customAction/:id/:age/:name" //TODO: check if it starts with '/' or not
+                    url: "customAction/:id/:age/:name"
                 },
                 {
                     type: "post",
                     name: "testPost",
-                    url: "testkon" //TODO: check if it starts with '/' or not
+                    url: "testkon"
                 },
                 {
                     type: "get",
                     name: "testGet",
-                    url: "testkon", //TODO: check if it starts with '/' or not
+                    url: "testkon",
                     params: ["id"]
                 }
             ]
@@ -44,7 +44,7 @@ const config = {
                 { type: "put" },
                 {
                     type: "delete",
-                    url: "remove/:id" //TODO: check if it starts with '/' or not
+                    url: "remove/:id"
                 },
                 { type: "get", params: ["id"] }, //get?id=123123
                 { type: "head" },
@@ -62,7 +62,7 @@ const testController = {
         { type: "put" },
         {
             type: "delete",
-            url: "remove/:id" //TODO: check if it starts with '/' or not
+            url: "remove/:id"
         },
         { type: "get", params: ["id"] }, //get?id=123123
         { type: "head" },
@@ -71,10 +71,28 @@ const testController = {
 };
 
 const testActions = [
+    { type: "post", name: "test1" },
+    { type: "put", name: "test2" },
+    { type: "get", params: ["id", "type"], name: "test3" }, //get?id=123123
+    { type: "head", name: "test4" },
+    { type: "patch", name: "test5" },
+    {
+        type: "get",
+        name: "test6",
+        loadDefaultConfig: false,
+        url: "customAction/:id/:age/:name"
+    },
+    {
+        type: "get",
+        name: "test7",
+        url: "testkon",
+        params: ["id"]
+    },
     {
         type: "delete",
         name: "testAction",
-        url: "remove/:userId/:postId" //TODO: check if it starts with '/' or not
+        url: "remove/:userId/:postId",
+        loadDefaultConfig: false
     }
 ];
 

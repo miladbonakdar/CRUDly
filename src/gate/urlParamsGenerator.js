@@ -1,7 +1,3 @@
-const removeCharacter = (str, c = ":") => {
-    if (str.startsWith(c)) return str.substring(1);
-    return str;
-};
 
 module.exports = function() {
     let param = null;
@@ -10,7 +6,7 @@ module.exports = function() {
             param &&
             (this.url[i] === "/" || this.url[i] === "\\" || this.url[i] === ":" || this.url[i] === "?")
         ) {
-            this.params.push(removeCharacter(param));
+            this.urlParams.push(param);
             param = null;
         }
         if (param) {
@@ -19,5 +15,5 @@ module.exports = function() {
         }
         if (this.url[i] === ":") param = ":";
     }
-    if (param) this.params.push(removeCharacter(param));
+    if (param) this.urlParams.push(param);
 };
