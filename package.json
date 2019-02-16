@@ -1,12 +1,13 @@
 {
-    "name": "CRUDly",
-    "version": "0.0.0",
+    "name": "Crudly",
+    "version": "1.0.0",
     "description": "pure javascript helper to call your API in human readable way",
     "main": "index.js",
     "scripts": {
         "dev": "webpack --config webpack.dev.js",
         "test": "jest",
-        "build": "webpack --config webpack.prod.js"
+        "build": "webpack --config webpack.prod.js",
+        "prepublish": "npm run test"
     },
     "repository": {
         "type": "git",

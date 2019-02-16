@@ -5,7 +5,7 @@ const defaultActions = require("./defaultActions");
 const actionConfig = require("./gate/actionCreator").createActionConfig;
 //TODO: document needed
 //copy functions to the crudly object
-const crudly = function(config) {
+let crudly = function(config) {
     return new gate(config);
 };
 //TODO: document needed
