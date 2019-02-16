@@ -1,6 +1,5 @@
 "use strict";
 const axios = require("axios");
-//TODO: document needed
 //axios default functions to export
 module.exports = {
     get: axios.get,

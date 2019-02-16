@@ -2,26 +2,7 @@
 
 const Route = require("./route");
 const request = require("./request");
-
-const urlParamsGenerator = function() {
-    let param = null;
-    for (let i = 0; i < this.url.length; i++) {
-        if (
-            param &&
-            (this.url[i] === "/" || this.url[i] === "\\" || this.url[i] === ":")
-        ) {
-            this.params.push(param);
-            param = null;
-            continue;
-        }
-        if (param) {
-            param += this.url[i];
-            continue;
-        }
-        if (this.url[i] === ":") param = ":";
-    }
-    if (param) this.params.push(param);
-};
+const urlParamsGenerator = require("./urlParamsGenerator");
 
 class Action extends Route {
     constructor(action, baseRoute) {
@@ -47,8 +28,8 @@ Action.prototype.parseUrl = (url, ...args) => {
 };
 
 Action.prototype.mergeConfig = (config, overrideWithThis = false) => {
-    if (config.__proto__ != Object.prototype)
-        throw new Error("config must be an object");
+    if (!config) throw new Error("the config object is invalidE");
+    if (!config.__proto__) throw new Error("config must be an object");
     Object.keys(config).forEach(key => {
         if (overrideWithThis) this[key] = config[key];
         else if (!this[key]) this[key] == config[key];
