@@ -78,8 +78,18 @@ const testActions = [
     }
 ];
 
+const actionList = [
+    { type: "DELETE" },
+    { type: "GET" },
+    { type: "POST" },
+    { type: "Put" },
+    { type: "head" },
+    { type: "patch" }
+];
+
 module.exports = {
     testConfig: config,
     testController,
-    testActions
+    testActions,
+    actionList
 };

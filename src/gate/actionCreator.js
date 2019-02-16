@@ -4,15 +4,7 @@ const Action = require("./action");
 const statics = require("./statics");
 
 module.exports = {
-
-    generateActions: actions => {
-        for (const action of actions) {
-            addAction(action);
-        }
-    },
-
-    addAction: function(action){
-        //TODO: Merge with default action config
+    addAction: function(action) {
         if (!action) throw new Error("action config is not valid");
         action.type = (action.type || "get").toLowerCase();
 
@@ -27,11 +19,11 @@ module.exports = {
         this.actions.push(newAction);
         newAction.gate = this.gate;
         newAction.config = this.config;
-        if(this.config.defaultActionsConfig)
+        if (this.config.defaultActionsConfig)
             newAction.mergeConfig(this.config.defaultActionsConfig);
         this[action.name] = newAction.run;
     },
-    
+
     createActionConfig: (
         actionType = "get",
         actionName = null,

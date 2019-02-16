@@ -8,6 +8,7 @@ describe("controller object check", () => {
         "/api/v1",
         testData.testConfig
     );
+
     test("check some fileds to be created", () => {
         expect(controller.url).toBe("/api/v1/todos");
         expect(controller.actions).toBeDefined();
