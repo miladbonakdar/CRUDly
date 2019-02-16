@@ -46,7 +46,10 @@ module.exports = {
             params
         )
             throw new Error(`Action type ${actionType} should not have params`);
-        if (params) actionConfig.params = params;
+        if (params) {
+            if(!Array.isArray(params)) throw new Error("the params should be an array");
+            actionConfig.params = params;
+        }
         return actionConfig;
     }
 };
