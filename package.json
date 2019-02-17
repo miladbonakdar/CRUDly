@@ -1,5 +1,5 @@
 {
-    "name": "Crudly",
+    "name": "crudly",
     "version": "1.0.0",
     "description": "pure javascript helper to call your API in human readable way",
     "main": "index.js",
@@ -33,6 +33,7 @@
         "eslint": "^5.11.0",
         "eslint-config-node": "^4.0.0",
         "eslint-plugin-node": "^8.0.0",
+        "express": "^4.16.4",
         "jest": "^23.6.0",
         "uglifyjs-webpack-plugin": "^2.1.1",
         "webpack": "^4.28.1",
