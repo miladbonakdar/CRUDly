@@ -30,6 +30,7 @@
         "@babel/preset-env": "^7.2.3",
         "babel-loader": "^8.0.5",
         "babel-minify-webpack-plugin": "^0.3.1",
+        "body-parser": "^1.18.3",
         "eslint": "^5.11.0",
         "eslint-config-node": "^4.0.0",
         "eslint-plugin-node": "^8.0.0",
