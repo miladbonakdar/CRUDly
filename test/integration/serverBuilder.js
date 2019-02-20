@@ -113,13 +113,14 @@ const build = function(app, root) {
 
 const serverBuilder = function(
     root = "/api/v1/",
-    port = 9999,
+    port = 80,
     startCallBack = null
 ) {
     let app = express();
     app.use(bodyParser.urlencoded({ extended: true }));
     build(app, root);
     app.listen(port, startCallBack);
+    return app;
 };
 
 module.exports = serverBuilder;
