@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const axios = require("axios");
 
 const buildUsers = function(app, root) {
     root += "users/";
@@ -117,7 +118,8 @@ const serverBuilder = function(
     startCallBack = null
 ) {
     let app = express();
-    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
     build(app, root);
     app.listen(port, startCallBack);
     return app;

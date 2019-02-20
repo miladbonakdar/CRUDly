@@ -1,1 +1,1 @@
-module.exports = require("./dist/crudly");
+module.exports = require("./src/crudly");
