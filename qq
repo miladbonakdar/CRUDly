@@ -1,0 +1,35 @@
+* [33mf8927be[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m integration basics added. test server enhanved
+* [33mb154f96[m simple test server added
+* [33mfce1507[m simple test server added
+* [33m10e32ed[m frist version pulished
+* [33md0b82ed[m package.json changes for publish
+* [33me68f2fb[m action class tests created and all tests are finished
+* [33m8d6c396[m url params generator tests added
+* [33md4b4991[m url params generator bugs fixed and tests added
+* [33maeb3354[m action config creator tests added
+* [33m4d9a63a[m action creator tests added
+* [33me58921f[m controller tests finished
+* [33m06d5e72[m controller tests enhanced
+* [33m0c8aaad[m controller tests added. some bugs fixed
+* [33m5bbe6de[m some bugs fixed .test enhancement
+* [33m90dff0c[m crudly test added. test enhacement
+* [33mac306c6[m request test added
+* [33mdc34a94[m action class created. controller class enhanced .
+* [33m2cf9950[m route test added . route class enhanced
+* [33m1e52dc7[m action test added
+* [33mb3b87f7[m test files added . crudly file name changed
+* [33m367df0b[m controller class finished
+* [33m1a2da76[m comments for gate added . some bugs fixed
+* [33mc300480[m tests basics added
+* [33md3c83e8[m action creator enhanced
+* [33mce71a1b[m default actions enhanced
+* [33mc52a469[m action config creator added
+* [33m0237aa8[m default actions added
+* [33m845d6a2[m webpack enhanced
+* [33m462aaf7[m package name changed
+* [33m52ec43b[m gate enhanced . controller enhanced . action basics added
+* [33mdb78f9e[m juggernut basics added . like controller and gate class
+* [33mcbf8c28[m web pack enhanced . axios added
+* [33md15ac47[m webpack prod and dev are seperated now
+* [33mb0da838[m web pack added to project
+* [33m960effb[m Initial commit
