@@ -8,7 +8,7 @@ class Action extends Route {
     constructor(action, baseRoute) {
         if (!action) throw new Error("Action config is not valid");
         if (!baseRoute) throw new Error("Base route is not valid");
-        super(`${baseRoute}/${action.url ? action.url : action.name}`);
+        super(`${baseRoute}${action.url ? "/" + action.url : ""}`);
         this.params = action.params || [];
         this.method = (action.type || "get").toLowerCase();
         this.name = action.name;
@@ -64,7 +64,7 @@ Action.prototype.getAxiosConfig = function(...args) {
         for (let i = this.urlParams.length; i < args.length; i++) {
             if (this.params[i - this.urlParams.length])
                 config.params[this.params[i - this.urlParams.length]] = args[i];
-            else{
+            else {
                 throw new Error("there is no params for this argument");
             }
         }

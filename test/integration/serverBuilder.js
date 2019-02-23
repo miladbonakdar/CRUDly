@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const axios = require("axios");
 
 const buildUsers = function(app, root) {
     root += "users/";
@@ -9,27 +8,27 @@ const buildUsers = function(app, root) {
         res.json({ type: "user" });
     });
 
-    app.post(`${root}create`, (req, res) => {
+    app.post(`${root}`, (req, res) => {
         res.json({ message: "users created successfuly", body: req.body });
     });
 
-    app.put(`${root}update`, (req, res) => {
+    app.put(`${root}`, (req, res) => {
         res.json({ message: "users updated successfuly", body: req.body });
     });
 
-    app.delete(`${root}remove/:id`, (req, res) => {
+    app.delete(`${root}:id`, (req, res) => {
         res.json({ message: "users removed successfuly", params: req.params });
     });
 
-    app.get(`${root}get`, (req, res) => {
+    app.get(`${root}`, (req, res) => {
         res.json({ message: "users get successfuly", query: req.query });
     });
 
-    app.head(`${root}head`, (req, res) => {
+    app.head(`${root}`, (req, res) => {
         res.json({ message: "users head" });
     });
 
-    app.patch(`${root}patch`, (req, res) => {
+    app.patch(`${root}`, (req, res) => {
         res.json({ message: "users patched successfuly", body: req.body });
     });
 
@@ -81,27 +80,27 @@ const buildTodos = function(app, root) {
 const buildPosts = function(app, root) {
     root += "posts/";
 
-    app.post(`${root}create`, (req, res) => {
+    app.post(`${root}`, (req, res) => {
         res.json({ message: "post created successfuly", body: req.body });
     });
 
-    app.put(`${root}update`, (req, res) => {
+    app.put(`${root}`, (req, res) => {
         res.json({ message: "post updated successfuly", body: req.body });
     });
 
-    app.delete(`${root}remove/:id`, (req, res) => {
+    app.delete(`${root}:id`, (req, res) => {
         res.json({ message: "post removed successfuly", params: req.params });
     });
 
-    app.get(`${root}get`, (req, res) => {
+    app.get(`${root}`, (req, res) => {
         res.json({ message: "post get successfuly", query: req.query });
     });
 
-    app.head(`${root}head`, (req, res) => {
+    app.head(`${root}`, (req, res) => {
         res.json({ message: "post head" });
     });
 
-    app.patch(`${root}patch`, (req, res) => {
+    app.patch(`${root}`, (req, res) => {
         res.json({ message: "post patched successfuly", body: req.body });
     });
 };

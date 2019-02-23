@@ -23,7 +23,7 @@ describe("check crudly real integration with api", () => {
     describe("check crudly statis functions", () => {
         test("check biult in crudly simple get request", async done => {
             const res = await myGate.get(
-                "http://localhost/api/v1/posts/get?id=123"
+                "http://localhost/api/v1/posts?id=123"
             );
             expect(res).toBeDefined();
             expect(res.status).toBe(200);
@@ -36,7 +36,7 @@ describe("check crudly real integration with api", () => {
 
         test("check biult in crudly simple post request", async done => {
             const res = await myGate.post(
-                "http://localhost/api/v1/users/create",
+                "http://localhost/api/v1/users",
                 {
                     testData: 1
                 }
@@ -52,7 +52,7 @@ describe("check crudly real integration with api", () => {
 
         test("check biult in crudly simple put request", async done => {
             const res = await myGate.put(
-                "http://localhost/api/v1/users/update",
+                "http://localhost/api/v1/users",
                 {
                     testData: 1
                 }
@@ -68,7 +68,7 @@ describe("check crudly real integration with api", () => {
 
         test("check biult in crudly simple delete request", async done => {
             const res = await myGate.delete(
-                "http://localhost/api/v1/users/remove/123123"
+                "http://localhost/api/v1/users/123123"
             );
             expect(res).toBeDefined();
             expect(res.status).toBe(200);
@@ -80,7 +80,7 @@ describe("check crudly real integration with api", () => {
         });
 
         test("check biult in crudly simple head request", async done => {
-            const res = await myGate.head("http://localhost/api/v1/users/head");
+            const res = await myGate.head("http://localhost/api/v1/users");
             expect(res).toBeDefined();
             expect(res.status).toBe(200);
             expect(res.data).toBe("");
@@ -89,7 +89,7 @@ describe("check crudly real integration with api", () => {
 
         test("check biult in crudly simple patch request", async done => {
             const res = await myGate.patch(
-                "http://localhost/api/v1/users/patch",
+                "http://localhost/api/v1/users",
                 {
                     testData: 1
                 }
@@ -105,10 +105,10 @@ describe("check crudly real integration with api", () => {
 
         test("check biult in crudly simple all request", async done => {
             const [res1, res2] = await myGate.all([
-                myGate.patch("http://localhost/api/v1/users/patch", {
+                myGate.patch("http://localhost/api/v1/users", {
                     testData: 1
                 }),
-                myGate.head("http://localhost/api/v1/users/head")
+                myGate.head("http://localhost/api/v1/users")
             ]);
             expect(res1).toBeDefined();
             expect(res1.status).toBe(200);

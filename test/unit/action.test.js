@@ -119,8 +119,8 @@ describe("action class test", () => {
             "checkc action 0 valid creation",
             checkFunctions.check(() => {
                 defaultActionTests(action, testData.testActions[0]);
-                expect(action.url).toBe("/test1");
-                expect(action.route).toBe("/test1");
+                expect(action.url).toBe("/");
+                expect(action.route).toBe("/");
                 expect(action.params).toEqual([]);
                 expect(action.urlParams).toEqual([]);
                 expect(action.loadDefaultConfig).toBe(true);
@@ -132,7 +132,7 @@ describe("action class test", () => {
             checkFunctions.check(() => {
                 const config = action.getAxiosConfig({ id: 123 });
                 expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe("/test1");
+                expect(config.url).toBe("/");
                 expect(config.method).toBe(action.method);
                 expect(config.params).toBeUndefined();
                 expect(config.data).toEqual({ id: 123 });
@@ -145,8 +145,8 @@ describe("action class test", () => {
         test(
             "checkc action 1 valid creation",
             checkFunctions.check(() => {
-                expect(action.url).toBe("/test2");
-                expect(action.route).toBe("/test2");
+                expect(action.url).toBe("/");
+                expect(action.route).toBe("/");
                 expect(action.params).toEqual([]);
                 defaultActionTests(action, testData.testActions[1]);
                 expect(action.urlParams).toEqual([]);
@@ -159,7 +159,7 @@ describe("action class test", () => {
             checkFunctions.check(() => {
                 const config = action.getAxiosConfig({ id: 123 });
                 expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe("/test2");
+                expect(config.url).toBe("/");
                 expect(config.method).toBe(action.method);
                 expect(config.params).toBeUndefined();
                 expect(config.data).toEqual({ id: 123 });
@@ -172,8 +172,8 @@ describe("action class test", () => {
         test(
             "checkc action 2 valid creation",
             checkFunctions.check(() => {
-                expect(action.url).toBe("/test3");
-                expect(action.route).toBe("/test3");
+                expect(action.url).toBe("/");
+                expect(action.route).toBe("/");
                 expect(action.params).toEqual(["id", "type"]);
                 defaultActionTests(action, testData.testActions[2]);
                 expect(action.urlParams).toEqual([]);
@@ -186,7 +186,7 @@ describe("action class test", () => {
             checkFunctions.check(() => {
                 const config = action.getAxiosConfig(123, 345);
                 expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe("/test3");
+                expect(config.url).toBe("/");
                 expect(config.method).toBe(action.method);
                 expect(config.params).toEqual({ id: 123, type: 345 });
                 expect(config.data).toBeUndefined();
@@ -205,8 +205,8 @@ describe("action class test", () => {
         test(
             "checkc action 3 valid creation",
             checkFunctions.check(() => {
-                expect(action.url).toBe("/test4");
-                expect(action.route).toBe("/test4");
+                expect(action.url).toBe("/");
+                expect(action.route).toBe("/");
                 expect(action.params).toEqual([]);
                 defaultActionTests(action, testData.testActions[3]);
                 expect(action.urlParams).toEqual([]);
@@ -219,7 +219,7 @@ describe("action class test", () => {
             checkFunctions.check(() => {
                 const config = action.getAxiosConfig({ id: 123 });
                 expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe("/test4");
+                expect(config.url).toBe("/");
                 expect(config.method).toBe(action.method);
                 expect(config.params).toBeUndefined();
                 expect(config.data).toBeUndefined();
@@ -232,8 +232,8 @@ describe("action class test", () => {
         test(
             "checkc action 4 valid creation",
             checkFunctions.check(() => {
-                expect(action.url).toBe("/test5");
-                expect(action.route).toBe("/test5");
+                expect(action.url).toBe("/");
+                expect(action.route).toBe("/");
                 expect(action.params).toEqual([]);
                 defaultActionTests(action, testData.testActions[4]);
                 expect(action.urlParams).toEqual([]);
@@ -246,7 +246,7 @@ describe("action class test", () => {
             checkFunctions.check(() => {
                 const config = action.getAxiosConfig({ data: 1 });
                 expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe("/test5");
+                expect(config.url).toBe("/");
                 expect(config.method).toBe(action.method);
                 expect(config.params).toBeUndefined();
                 expect(config.data).toEqual({ data: 1 });

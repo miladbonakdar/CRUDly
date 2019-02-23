@@ -3,7 +3,7 @@ const config = {
     defaultActionsConfig: {
         timeout: 1000
     },
-    defaultActions: [{ type: "get", name: "getType" }],
+    defaultActions: [{ type: "get", name: "getType", url: "getType" }],
     controllers: [
         {
             name: "users",
@@ -13,7 +13,7 @@ const config = {
                 { type: "put" },
                 {
                     type: "delete",
-                    url: "remove/:id"
+                    url: ":id"
                 },
                 { type: "get", params: ["id"] }, //get?id=123123
                 { type: "head" },
@@ -44,7 +44,7 @@ const config = {
                 { type: "put" },
                 {
                     type: "delete",
-                    url: "remove/:id"
+                    url: ":id"
                 },
                 { type: "get", params: ["id"] }, //get?id=123123
                 { type: "head" },
