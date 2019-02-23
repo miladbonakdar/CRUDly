@@ -13,6 +13,7 @@ const createControllers = function() {
         this.addController(ctrl);
     }
 };
+//TODO: document needed
 class Gate extends Route {
     constructor(config) {
         if (!config) {

@@ -3,7 +3,7 @@
 const validator = require("./dataValidator");
 const Route = require("./route");
 const actionCreator = require("./actionCreator");
-
+//TODO: document needed
 class Controller extends Route {
     constructor(ctrl, baseRoute, config) {
         super(`${baseRoute}/${ctrl.name}`);

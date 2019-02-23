@@ -1,4 +1,4 @@
-
+//TODO: document needed
 module.exports = function() {
     let param = null;
     for (let i = 0; i < this.url.length; i++) {

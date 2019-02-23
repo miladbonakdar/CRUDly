@@ -4,6 +4,7 @@ const Action = require("./action");
 const statics = require("./statics");
 
 module.exports = {
+    //TODO: document needed
     addAction: function(action) {
         if (!action) throw new Error("action config is not valid");
         action.type = (action.type || "get").toLowerCase();
@@ -23,7 +24,7 @@ module.exports = {
             newAction.mergeConfig(this.config.defaultActionsConfig);
         this[action.name] = newAction.run.bind(newAction);
     },
-
+    //TODO: document needed
     createActionConfig: (
         actionType = "get",
         actionName = null,
@@ -47,7 +48,8 @@ module.exports = {
         )
             throw new Error(`Action type ${actionType} should not have params`);
         if (params) {
-            if(!Array.isArray(params)) throw new Error("the params should be an array");
+            if (!Array.isArray(params))
+                throw new Error("the params should be an array");
             actionConfig.params = params;
         }
         return actionConfig;

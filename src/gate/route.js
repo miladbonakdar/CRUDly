@@ -1,5 +1,5 @@
 "use strict";
-
+//TODO: document needed
 class Route {
     constructor(routeUrl) {
         if (routeUrl && !routeUrl.startsWith("/")) {
@@ -9,11 +9,12 @@ class Route {
 
         this.url = this.route = routeUrl || "/";
     }
-};
-
+}
+//TODO: document needed
 Route.prototype.getRoute = function() {
     return this.url;
 };
+//TODO: document needed
 Route.prototype.getUrl = function() {
     return this.url;
 };

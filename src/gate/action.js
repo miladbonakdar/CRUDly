@@ -3,7 +3,7 @@
 const Route = require("./route");
 const request = require("./request");
 const urlParamsGenerator = require("./urlParamsGenerator");
-
+//TODO: document needed
 class Action extends Route {
     constructor(action, baseRoute) {
         if (!action) throw new Error("Action config is not valid");
@@ -25,13 +25,13 @@ class Action extends Route {
             urlParamsGenerator.bind(this)();
     }
 }
-
+//TODO: document needed
 Action.prototype.parseUrl = function(url, ...args) {
     for (let i = 0; i < this.urlParams.length; i++)
         url = url.replace(this.urlParams[i], args[i]);
     return url;
 };
-
+//TODO: document needed
 Action.prototype.mergeConfig = function(config, overrideWithThis = false) {
     if (!config) throw new Error("the config object is invalid");
     if (!config instanceof Object) throw new Error("config must be an object");
@@ -40,7 +40,7 @@ Action.prototype.mergeConfig = function(config, overrideWithThis = false) {
         else if (!this.extra[key]) this.extra[key] = config[key];
     });
 };
-
+//TODO: document needed
 Action.prototype.validateParams = function(...args) {
     if (
         this.method === "post" ||
@@ -53,7 +53,7 @@ Action.prototype.validateParams = function(...args) {
             "action params are not valid. make sure you entered all of the params"
         );
 };
-
+//TODO: document needed
 Action.prototype.getAxiosConfig = function(...args) {
     const config = {};
     config.url = this.url;
@@ -90,7 +90,7 @@ Action.prototype.getAxiosConfig = function(...args) {
     if (this.extra.timeout) config.timeout = this.extra.timeout;
     return config;
 };
-
+//TODO: document needed
 Action.prototype.run = async function(...args) {
     //url params + params in get or delete action
     if (!args) args = [];
