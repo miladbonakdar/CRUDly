@@ -21,7 +21,7 @@ module.exports = {
         newAction.config = this.config;
         if (this.config.defaultActionsConfig)
             newAction.mergeConfig(this.config.defaultActionsConfig);
-        this[action.name] = newAction.run;
+        this[action.name] = newAction.run.bind(newAction);
     },
 
     createActionConfig: (

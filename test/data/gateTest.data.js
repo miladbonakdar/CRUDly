@@ -32,7 +32,7 @@ const config = {
                     type: "get",
                     name: "testGet",
                     url: "getTestkon",
-                    params: ["id"]
+                    params: ["id","name"]
                 }
             ]
         },
