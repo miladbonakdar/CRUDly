@@ -1,7 +1,7 @@
-const path = require("path");
+const path = require ("path");
 
 module.exports = {
-    entry: path.resolve(__dirname,"index.js"),
+    entry: path.resolve (__dirname, "index.js"),
     watch: true,
     module: {
         rules: [
@@ -10,10 +10,10 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     options: {
-                        presets: ["@babel/preset-env"]
-                    }
-                }
+                        presets: ["@babel/preset-env"],
+                    },
+                },
             },
         ],
-    }
+    },
 };

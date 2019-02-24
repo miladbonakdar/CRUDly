@@ -4,27 +4,36 @@ const Action = require("./action");
 const statics = require("./statics");
 
 module.exports = {
-    //TODO: document needed
-    addAction: function(action) {
-        if (!action) throw new Error("action config is not valid");
-        action.type = (action.type || "get").toLowerCase();
+    /**
+     * @description add action objec to the given this object 
+     * @param actionConfig action config object
+     */
+    addAction: function(actionConfig) {
+        if (!actionConfig) throw new Error("action config is not valid");
+        actionConfig.type = (actionConfig.type || "get").toLowerCase();
 
-        if (!statics.actionTypes.filter(type => type === action.type)[0])
-            throw new Error(`Action type '${action.type}' is not valid`);
+        if (!statics.actionTypes.filter(type => type === actionConfig.type)[0])
+            throw new Error(`Action type '${actionConfig.type}' is not valid`);
 
-        if (!action.name) action.name = statics.actionTypeMaps[action.type];
-        if (this[action.name])
+        if (!actionConfig.name) actionConfig.name = statics.actionTypeMaps[actionConfig.type];
+        if (this[actionConfig.name])
             throw new Error("this action was created before");
 
-        let newAction = new Action(action, this.route);
+        let newAction = new Action(actionConfig, this.route);
         this.actions.push(newAction);
         newAction.gate = this.gate;
         newAction.config = this.config;
         if (this.config.defaultActionsConfig)
             newAction.mergeConfig(this.config.defaultActionsConfig);
-        this[action.name] = newAction.run.bind(newAction);
+        this[actionConfig.name] = newAction.run.bind(newAction);
     },
-    //TODO: document needed
+    /**
+     * @description helper function to create action config 
+     * @param actionType action type eg 'get' and default is get
+     * @param actionName name of the action
+     * @param params url query params
+     * @param actionUrl action url
+     */
     createActionConfig: (
         actionType = "get",
         actionName = null,
