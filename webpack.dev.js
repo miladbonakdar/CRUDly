@@ -2,8 +2,6 @@ const common = require("./webpack.common.js");
 const merge = require("webpack-merge");
 const path = require("path");
 
-const outFileName = "crudly";
-
 module.exports = merge(common, {
     mode: "development",
     optimization: {
@@ -11,6 +9,8 @@ module.exports = merge(common, {
     },
     output: {
         path: path.join(__dirname, "dist"),
-        filename: "[name].js"
+        filename: "crudly.js",
+        library: "crudly",
+        libraryTarget: "commonjs"
     }
 });
