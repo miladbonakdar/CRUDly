@@ -8,9 +8,10 @@ class Controller extends Route {
     constructor(ctrl, baseRoute, config) {
         super(`${baseRoute}/${ctrl.name}`);
         this.actions = validator(ctrl, "actions") || [];
-        this.loadDefaults = validator(ctrl, "loadDefaults") || true;
+        this.loadDefaults = validator(ctrl, "loadDefaults");
+        if (this.loadDefaults === undefined || this.loadDefaults === null) this.loadDefaults = true;
         this.config = config;
-        this.addActions(ctrl.actions);
+        this.addActions(this.actions);
     }
 }
 

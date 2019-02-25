@@ -7,7 +7,10 @@ module.exports = (data, datapropertyKey, exception = null) => {
             throw new Error(`${exception} -- ${datapropertyKey} is required.`);
     } else {
         if (!data) return null;
-        if (!data[datapropertyKey] || data[datapropertyKey].length == 0)
+        if (
+            (data[datapropertyKey] === undefined,
+            data[datapropertyKey] === null)
+        )
             return null;
     }
     return data[datapropertyKey];

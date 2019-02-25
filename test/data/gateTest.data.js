@@ -70,6 +70,11 @@ const testController = {
     ]
 };
 
+const testController2 = {
+    name: "ajjab",
+    loadDefaults: false
+};
+
 const testActions = [
     { type: "post", name: "test1" },
     { type: "put", name: "test2" },
@@ -108,6 +113,7 @@ const actionList = [
 module.exports = {
     testConfig: config,
     testController,
+    testController2,
     testActions,
     actionList
 };

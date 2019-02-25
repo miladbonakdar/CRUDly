@@ -52,3 +52,12 @@ describe("controller object check", () => {
         })
     );
 });
+test("loadDefaults should work well", () => {
+    const controller = new Controller(
+        testData.testController2,
+        "/api/v1",
+        testData.testConfig
+    );
+    controller.addActions(testData.testActions);
+    expect(controller.loadDefaults).toBe(false);
+});
