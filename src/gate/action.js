@@ -1,80 +1,100 @@
 "use strict";
 
-const Route = require("./route");
-const request = require("./request");
-const urlParamsGenerator = require("./urlParamsGenerator");
-//TODO: document needed
+const Route = require ("./route");
+const request = require ("./request");
+const urlParamsGenerator = require ("./urlParamsGenerator");
+/**
+ * @description Action class 
+ * @param action valid action config
+ * @param baseRoute base action route
+ */
 class Action extends Route {
-    constructor(action, baseRoute) {
-        if (!action) throw new Error("Action config is not valid");
-        if (!baseRoute) throw new Error("Base route is not valid");
-        super(`${baseRoute}${action.url ? "/" + action.url : ""}`);
+    constructor (action, baseRoute) {
+        if (!action) throw new Error ("Action config is not valid");
+        if (!baseRoute) throw new Error ("Base route is not valid");
+        if (action.url && !action.url.startsWith ("/"))
+            action.url = "/" + action.url;
+        super (`${baseRoute}${action.url ? action.url : ""}`);
         this.params = action.params || [];
-        this.method = (action.type || "get").toLowerCase();
+        this.method = (action.type || "get").toLowerCase ();
         this.name = action.name;
         this.urlParams = [];
         this.extra = action;
         if (
             action.loadDefaultConfig != undefined &&
-            action.loadDefaultConfig != null
+      action.loadDefaultConfig != null
         ) {
             this.loadDefaultConfig = action.loadDefaultConfig;
         } else this.loadDefaultConfig = true;
 
         if (this.method === "get" || this.method === "delete")
-            urlParamsGenerator.bind(this)();
+            urlParamsGenerator.bind (this) ();
     }
 }
-//TODO: document needed
-Action.prototype.parseUrl = function(url, ...args) {
+/**
+ * @description generate valid url from url template and fill the params 
+ * @param urlTemplate url template
+ * @param params params to fill in the url
+ */
+Action.prototype.parseUrl = function (urlTemplate, ...params) {
     for (let i = 0; i < this.urlParams.length; i++)
-        url = url.replace(this.urlParams[i], args[i]);
-    return url;
+        urlTemplate = urlTemplate.replace (this.urlParams[i], params[i]);
+    return urlTemplate;
 };
-//TODO: document needed
-Action.prototype.mergeConfig = function(config, overrideWithThis = false) {
-    if (!config) throw new Error("the config object is invalid");
-    if (!config instanceof Object) throw new Error("config must be an object");
-    Object.keys(config).forEach(key => {
+/**
+ * @description merge the given config to the local config object
+ * @param config action config for merge
+ * @param overrideWithThis override the given config to the local config if there is a conflict
+ */
+Action.prototype.mergeConfig = function (config, overrideWithThis = false) {
+    if (!config) throw new Error ("the config object is invalid");
+    if (!config instanceof Object) throw new Error ("config must be an object");
+    Object.keys (config).forEach (key => {
         if (overrideWithThis) this.extra[key] = config[key];
         else if (!this.extra[key]) this.extra[key] = config[key];
     });
 };
-//TODO: document needed
-Action.prototype.validateParams = function(...args) {
+/**
+ * @description validate the given params to be fit in the action
+ * @param params run function params
+ */
+Action.prototype.validateParams = function (...params) {
     if (
         this.method === "post" ||
-        this.method === "put" ||
-        this.method === "patch"
+    this.method === "put" ||
+    this.method === "patch"
     ) {
-        if (args.length > 1) throw new Error("action params are not valid");
-    } else if (this.params.length + this.urlParams.length !== args.length)
-        throw new Error(
+        if (params.length > 1) throw new Error ("action params are not valid");
+    } else if (this.params.length + this.urlParams.length !== params.length)
+        throw new Error (
             "action params are not valid. make sure you entered all of the params"
         );
 };
-//TODO: document needed
-Action.prototype.getAxiosConfig = function(...args) {
+/**
+ * @description generate valid axios config for calling api
+ * @param params run function params
+ */
+Action.prototype.getAxiosConfig = function (...params) {
     const config = {};
     config.url = this.url;
     config.method = this.method;
     if (this.method === "get" || this.method === "delete") {
-        config.url = this.parseUrl(this.url, ...args);
+        config.url = this.parseUrl (this.url, ...params);
         config.params = {};
-        for (let i = this.urlParams.length; i < args.length; i++) {
+        for (let i = this.urlParams.length; i < params.length; i++) {
             if (this.params[i - this.urlParams.length])
-                config.params[this.params[i - this.urlParams.length]] = args[i];
+                config.params[this.params[i - this.urlParams.length]] = params[i];
             else {
-                throw new Error("there is no params for this argument");
+                throw new Error ("there is no params for this argument");
             }
         }
     }
     if (
         this.method === "post" ||
-        this.method === "put" ||
-        this.method === "patch"
+    this.method === "put" ||
+    this.method === "patch"
     )
-        config.data = args[0] || {};
+        config.data = params[0] || {};
     if (this.extra.auth) config.auth = this.extra.auth;
     if (this.extra.responseType) config.responseType = this.extra.responseType;
     if (this.extra.responseEncoding)
@@ -90,12 +110,15 @@ Action.prototype.getAxiosConfig = function(...args) {
     if (this.extra.timeout) config.timeout = this.extra.timeout;
     return config;
 };
-//TODO: document needed
-Action.prototype.run = async function(...args) {
+/**
+ * @description run action and call api
+ * @param params api params
+ */
+Action.prototype.run = async function (...params) {
     //url params + params in get or delete action
-    if (!args) args = [];
-    this.validateParams(...args);
-    return await request(this.getAxiosConfig(...args));
+    if (!params) params = [];
+    this.validateParams (...params);
+    return await request (this.getAxiosConfig (...params));
 };
 
 module.exports = Action;

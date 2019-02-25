@@ -13,7 +13,7 @@ const config = {
                 { type: "put" },
                 {
                     type: "delete",
-                    url: ":id"
+                    url: "/:id"
                 },
                 { type: "get", params: ["id"] }, //get?id=123123
                 { type: "head" },

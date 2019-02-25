@@ -1,10 +1,15 @@
 "use strict";
-//TODO: document needed
-module.exports = (data, datapropertyKey, exception = null) => {
+/**
+ * @description validate object and fill the given key property
+ * @param data data to check
+ * @param dataPropertyKey the key of the object to check
+ * @param exception throw exception if key is not defaind in the object
+ */
+module.exports = (data, dataPropertyKey, exception = null) => {
     if (exception) {
         if (!data) throw new Error(exception);
-        if (!data[datapropertyKey] || data[datapropertyKey].length == 0)
-            throw new Error(`${exception} -- ${datapropertyKey} is required.`);
+        if (!data[dataPropertyKey] || data[dataPropertyKey].length == 0)
+            throw new Error(`${exception} -- ${dataPropertyKey} is required.`);
     } else {
         if (!data) return null;
         if (
@@ -13,5 +18,5 @@ module.exports = (data, datapropertyKey, exception = null) => {
         )
             return null;
     }
-    return data[datapropertyKey];
+    return data[dataPropertyKey];
 };

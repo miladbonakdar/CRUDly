@@ -1,4 +1,6 @@
-//TODO: document needed
+/**
+ * @description get url params from url template
+ */
 module.exports = function() {
     let param = null;
     for (let i = 0; i < this.url.length; i++) {

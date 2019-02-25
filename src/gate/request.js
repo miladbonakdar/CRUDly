@@ -1,8 +1,12 @@
 const axios = require("axios");
-//TODO: document needed
-module.exports = async config => {
+
+/**
+ * @description request function 
+ * @param axiosConfig axios request config
+ */
+module.exports = async axiosConfig => {
     try {
-        const response = await axios(config);
+        const response = await axios(axiosConfig);
         return response;
     } catch (error) {
         throw error;
