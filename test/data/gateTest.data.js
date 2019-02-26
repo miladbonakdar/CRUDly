@@ -1,9 +1,9 @@
 const config = {
-    root: "api/v1",
+    root: "/api/v1",
     defaultActionsConfig: {
         timeout: 1000
     },
-    defaultActions: [{ type: "get", name: "getType", url: "getType" }],
+    defaultActions: [{ type: "get", name: "getType", url: "/getType" }],
     controllers: [
         {
             name: "users",
@@ -21,17 +21,17 @@ const config = {
                 {
                     type: "get",
                     name: "dastan",
-                    url: "customAction/:id/:age/:name"
+                    url: "/customAction/:id/:age/:name"
                 },
                 {
                     type: "post",
                     name: "testPost",
-                    url: "testkon"
+                    url: "/testkon"
                 },
                 {
                     type: "get",
                     name: "testGet",
-                    url: "getTestkon",
+                    url: "/getTestkon",
                     params: ["id","name"]
                 }
             ]
@@ -44,7 +44,7 @@ const config = {
                 { type: "put" },
                 {
                     type: "delete",
-                    url: ":id"
+                    url: "/:id"
                 },
                 { type: "get", params: ["id"] }, //get?id=123123
                 { type: "head" },
@@ -62,7 +62,7 @@ const testController = {
         { type: "put" },
         {
             type: "delete",
-            url: "remove/:id"
+            url: "/remove/:id"
         },
         { type: "get", params: ["id"] }, //get?id=123123
         { type: "head" },
@@ -85,18 +85,18 @@ const testActions = [
         type: "get",
         name: "test6",
         loadDefaultConfig: false,
-        url: "customAction/:id/:age/:name"
+        url: "/customAction/:id/:age/:name"
     },
     {
         type: "get",
         name: "test7",
-        url: "testkon",
+        url: "/testkon",
         params: ["id"]
     },
     {
         type: "delete",
         name: "testAction",
-        url: "remove/:userId/:postId",
+        url: "/remove/:userId/:postId",
         loadDefaultConfig: false
     }
 ];

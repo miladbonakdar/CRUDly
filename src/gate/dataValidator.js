@@ -13,8 +13,8 @@ module.exports = (data, dataPropertyKey, exception = null) => {
     } else {
         if (!data) return null;
         if (
-            (data[datapropertyKey] === undefined,
-            data[datapropertyKey] === null)
+            (data[dataPropertyKey] === undefined,
+            data[dataPropertyKey] === null)
         )
             return null;
     }

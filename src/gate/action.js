@@ -11,9 +11,8 @@ const urlParamsGenerator = require ("./urlParamsGenerator");
 class Action extends Route {
     constructor (action, baseRoute) {
         if (!action) throw new Error ("Action config is not valid");
-        if (!baseRoute) throw new Error ("Base route is not valid");
-        if (action.url && !action.url.startsWith ("/"))
-            action.url = "/" + action.url;
+        if (baseRoute === undefined || baseRoute === null) throw new Error ("Base route is not valid");
+        
         super (`${baseRoute}${action.url ? action.url : ""}`);
         this.params = action.params || [];
         this.method = (action.type || "get").toLowerCase ();

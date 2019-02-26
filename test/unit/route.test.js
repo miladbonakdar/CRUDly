@@ -5,10 +5,10 @@ test(
     "constructor should works fine",
     checkFunctions.check(() => {
         let testRoute = new Route();
-        expect(testRoute.route).toBe("/");
-        expect(testRoute.url).toBe("/");
+        expect(testRoute.route).toBe("");
+        expect(testRoute.url).toBe("");
         expect(testRoute.url === testRoute.route).toBe(true);
-        testRoute = new Route("api/v1");
+        testRoute = new Route("/api/v1");
         expect(testRoute.route).toBe("/api/v1");
         expect(testRoute.url).toBe("/api/v1");
         expect(testRoute.url === testRoute.route).toBe(true);
@@ -18,7 +18,7 @@ test(
 test(
     "check route prototypes",
     checkFunctions.check(() => {
-        testRoute = new Route("api/v1");
+        testRoute = new Route("/api/v1");
         expect(testRoute.getRoute.__proto__ == Function.prototype).toBe(true);
         expect(testRoute.getUrl.__proto__ == Function.prototype).toBe(true);
         expect(

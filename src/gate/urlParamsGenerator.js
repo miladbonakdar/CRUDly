@@ -3,19 +3,23 @@
  */
 module.exports = function() {
     let param = null;
-    for (let i = 0; i < this.url.length; i++) {
+    let url = this.extra.url || "";
+    for (let i = 0; i < url.length; i++) {
         if (
             param &&
-            (this.url[i] === "/" || this.url[i] === "\\" || this.url[i] === ":" || this.url[i] === "?")
+            (url[i] === "/" ||
+                url[i] === "\\" ||
+                url[i] === ":" ||
+                url[i] === "?")
         ) {
             this.urlParams.push(param);
             param = null;
         }
         if (param) {
-            param += this.url[i];
+            param += url[i];
             continue;
         }
-        if (this.url[i] === ":") param = ":";
+        if (url[i] === ":") param = ":";
     }
     if (param) this.urlParams.push(param);
 };

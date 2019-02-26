@@ -24,7 +24,6 @@ class Gate extends Route {
                 "config file for controllers does not exist. please pass a valid config file to the Gate controller"
             );
         }
-        if (config.root && !config.root.endsWith("/")) config.root += "/";
         super(config.root); //set this object route default "/"
         config.controllers = validator(config, "controllers") || [];
         this.controllers = []; //list of controllers object

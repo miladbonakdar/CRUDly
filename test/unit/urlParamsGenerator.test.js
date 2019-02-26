@@ -6,8 +6,10 @@ describe("urlParamsGenerator function test", () => {
         "check for valid parsing senario",
         checkFunctions.check(() => {
             const fakeThis = {
-                url: "remove/:userId/:postId",
-                urlParams: []
+                urlParams: [],
+                extra: {
+                    url: "remove/:userId/:postId"
+                }
             };
             generator.bind(fakeThis)();
             expect(fakeThis.urlParams[0]).toBe(":userId");
@@ -20,7 +22,9 @@ describe("urlParamsGenerator function test", () => {
         "check for empty param parsing senario 1",
         checkFunctions.check(() => {
             const fakeThis = {
-                url: "remove/",
+                extra: {
+                    url: "remove/"
+                },
                 urlParams: []
             };
             generator.bind(fakeThis)();
@@ -32,7 +36,9 @@ describe("urlParamsGenerator function test", () => {
         "check for empty param parsing senario 2",
         checkFunctions.check(() => {
             const fakeThis = {
-                url: "remove",
+                extra: {
+                    url: "remove"
+                },
                 urlParams: []
             };
             generator.bind(fakeThis)();
@@ -44,7 +50,9 @@ describe("urlParamsGenerator function test", () => {
         "check for valid parsing senario 3",
         checkFunctions.check(() => {
             const fakeThis = {
-                url: "a/:test:dastan",
+                extra: {
+                    url: "a/:test:dastan"
+                },
                 urlParams: []
             };
             generator.bind(fakeThis)();
@@ -58,7 +66,9 @@ describe("urlParamsGenerator function test", () => {
         "check for valid parsing senario 2",
         checkFunctions.check(() => {
             const fakeThis = {
-                url: "dastan/:ajjab?:mohandes",
+                extra: {
+                    url: "dastan/:ajjab?:mohandes"
+                },
                 urlParams: []
             };
             generator.bind(fakeThis)();

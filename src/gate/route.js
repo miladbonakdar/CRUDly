@@ -1,16 +1,14 @@
 "use strict";
 /**
- * @description route base class 
- * @param routeUrl route url  
+ * @description route base class
+ * @param routeUrl route url
  */
 class Route {
     constructor(routeUrl) {
-        if (routeUrl && !routeUrl.startsWith("/")) {
-            routeUrl = "/" + routeUrl;
-        }
-        if (routeUrl) routeUrl = routeUrl.replace(/\/\//g, "/");
-
-        this.url = this.route = routeUrl || "/";
+        if (!routeUrl) routeUrl = "";
+        if (routeUrl.endsWith("/"))
+            routeUrl = routeUrl.substr(0, routeUrl.length - 1);
+        this.url = this.route = routeUrl;
     }
 }
 /**

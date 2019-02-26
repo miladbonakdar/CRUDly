@@ -75,6 +75,7 @@ describe("check crudly real integration with api", () => {
             expect(res.data).toEqual({
                 message: "users removed successfuly",
                 params: { id: "123123" }
+                
             });
             done();
         });
@@ -126,6 +127,7 @@ describe("check crudly real integration with api", () => {
 
     describe("check crudly integrate with users controller", () => {
         test("controller users ,action gettype ,method get", async done => {
+            debugger;
             const res = await myGate.users.getType();
             expect(res).toBeDefined();
             expect(res.status).toBe(200);

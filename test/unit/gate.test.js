@@ -13,7 +13,7 @@ test(
     "check for creation of the gate",
     checkFunctions.check(() => {
         let gate = new Gate({});
-        expect(gate.url).toBe("/");
+        expect(gate.url).toBe("");
         expect(gate.controllers).toEqual([]);
         expect(gate.actions).toEqual([]);
         expect(gate.pendingRequests).toEqual([]);
@@ -27,7 +27,7 @@ describe("gate object check", () => {
     test(
         "check some fileds to be created",
         checkFunctions.check(() => {
-            expect(gate.url).toBe("/api/v1/");
+            expect(gate.url).toBe("/api/v1");
             expect(gate.controllers.length).toBe(2);
             expect(gate.actions).toEqual([]);
             expect(gate.pendingRequests).toEqual([]);
