@@ -9,6 +9,7 @@ const actionCreator = require("./actionCreator");
  * @description add controllers listed in the config object to the gate object
  */
 const createControllers = function() {
+    this.addActions(this.config.actions);
     for (const ctrl of this.config.controllers) {
         this.addController(ctrl);
     }
@@ -27,6 +28,7 @@ class Gate extends Route {
         super(config.root); //set this object route default "/"
         config.controllers = validator(config, "controllers") || [];
         this.controllers = []; //list of controllers object
+        config.actions = validator(config, "actions") || [];
         this.actions = []; //list of actions object
         //FIXME: fill the requests in the actions call
         this.pendingRequests = []; //request that will be send to the server and they are pending
@@ -34,13 +36,16 @@ class Gate extends Route {
         Object.freeze(this.config);
 
         //create actions from config file
-        if (Array.isArray(config)) actionCreator.generateActions(config);
+        if (Array.isArray(config)) this.addActions(this.config);
         else createControllers.bind(this)(); //create controllers from config file
     }
 }
 
+Gate.prototype.statics = {};
+
 //set default prototypes from utils object
-Object.keys(utils).forEach(key => (Gate.prototype[key] = utils[key]));
+Object.keys(utils).forEach(key => (Gate.prototype.statics[key] = utils[key]));
+Gate.prototype.all = utils["all"];
 /**
  * @description you can add new controller to the gate object
  * @param ctrl controller you want to add
@@ -96,6 +101,18 @@ Gate.prototype.addDefaultsActions = function(actions) {
  */
 Gate.prototype.addDefaultsAction = function(ctrl, actions) {
     if (ctrl.loadDefaults) ctrl.addActions(actions);
+};
+
+/**
+ * @description add list of actions to the controller
+ * @param actions list of actions config
+ */
+Gate.prototype.addActions = function(actions) {
+    if (!actions) throw new Error("actions is not defained");
+    if (!Array.isArray(actions)) throw new Error("actions most be an array");
+    actions.forEach(action => {
+        this.addAction(action);
+    });
 };
 
 module.exports = Gate;

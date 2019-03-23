@@ -32,7 +32,7 @@ const config = {
                     type: "get",
                     name: "testGet",
                     url: "/getTestkon",
-                    params: ["id","name"]
+                    params: ["id", "name"]
                 }
             ]
         },
@@ -53,6 +53,70 @@ const config = {
         }
     ]
 };
+
+const controllerLessConfig = {
+    root: "/api/v1",
+    defaultActionsConfig: {
+        timeout: 5000
+    },
+    defaultActions: [{ type: "get", name: "getType", url: "/getType" }],
+    actions: [
+        { type: "post", url: "/users" },
+        { type: "put", url: "/users" },
+        {
+            type: "delete",
+            name: "remove",
+            url: "/users/:id"
+        },
+        { type: "get", params: ["id"], url: "/users" }, //get?id=123123
+        { type: "head", url: "/users" },
+        { type: "patch", url: "/users" },
+        {
+            type: "get",
+            name: "dastan",
+            url: "/users/customAction/:id/:age/:name"
+        },
+        {
+            type: "post",
+            name: "testPost",
+            url: "/users/testkon"
+        },
+        {
+            type: "get",
+            name: "testGet",
+            url: "users/getTestkon",
+            params: ["id", "name"]
+        }
+    ]
+};
+
+const arrayConfig = [
+    { type: "post", url: "/api/v1/users" },
+    { type: "put", url: "/api/v1/users" },
+    {
+        type: "delete",
+        url: "/api/v1/users/:id"
+    },
+    { type: "get", params: ["id"], url: "/api/v1/users" }, //get?id=123123
+    { type: "head", url: "/api/v1/users" },
+    { type: "patch", url: "/api/v1/users" },
+    {
+        type: "get",
+        name: "dastan",
+        url: "/api/v1/users/customAction/:id/:age/:name"
+    },
+    {
+        type: "post",
+        name: "testPost",
+        url: "/api/v1/users/testkon"
+    },
+    {
+        type: "get",
+        name: "testGet",
+        url: "/api/v1/users/getTestkon",
+        params: ["id", "name"]
+    }
+];
 
 const testController = {
     name: "todos",
@@ -112,6 +176,8 @@ const actionList = [
 
 module.exports = {
     testConfig: config,
+    controllerLessConfig,
+    arrayConfig,
     testController,
     testController2,
     testActions,
