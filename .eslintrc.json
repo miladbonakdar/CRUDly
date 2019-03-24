@@ -13,7 +13,7 @@
         "no-undef": "off",
         "no-comm": "off",
         "linebreak-style": ["error", "windows"],
-        "quotes": ["error", "double"],
+        "quotes": ["error", "single"],
         "semi": ["error", "always"],
         "node/exports-style": ["error", "module.exports"],
         "node/prefer-global/buffer": ["error", "always"],

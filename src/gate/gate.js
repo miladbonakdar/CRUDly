@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
-const utils = require("../utils");
-const Controller = require("./controller");
-const validator = require("./dataValidator");
-const Route = require("./route");
-const actionCreator = require("./actionCreator");
+const utils = require('../utils');
+const Controller = require('./controller');
+const validator = require('./dataValidator');
+const Route = require('./route');
+const actionCreator = require('./actionCreator');
 /**
  * @description add controllers listed in the config object to the gate object
  */
@@ -22,18 +22,19 @@ class Gate extends Route {
     constructor(config) {
         if (!config) {
             throw new Error(
-                "config file for controllers does not exist. please pass a valid config file to the Gate controller"
+                'config file for controllers does not exist. please pass a valid config file to the Gate controller'
             );
         }
         super(config.root); //set this object route default "/"
-        config.controllers = validator(config, "controllers") || [];
+        config.controllers = validator(config, 'controllers') || [];
         this.controllers = []; //list of controllers object
-        config.actions = validator(config, "actions") || [];
+        config.actions = validator(config, 'actions') || [];
         this.actions = []; //list of actions object
         //FIXME: fill the requests in the actions call
         this.pendingRequests = []; //request that will be send to the server and they are pending
         this.config = config;
         Object.freeze(this.config);
+        this.gate = this;
 
         //create actions from config file
         if (Array.isArray(config)) this.addActions(this.config);
@@ -45,13 +46,13 @@ Gate.prototype.statics = {};
 
 //set default prototypes from utils object
 Object.keys(utils).forEach(key => (Gate.prototype.statics[key] = utils[key]));
-Gate.prototype.all = utils["all"];
+Gate.prototype.all = utils['all'];
 /**
  * @description you can add new controller to the gate object
  * @param ctrl controller you want to add
  */
 Gate.prototype.addController = function(ctrl) {
-    validator(ctrl, "name", "please fill the controller name"); //check if ctrl name is valid
+    validator(ctrl, 'name', 'please fill the controller name'); //check if ctrl name is valid
     this[ctrl.name] = new Controller(ctrl, this.route, this.config);
     this[ctrl.name].gate = this;
     this.controllers.push(this[ctrl.name]); //save in controller list
@@ -108,8 +109,8 @@ Gate.prototype.addDefaultsAction = function(ctrl, actions) {
  * @param actions list of actions config
  */
 Gate.prototype.addActions = function(actions) {
-    if (!actions) throw new Error("actions is not defained");
-    if (!Array.isArray(actions)) throw new Error("actions most be an array");
+    if (!actions) throw new Error('actions is not defained');
+    if (!Array.isArray(actions)) throw new Error('actions most be an array');
     actions.forEach(action => {
         this.addAction(action);
     });

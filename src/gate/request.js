@@ -1,7 +1,7 @@
-const axios = require("axios");
+const axios = require('axios');
 
 /**
- * @description request function 
+ * @description request function
  * @param axiosConfig axios request config
  */
 module.exports = async axiosConfig => {

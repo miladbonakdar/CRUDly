@@ -1,8 +1,8 @@
-const check = require("../checkFunctions").check;
-const utils = require("../../src/utils");
+const check = require('../checkFunctions').check;
+const utils = require('../../src/utils');
 
 test(
-    "check for utils keys",
+    'check for utils keys',
     check(() => {
         expect(utils.put).toBeDefined();
         expect(utils.post).toBeDefined();
@@ -15,6 +15,6 @@ test(
     })
 );
 
-test("check for nothing", () => {
+test('check for nothing', () => {
     expect(1).toBeTruthy();
 });

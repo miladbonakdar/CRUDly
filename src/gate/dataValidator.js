@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @description validate object and fill the given key property
  * @param data data to check
@@ -12,11 +12,7 @@ module.exports = (data, dataPropertyKey, exception = null) => {
             throw new Error(`${exception} -- ${dataPropertyKey} is required.`);
     } else {
         if (!data) return null;
-        if (
-            (data[dataPropertyKey] === undefined,
-            data[dataPropertyKey] === null)
-        )
-            return null;
+        if ((data[dataPropertyKey] === undefined, data[dataPropertyKey] === null)) return null;
     }
     return data[dataPropertyKey];
 };

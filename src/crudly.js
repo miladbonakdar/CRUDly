@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 //the gate class
-const gate = require("./gate/gate");
-const defaultActions = require("./defaultActions");
-const actionConfig = require("./gate/actionCreator").createActionConfig;
+const gate = require('./gate/gate');
+const defaultActions = require('./defaultActions');
+const actionConfig = require('./gate/actionCreator').createActionConfig;
 /**
  * @description crudly lib function that will create your api gate
  * @param config main config object
@@ -12,9 +12,9 @@ let crudly = function(config) {
     return new gate(config);
 };
 /**
-* @description gate class object that can be used for creatin multiple gates
-* @param config main config object
-*/
+ * @description gate class object that can be used for creatin multiple gates
+ * @param config main config object
+ */
 crudly.gate = gate; //gate class that can be use to create new instance for new gate
 crudly.standardCrudActions = defaultActions; //list of default standard actions you can make with REST
 crudly.actionConfig = actionConfig; //function to make creating action config easier

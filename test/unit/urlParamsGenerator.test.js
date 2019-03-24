@@ -1,29 +1,29 @@
-const checkFunctions = require("../checkFunctions");
-const generator = require("../../src/gate/urlParamsGenerator");
+const checkFunctions = require('../checkFunctions');
+const generator = require('../../src/gate/urlParamsGenerator');
 
-describe("urlParamsGenerator function test", () => {
+describe('urlParamsGenerator function test', () => {
     test(
-        "check for valid parsing senario",
+        'check for valid parsing senario',
         checkFunctions.check(() => {
             const fakeThis = {
                 urlParams: [],
                 extra: {
-                    url: "remove/:userId/:postId"
+                    url: 'remove/:userId/:postId'
                 }
             };
             generator.bind(fakeThis)();
-            expect(fakeThis.urlParams[0]).toBe(":userId");
-            expect(fakeThis.urlParams[1]).toBe(":postId");
+            expect(fakeThis.urlParams[0]).toBe(':userId');
+            expect(fakeThis.urlParams[1]).toBe(':postId');
             expect(fakeThis.urlParams.length).toBe(2);
         })
     );
 
     test(
-        "check for empty param parsing senario 1",
+        'check for empty param parsing senario 1',
         checkFunctions.check(() => {
             const fakeThis = {
                 extra: {
-                    url: "remove/"
+                    url: 'remove/'
                 },
                 urlParams: []
             };
@@ -33,11 +33,11 @@ describe("urlParamsGenerator function test", () => {
     );
 
     test(
-        "check for empty param parsing senario 2",
+        'check for empty param parsing senario 2',
         checkFunctions.check(() => {
             const fakeThis = {
                 extra: {
-                    url: "remove"
+                    url: 'remove'
                 },
                 urlParams: []
             };
@@ -47,33 +47,33 @@ describe("urlParamsGenerator function test", () => {
     );
 
     test(
-        "check for valid parsing senario 3",
+        'check for valid parsing senario 3',
         checkFunctions.check(() => {
             const fakeThis = {
                 extra: {
-                    url: "a/:test:dastan"
+                    url: 'a/:test:dastan'
                 },
                 urlParams: []
             };
             generator.bind(fakeThis)();
-            expect(fakeThis.urlParams[0]).toBe(":test");
-            expect(fakeThis.urlParams[1]).toBe(":dastan");
+            expect(fakeThis.urlParams[0]).toBe(':test');
+            expect(fakeThis.urlParams[1]).toBe(':dastan');
             expect(fakeThis.urlParams.length).toBe(2);
         })
     );
 
     test(
-        "check for valid parsing senario 2",
+        'check for valid parsing senario 2',
         checkFunctions.check(() => {
             const fakeThis = {
                 extra: {
-                    url: "dastan/:ajjab?:mohandes"
+                    url: 'dastan/:ajjab?:mohandes'
                 },
                 urlParams: []
             };
             generator.bind(fakeThis)();
-            expect(fakeThis.urlParams[0]).toBe(":ajjab");
-            expect(fakeThis.urlParams[1]).toBe(":mohandes");
+            expect(fakeThis.urlParams[0]).toBe(':ajjab');
+            expect(fakeThis.urlParams[1]).toBe(':mohandes');
             expect(fakeThis.urlParams.length).toBe(2);
         })
     );

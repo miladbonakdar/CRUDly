@@ -1,19 +1,19 @@
-const path = require ("path");
+const path = require('path');
 
 module.exports = {
-    entry: path.resolve (__dirname, "index.js"),
+    entry: path.resolve(__dirname, 'index.js'),
     watch: true,
     module: {
         rules: [
             {
                 exclude: /(node_modules|bower_components|test)/,
                 use: {
-                    loader: "babel-loader",
+                    loader: 'babel-loader',
                     options: {
-                        presets: ["@babel/preset-env"],
-                    },
-                },
-            },
-        ],
-    },
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
+        ]
+    }
 };

@@ -7,7 +7,8 @@
         "dev": "webpack --config webpack.dev.js",
         "test": "jest",
         "build": "webpack --config webpack.prod.js",
-        "prepublish": "npm run test"
+        "prepublish": "npm run test",
+        "up": "yarn upgrade-interactive --latest"
     },
     "repository": {
         "type": "git",

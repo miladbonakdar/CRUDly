@@ -1,5 +1,5 @@
-"use strict";
-const axios = require("axios");
+'use strict';
+const axios = require('axios');
 //axios default functions to export
 module.exports = {
     get: axios.get,
