@@ -1,5 +1,5 @@
 const checkFunctions = require('../checkFunctions');
-const generator = require('../../src/gate/urlParamsGenerator');
+const generator = require('../../src/utils/urlParamsGenerator');
 
 describe('urlParamsGenerator function test', () => {
     test(

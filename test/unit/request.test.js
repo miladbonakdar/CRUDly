@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-const request = require('../../src/gate/request');
+const request = require('../../src/utils/requestFunc');
 const http = require('http');
 
 test('check simple get request', done => {

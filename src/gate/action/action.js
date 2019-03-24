@@ -1,8 +1,8 @@
 'use strict';
 
-const Route = require('./route');
-const request = require('./request');
-const urlParamsGenerator = require('./urlParamsGenerator');
+const Route = require('../route');
+const request = require('../../utils/requestFunc');
+const urlParamsGenerator = require('../../utils/urlParamsGenerator');
 /**
  * @description Action class
  * @param action valid action config
@@ -11,7 +11,8 @@ const urlParamsGenerator = require('./urlParamsGenerator');
 class Action extends Route {
     constructor(action, baseRoute) {
         if (!action) throw new Error('Action config is not valid');
-        if (baseRoute === undefined || baseRoute === null) throw new Error('Base route is not valid');
+        if (baseRoute === undefined || baseRoute === null)
+            throw new Error('Base route is not valid');
         if (action.url && !action.url.startsWith('/')) action.url = `/${action.url}`;
         super(`${baseRoute}${action.url ? action.url : ''}`);
         this.params = action.params || [];
@@ -32,7 +33,8 @@ class Action extends Route {
  * @param params params to fill in the url
  */
 Action.prototype.parseUrl = function(urlTemplate, ...params) {
-    for (let i = 0; i < this.urlParams.length; i++) urlTemplate = urlTemplate.replace(this.urlParams[i], params[i]);
+    for (let i = 0; i < this.urlParams.length; i++)
+        urlTemplate = urlTemplate.replace(this.urlParams[i], params[i]);
     return urlTemplate;
 };
 /**
@@ -77,7 +79,8 @@ Action.prototype.getAxiosConfig = function(...params) {
             }
         }
     }
-    if (this.method === 'post' || this.method === 'put' || this.method === 'patch') config.data = params[0] || {};
+    if (this.method === 'post' || this.method === 'put' || this.method === 'patch')
+        config.data = params[0] || {};
     if (this.extra.auth) config.auth = this.extra.auth;
     if (this.extra.responseType) config.responseType = this.extra.responseType;
     if (this.extra.responseEncoding) config.responseEncoding = this.extra.responseEncoding;

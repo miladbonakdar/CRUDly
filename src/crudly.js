@@ -1,8 +1,8 @@
 'use strict';
 //the gate class
 const gate = require('./gate/gate');
-const defaultActions = require('./defaultActions');
-const actionConfig = require('./gate/actionCreator').createActionConfig;
+const defaultActions = require('./utils/defaultActions');
+const actionConfig = require('./utils/actionConfigCreator');
 /**
  * @description crudly lib function that will create your api gate
  * @param config main config object

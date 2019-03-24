@@ -1,10 +1,10 @@
 'use strict';
 
-const utils = require('../utils');
-const Controller = require('./controller');
-const validator = require('./dataValidator');
+const utils = require('../utils/axiosDefaultFunctions');
+const Controller = require('./controller/controller');
+const validator = require('../utils/dataValidator');
 const Route = require('./route');
-const actionCreator = require('./actionCreator');
+const actionCreator = require('./action/actionCreator');
 /**
  * @description add controllers listed in the config object to the gate object
  */

@@ -1,5 +1,5 @@
 const checkFunctions = require('../checkFunctions');
-const Action = require('../../src/gate/action');
+const Action = require('../../src/gate/action/action');
 const testData = require('../data/gateTest.data');
 
 test(

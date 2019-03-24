@@ -1,6 +1,6 @@
 'use strict';
 //function to create action config
-const actionConfigCreator = require('./gate/actionCreator').createActionConfig;
+const actionConfigCreator = require('./actionConfigCreator');
 
 const get = actionConfigCreator('get', 'get', ['id'], null);
 const post = actionConfigCreator('post', 'create', null, null);

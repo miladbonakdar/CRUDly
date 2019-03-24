@@ -1,8 +1,8 @@
 'use strict';
 
-const validator = require('./dataValidator');
-const Route = require('./route');
-const actionCreator = require('./actionCreator');
+const validator = require('../../utils/dataValidator');
+const Route = require('../route');
+const actionCreator = require('../action/actionCreator');
 
 /**
  * @description controller class

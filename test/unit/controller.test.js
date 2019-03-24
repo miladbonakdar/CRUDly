@@ -1,5 +1,5 @@
 const checkFunctions = require('../checkFunctions');
-const Controller = require('../../src/gate/controller');
+const Controller = require('../../src/gate/controller/controller');
 const testData = require('../data/gateTest.data');
 
 describe('controller object check', () => {

@@ -1,5 +1,5 @@
 const checkFunctions = require('../checkFunctions');
-const defaultActions = require('../../src/defaultActions');
+const defaultActions = require('../../src/utils/defaultActions');
 
 test(
     'check for valid default actions object',
