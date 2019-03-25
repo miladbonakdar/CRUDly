@@ -16,7 +16,6 @@ test(
         expect(gate.url).toBe('');
         expect(gate.controllers).toEqual([]);
         expect(gate.actions).toEqual([]);
-        expect(gate.pendingRequests).toEqual([]);
         expect(gate.config).toBeDefined();
         expect(Object.isFrozen(gate.config)).toBe(true);
     })
@@ -30,7 +29,6 @@ describe('gate standard object check', () => {
             expect(gate.url).toBe('/api/v1');
             expect(gate.controllers.length).toBe(2);
             expect(gate.actions).toEqual([]);
-            expect(gate.pendingRequests).toEqual([]);
             expect(gate.config).toBeDefined();
             expect(Object.isFrozen(gate.config)).toBe(true);
         })
@@ -85,15 +83,6 @@ describe('gate standard object check', () => {
             gate.addController({});
         }, 'please fill the controller name -- name is required.')
     );
-    test(
-        'check gate isRequestPending function',
-        checkFunctions.check(() => {
-            expect(gate.isRequestPending()).toBe(false);
-            gate.pendingRequests.push({});
-            expect(gate.isRequestPending()).toBe(true);
-            gate.pendingRequests.pop();
-        })
-    );
 
     test(
         'check gate afterAll function',
@@ -126,7 +115,6 @@ describe('gate controllerless config check', () => {
             expect(gate.url).toBe('/api/v1');
             expect(gate.controllers.length).toBe(0);
             expect(gate.actions.length).toBe(9);
-            expect(gate.pendingRequests).toEqual([]);
             expect(gate.config).toBeDefined();
             expect(Object.isFrozen(gate.config)).toBe(true);
         })
@@ -158,7 +146,6 @@ describe('gate array config check', () => {
             expect(gate.url).toBe('');
             expect(gate.controllers.length).toBe(0);
             expect(gate.actions.length).toBe(9);
-            expect(gate.pendingRequests).toEqual([]);
             expect(gate.config).toBeDefined();
             expect(Object.isFrozen(gate.config)).toBe(true);
         })

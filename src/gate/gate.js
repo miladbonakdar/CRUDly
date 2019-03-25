@@ -1,10 +1,11 @@
-'use strict';
-
 const utils = require('../utils/axiosDefaultFunctions');
 const Controller = require('./controller/controller');
 const validator = require('../utils/dataValidator');
 const Route = require('./route');
 const actionCreator = require('./action/actionCreator');
+const GateMnager = require('./gateManager');
+const Request = require('./request');
+const requestFunc = require('../utils/requestFunc');
 /**
  * @description add controllers listed in the config object to the gate object
  */
@@ -19,7 +20,7 @@ const createControllers = function() {
  * @param config main config file
  */
 class Gate extends Route {
-    constructor(config) {
+    constructor(config, generalEventsBindableObject) {
         if (!config) {
             throw new Error(
                 'config file for controllers does not exist. please pass a valid config file to the Gate controller'
@@ -30,12 +31,11 @@ class Gate extends Route {
         this.controllers = []; //list of controllers object
         config.actions = validator(config, 'actions') || [];
         this.actions = []; //list of actions object
-        //FIXME: fill the requests in the actions call
-        this.pendingRequests = []; //request that will be send to the server and they are pending
         this.config = config;
         Object.freeze(this.config);
         this.gate = this;
-
+        this.gateMnager = new GateMnager();
+        this._generalEventsBindableObject = generalEventsBindableObject;
         //create actions from config file
         if (Array.isArray(config)) this.addActions(this.config);
         else createControllers.bind(this)(); //create controllers from config file
@@ -69,9 +69,8 @@ Gate.prototype.addAction = actionCreator.addAction;
  * @returns boolean indicate that any request is pending or not
  */
 Gate.prototype.isRequestPending = function() {
-    return this.pendingRequests.length != 0;
+    return this.gateMnager.isRequestPending();
 };
-//FIXME: call this function if exist
 /**
  * @description runs after all pending requests are done and you have data and params
  * @param fn function you want to execute
@@ -79,7 +78,7 @@ Gate.prototype.isRequestPending = function() {
 Gate.prototype.afterAll = function(fn) {
     this.afterAllRequests = fn;
 };
-//FIXME: call this function if exist
+
 /**
  * @description runs before any request send and you have data and params
  * @param fn function you want to execute
@@ -87,6 +86,23 @@ Gate.prototype.afterAll = function(fn) {
 Gate.prototype.beforeAny = function(fn) {
     this.beforeAnyRequest = fn;
 };
+
+/**
+ * @description it will call befor each request
+ * @param fn function you want to execute
+ */
+Gate.prototype.beforeEach = function(fn) {
+    this.beforeEachRequest = fn;
+};
+
+/**
+ * @description runs after each request and user can change the response data
+ * @param fn function you want to execute
+ */
+Gate.prototype.afterEach = function(fn) {
+    this.afterEachRequest = fn;
+};
+
 /**
  * @description add default actions to the controllers
  * @param actions list of default actions
@@ -114,6 +130,44 @@ Gate.prototype.addActions = function(actions) {
     actions.forEach(action => {
         this.addAction(action);
     });
+};
+
+/**
+ *FIXME: description and test
+ */
+Gate.prototype.requestGate = async function(request) {
+    if (!request instanceof Request)
+        throw new Error('the request param must be instance of Request type');
+    //befor any and befor each
+    this.gateMnager.push(request, this.requestPushed);
+
+    const res = await requestFunc(request.trigger());
+    request.respondWith(res);
+
+    //after all and after each
+    this.gateMnager.pop(request, this.requestPoped);
+    return request.response;
+};
+
+/**
+ *FIXME: description and test
+ */
+Gate.prototype.requestPushed = function(request, collectionLeght) {
+    if (collectionLeght === 1 && typeof this.beforeAnyRequest === 'function')
+        this._generalEventsBindableObject
+            ? this.beforeAnyRequest.bind(this._generalEventsBindableObject)()
+            : this.beforeAnyRequest();
+    if (typeof this.beforeEachRequest === 'function') this.beforeEachRequest(request);
+};
+/**
+ *FIXME: description and test
+ */
+Gate.prototype.requestPoped = function(request, collectionLeght) {
+    if (collectionLeght === 0 && typeof this.afterAllRequests === 'function')
+        this._generalEventsBindableObject
+            ? this.afterAllRequests.bind(this._generalEventsBindableObject)()
+            : this.afterAllRequests();
+    if (typeof this.afterEachRequest === 'function') this.afterEachRequest(request.response);
 };
 
 module.exports = Gate;

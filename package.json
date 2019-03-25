@@ -44,6 +44,7 @@
         "webpack-merge": "^4.2.1"
     },
     "dependencies": {
-        "axios": "^0.18.0"
+        "axios": "^0.18.0",
+        "cuid": "^2.1.6"
     }
 }
