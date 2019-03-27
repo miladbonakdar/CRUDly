@@ -1,5 +1,5 @@
 const checkFunctions = require('../checkFunctions');
-const generator = require('../../src/utils/urlParamsGenerator');
+const parser = require('../../src/utils/urlParser');
 
 describe('urlParamsGenerator function test', () => {
     test(
@@ -11,7 +11,7 @@ describe('urlParamsGenerator function test', () => {
                     url: 'remove/:userId/:postId'
                 }
             };
-            generator.bind(fakeThis)();
+            parser.bind(fakeThis)();
             expect(fakeThis.urlParams[0]).toBe(':userId');
             expect(fakeThis.urlParams[1]).toBe(':postId');
             expect(fakeThis.urlParams.length).toBe(2);
@@ -27,7 +27,7 @@ describe('urlParamsGenerator function test', () => {
                 },
                 urlParams: []
             };
-            generator.bind(fakeThis)();
+            parser.bind(fakeThis)();
             expect(fakeThis.urlParams.length).toBe(0);
         })
     );
@@ -41,7 +41,7 @@ describe('urlParamsGenerator function test', () => {
                 },
                 urlParams: []
             };
-            generator.bind(fakeThis)();
+            parser.bind(fakeThis)();
             expect(fakeThis.urlParams.length).toBe(0);
         })
     );
@@ -55,7 +55,7 @@ describe('urlParamsGenerator function test', () => {
                 },
                 urlParams: []
             };
-            generator.bind(fakeThis)();
+            parser.bind(fakeThis)();
             expect(fakeThis.urlParams[0]).toBe(':test');
             expect(fakeThis.urlParams[1]).toBe(':dastan');
             expect(fakeThis.urlParams.length).toBe(2);
@@ -71,7 +71,7 @@ describe('urlParamsGenerator function test', () => {
                 },
                 urlParams: []
             };
-            generator.bind(fakeThis)();
+            parser.bind(fakeThis)();
             expect(fakeThis.urlParams[0]).toBe(':ajjab');
             expect(fakeThis.urlParams[1]).toBe(':mohandes');
             expect(fakeThis.urlParams.length).toBe(2);

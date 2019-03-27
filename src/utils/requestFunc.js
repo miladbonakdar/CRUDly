@@ -4,7 +4,7 @@ const axios = require('axios');
  * @description request function
  * @param axiosConfig axios request config
  */
-module.exports = async axiosConfig => {
+const axiosRequest = async axiosConfig => {
     try {
         const response = await axios(axiosConfig);
         return response;
@@ -13,3 +13,5 @@ module.exports = async axiosConfig => {
     } finally {
     }
 };
+
+module.exports = axiosRequest;

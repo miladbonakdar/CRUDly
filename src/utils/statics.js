@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+const statics = {
     actionTypes: ['get', 'put', 'post', 'delete', 'patch', 'head'],
     actionTypeMaps: {
         get: 'get',
@@ -11,3 +11,5 @@ module.exports = {
         head: 'head'
     }
 };
+
+module.exports = statics;

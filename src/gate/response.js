@@ -25,19 +25,19 @@ class Response {
             }
         }
     }
-
-    blob() {
-        return when(this.bodyBlob);
-    }
-
-    text() {
-        return when(this.bodyText);
-    }
-
-    json() {
-        return when(this.text(), text => JSON.parse(text));
-    }
 }
+
+Response.prototype.blob = function() {
+    return when(this.bodyBlob);
+};
+
+Response.prototype.text = function() {
+    return when(this.bodyText);
+};
+
+Response.prototype.json = function() {
+    return when(this.text(), text => JSON.parse(text));
+};
 
 Object.defineProperty(Response.prototype, 'data', {
     get() {
@@ -49,7 +49,7 @@ Object.defineProperty(Response.prototype, 'data', {
     }
 });
 
-function blobText(body) {
+const blobText = function(body) {
     return new Promise(resolve => {
         var reader = new FileReader();
 
@@ -58,10 +58,10 @@ function blobText(body) {
             resolve(reader.result);
         };
     });
-}
+};
 
-function isBlobText(body) {
+const isBlobText = function(body) {
     return body.type.indexOf('text') === 0 || body.type.indexOf('json') !== -1;
-}
+};
 
 module.exports = Response;

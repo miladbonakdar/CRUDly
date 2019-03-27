@@ -2,19 +2,11 @@ const utils = require('../utils/axiosDefaultFunctions');
 const Controller = require('./controller/controller');
 const validator = require('../utils/dataValidator');
 const Route = require('./route');
-const actionCreator = require('./action/actionCreator');
+const addAction = require('./action/addAction');
 const GateManager = require('./gateManager');
 const Request = require('./request');
 const requestFunc = require('../utils/requestFunc');
-/**
- * @description add controllers listed in the config object to the gate object
- */
-const createControllers = function() {
-    this.addActions(this.config.actions);
-    for (const ctrl of this.config.controllers) {
-        this.addController(ctrl);
-    }
-};
+
 /**
  * @description gate class
  * @param config main config file
@@ -62,7 +54,7 @@ Gate.prototype.addController = function(ctrl) {
  * @description you can add actions to the gate object
  * @param action action you want to add
  */
-Gate.prototype.addAction = actionCreator.addAction;
+Gate.prototype.addAction = addAction;
 /**
  * @description check if is there any request pending now
  * @returns boolean indicate that any request is pending or not
@@ -169,6 +161,17 @@ Gate.prototype.requestPoped = function(request, collectionLeght) {
         afterEachRes = this.afterEachRequest(request.response);
 
     request.response = afterEachRes ? afterEachRes : request.response;
+};
+
+
+/**
+ * @description add controllers listed in the config object to the gate object
+ */
+const createControllers = function() {
+    this.addActions(this.config.actions);
+    for (const ctrl of this.config.controllers) {
+        this.addController(ctrl);
+    }
 };
 
 module.exports = Gate;

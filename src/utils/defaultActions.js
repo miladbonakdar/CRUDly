@@ -10,7 +10,7 @@ const remove = actionConfigCreator('delete', 'delete', ['id'], null);
 const head = actionConfigCreator('head', 'head', null, null);
 const getAll = actionConfigCreator('get', null, null, null);
 
-module.exports = {
+const defaultActions = {
     all: [get, post, put, patch, remove, head, getAll],
     get,
     post,
@@ -20,3 +20,4 @@ module.exports = {
     head,
     getAll
 };
+module.exports = defaultActions;

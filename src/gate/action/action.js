@@ -2,7 +2,7 @@
 
 const Route = require('../route');
 const Request = require('../request');
-const urlParamsGenerator = require('../../utils/urlParamsGenerator');
+const urlParser = require('../../utils/urlParser');
 /**
  * @description Action class
  * @param action valid action config
@@ -24,7 +24,7 @@ class Action extends Route {
             this.loadDefaultConfig = action.loadDefaultConfig;
         } else this.loadDefaultConfig = true;
 
-        if (this.method === 'get' || this.method === 'delete') urlParamsGenerator.bind(this)();
+        if (this.method === 'get' || this.method === 'delete') urlParser.bind(this)();
     }
 }
 /**

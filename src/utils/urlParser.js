@@ -1,7 +1,8 @@
+
 /**
  * @description get url params from url template
  */
-module.exports = function() {
+const urlParser = function() {
     let param = null;
     let url = this.extra.url || '';
     for (let i = 0; i < url.length; i++) {
@@ -17,3 +18,5 @@ module.exports = function() {
     }
     if (param) this.urlParams.push(param);
 };
+
+module.exports = urlParser;

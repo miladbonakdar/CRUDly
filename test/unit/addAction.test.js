@@ -1,25 +1,25 @@
 const checkFunctions = require('../checkFunctions');
-const actionCreator = require('../../src/gate/action/actionCreator');
+const addAction = require('../../src/gate/action/addAction');
 const testData = require('../data/gateTest.data');
 const statics = require('../../src/utils/statics');
 
 test('actionCreator functions to be defined', () => {
-    expect(actionCreator.addAction).toBeDefined();
-    expect(actionCreator.addAction.__proto__ === Function.prototype).toBe(true);
+    expect(addAction).toBeDefined();
+    expect(addAction.__proto__ === Function.prototype).toBe(true);
 });
 
 describe('addAction function tests', () => {
     test(
         'check for \'action config is not valid\' exception',
         checkFunctions.checkForException(() => {
-            actionCreator.addAction();
+            addAction();
         }, 'action config is not valid')
     );
 
     test(
         'check for invalid action type exception',
         checkFunctions.checkForException(() => {
-            actionCreator.addAction({ type: 'invalid type' });
+            addAction({ type: 'invalid type' });
         }, 'Action type \'invalid type\' is not valid')
     );
 
@@ -29,7 +29,7 @@ describe('addAction function tests', () => {
             const fakeThis = {
                 testAction: {}
             };
-            actionCreator.addAction.bind(fakeThis)({
+            addAction.bind(fakeThis)({
                 type: 'get',
                 name: 'testAction'
             });
@@ -46,7 +46,7 @@ describe('addAction function tests', () => {
                     config: { testData: 1 },
                     gate: { testData: 2 }
                 };
-                actionCreator.addAction.bind(fakeThis)(item);
+                addAction.bind(fakeThis)(item);
                 expect(item.name).toBeTruthy();
                 expect(item.name).toBe(statics.actionTypeMaps[item.type]);
                 expect(item.type).toBe(item.type.toLowerCase());

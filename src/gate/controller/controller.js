@@ -2,7 +2,7 @@
 
 const validator = require('../../utils/dataValidator');
 const Route = require('../route');
-const actionCreator = require('../action/actionCreator');
+const addAction = require('../action/addAction');
 
 /**
  * @description controller class
@@ -26,7 +26,7 @@ class Controller extends Route {
  * @description you can add actions to the gate object
  * @param action action you want to add
  */
-Controller.prototype.addAction = actionCreator.addAction;
+Controller.prototype.addAction = addAction;
 
 /**
  * @description add list of actions to the controller

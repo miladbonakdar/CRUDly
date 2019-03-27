@@ -5,7 +5,7 @@
  * @param dataPropertyKey the key of the object to check
  * @param exception throw exception if key is not defaind in the object
  */
-module.exports = (data, dataPropertyKey, exception = null) => {
+const validator = (data, dataPropertyKey, exception = null) => {
     if (exception) {
         if (!data) throw new Error(exception);
         if (!data[dataPropertyKey] || data[dataPropertyKey].length == 0)
@@ -16,3 +16,5 @@ module.exports = (data, dataPropertyKey, exception = null) => {
     }
     return data[dataPropertyKey];
 };
+
+module.exports = validator;
