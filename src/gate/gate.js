@@ -1,4 +1,4 @@
-const utils = require('../utils/axiosDefaultFunctions');
+const utils = require('../utils/axiosStatics');
 const Controller = require('./controller/controller');
 const validator = require('../utils/dataValidator');
 const Route = require('./route');

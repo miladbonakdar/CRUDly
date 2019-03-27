@@ -1,41 +1,34 @@
-/**
- * @jest-environment node
- */
+const Request = require('../../src/gate/request');
+const { check, checkForException } = require('../checkFunctions');
+const requestOptions = require('../data/request.data');
 
-const request = require('../../src/utils/requestFunc');
-const http = require('http');
+test(
+    'check for exception : options to create ...',
+    checkForException(() => {
+        const request = new Request();
+    }, 'options to create request is not valid')
+);
 
-test('check simple get request', done => {
-    try {
-        let server = http
-            .createServer(function(req, res) {
-                res.writeHead(200, { 'Content-Type': 'text/plain' });
-                res.write('Hello World!');
-                res.end();
-            })
-            .listen(4567, () => {
-                request({ url: 'http://localhost:4567/', method: 'get' })
-                    .then(res => {
-                        expect(res).toBeDefined();
-                        expect(res.status).toBe(200);
-                        expect(res.data).toBe('Hello World!');
-                        if (server) {
-                            server.close();
-                            server = null;
-                        }
-                        done();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        expect(err).toBeUndefined();
-                        if (server) {
-                            server.close();
-                            server = null;
-                        }
-                    });
-            });
-    } catch (error) {
-        console.log(error);
-        expect(error).toBeUndefined();
-    }
-});
+test(
+    'test for exception : the url should be ...',
+    checkForException(() => {
+        const request = new Request({});
+    }, 'the url should be specified -- url is required.')
+);
+
+test(
+    'test constractor',
+    check(() => {
+        const request = new Request(requestOptions);
+        expect(request.url).toBe('url');
+        expect(request.method).toBe('get');
+        expect(request.body).toBe('body');
+        expect(request._isPending).toBe(false);
+        expect(request.body).toBe('body');
+        expect(request.axiosConfig).toEqual(null);
+        expect(request.extra).toEqual({});
+        expect(request.config).toEqual({});
+        expect(request.urlParams).toEqual([]);
+        expect(request.params).toEqual([]);
+    })
+);

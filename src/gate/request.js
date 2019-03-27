@@ -8,15 +8,16 @@ const cuid = require('cuid');
  */
 class Request extends Route {
     constructor(options) {
+        if(!options) throw new Error('options to create request is not valid');
         super(options.url);
+        this.url = validator(options, 'url', 'the url should be specified');
         this.body = validator(options, 'body') || null;
         this.params = validator(options, 'params') || {};
         this.urlParams = validator(options, 'urlParams') || {};
         this.method = validator(options, 'method') || 'get';
         this.config = validator(options, 'config') || {};
-        this.id = cuid();
-        this.url = validator(options, 'url', 'the url should be specified');
         this.extra = validator(options, 'extra') || {};
+        this.id = cuid();
         this.craetedOn = new Date();
         this.startedOn = null;
         this.responsedOn = null;
