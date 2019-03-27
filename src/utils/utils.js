@@ -75,11 +75,11 @@ module.exports = {
     each(obj, iterator) {
         var i, key;
 
-        if (isArray(obj)) {
+        if (Array.isArray(obj)) {
             for (i = 0; i < obj.length; i++) {
                 iterator.call(obj[i], obj[i], i);
             }
-        } else if (isObject(obj)) {
+        } else if (Object(obj)) {
             for (key in obj) {
                 if (hasOwnProperty.call(obj, key)) {
                     iterator.call(obj[key], obj[key], key);

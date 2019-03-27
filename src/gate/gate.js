@@ -3,7 +3,7 @@ const Controller = require('./controller/controller');
 const validator = require('../utils/dataValidator');
 const Route = require('./route');
 const actionCreator = require('./action/actionCreator');
-const GateMnager = require('./gateManager');
+const GateManager = require('./gateManager');
 const Request = require('./request');
 const requestFunc = require('../utils/requestFunc');
 /**
@@ -34,7 +34,7 @@ class Gate extends Route {
         this.config = config;
         Object.freeze(this.config);
         this.gate = this;
-        this.gateMnager = new GateMnager();
+        this.gateManager = new GateManager(300);
         this._generalEventsBindableObject = generalEventsBindableObject;
         //create actions from config file
         if (Array.isArray(config)) this.addActions(this.config);
@@ -53,8 +53,7 @@ Gate.prototype.all = utils['all'];
  */
 Gate.prototype.addController = function(ctrl) {
     validator(ctrl, 'name', 'please fill the controller name'); //check if ctrl name is valid
-    this[ctrl.name] = new Controller(ctrl, this.route, this.config);
-    this[ctrl.name].gate = this;
+    this[ctrl.name] = new Controller(ctrl, this.route, this.config, this);
     this.controllers.push(this[ctrl.name]); //save in controller list
     if (this.config.defaultActions && this.config.defaultActions.length != 0)
         this.addDefaultsAction(this[ctrl.name], this.config.defaultActions);
@@ -69,7 +68,7 @@ Gate.prototype.addAction = actionCreator.addAction;
  * @returns boolean indicate that any request is pending or not
  */
 Gate.prototype.isRequestPending = function() {
-    return this.gateMnager.isRequestPending();
+    return this.gateManager.isRequestPending();
 };
 /**
  * @description runs after all pending requests are done and you have data and params
@@ -135,18 +134,16 @@ Gate.prototype.addActions = function(actions) {
 /**
  *FIXME: description and test
  */
-Gate.prototype.requestGate = async function(request) {
+Gate.prototype.requestGate = async function(request, ...params) {
     if (!request instanceof Request)
         throw new Error('the request param must be instance of Request type');
     //befor any and befor each
-    this.gateMnager.push(request, this.requestPushed);
-
-    const res = await requestFunc(request.trigger());
+    this.gateManager.push(request, this.requestPushed);
+    const res = await requestFunc(request.trigger(...params));
     request.respondWith(res);
 
     //after all and after each
-    this.gateMnager.pop(request, this.requestPoped);
-    return request.response;
+    return this.gateManager.pop(request, this.requestPoped);
 };
 
 /**
@@ -163,11 +160,15 @@ Gate.prototype.requestPushed = function(request, collectionLeght) {
  *FIXME: description and test
  */
 Gate.prototype.requestPoped = function(request, collectionLeght) {
+    let afterEachRes = null;
     if (collectionLeght === 0 && typeof this.afterAllRequests === 'function')
         this._generalEventsBindableObject
             ? this.afterAllRequests.bind(this._generalEventsBindableObject)()
             : this.afterAllRequests();
-    if (typeof this.afterEachRequest === 'function') this.afterEachRequest(request.response);
+    if (typeof this.afterEachRequest === 'function')
+        afterEachRes = this.afterEachRequest(request.response);
+
+    request.response = afterEachRes ? afterEachRes : request.response;
 };
 
 module.exports = Gate;

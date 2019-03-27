@@ -2,6 +2,8 @@
  *FIXME: description and test
  */
 const Headers = require('./headers');
+const cuid = require('cuid');
+const { isString, isBlob } = require('../utils/utils');
 
 class Response {
     constructor(body, { url, headers, status, statusText, config }) {
@@ -11,6 +13,7 @@ class Response {
         this.statusText = statusText || '';
         this.headers = new Headers(headers);
         this.body = body;
+        this.id = cuid();
         this.config = config;
 
         if (isString(body)) {
@@ -60,3 +63,5 @@ function blobText(body) {
 function isBlobText(body) {
     return body.type.indexOf('text') === 0 || body.type.indexOf('json') !== -1;
 }
+
+module.exports = Response;

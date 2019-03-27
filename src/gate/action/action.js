@@ -1,7 +1,7 @@
 'use strict';
 
 const Route = require('../route');
-const request = require('../../utils/requestFunc');
+const Request = require('../request');
 const urlParamsGenerator = require('../../utils/urlParamsGenerator');
 /**
  * @description Action class
@@ -28,16 +28,6 @@ class Action extends Route {
     }
 }
 /**
- * @description generate valid url from url template and fill the params
- * @param urlTemplate url template
- * @param params params to fill in the url
- */
-Action.prototype.parseUrl = function(urlTemplate, ...params) {
-    for (let i = 0; i < this.urlParams.length; i++)
-        urlTemplate = urlTemplate.replace(this.urlParams[i], params[i]);
-    return urlTemplate;
-};
-/**
  * @description merge the given config to the local config object
  * @param config action config for merge
  * @param overrideWithThis override the given config to the local config if there is a conflict
@@ -50,6 +40,7 @@ Action.prototype.mergeConfig = function(config, overrideWithThis = false) {
         else if (!this.extra[key]) this.extra[key] = config[key];
     });
 };
+
 /**
  * @description validate the given params to be fit in the action
  * @param params run function params
@@ -60,38 +51,15 @@ Action.prototype.validateParams = function(...params) {
     } else if (this.params.length + this.urlParams.length !== params.length)
         throw new Error('action params are not valid. make sure you entered all of the params');
 };
+
 /**
- * @description generate valid axios config for calling api
+ * @description validate the given params to be fit in the action
  * @param params run function params
  */
-Action.prototype.getAxiosConfig = function(...params) {
-    const config = {};
-    config.url = this.url;
-    config.method = this.method;
-    if (this.method === 'get' || this.method === 'delete') {
-        config.url = this.parseUrl(this.url, ...params);
-        config.params = {};
-        for (let i = this.urlParams.length; i < params.length; i++) {
-            if (this.params[i - this.urlParams.length])
-                config.params[this.params[i - this.urlParams.length]] = params[i];
-            else {
-                throw new Error('there is no params for this argument');
-            }
-        }
-    }
-    if (this.method === 'post' || this.method === 'put' || this.method === 'patch')
-        config.data = params[0] || {};
-    if (this.extra.auth) config.auth = this.extra.auth;
-    if (this.extra.responseType) config.responseType = this.extra.responseType;
-    if (this.extra.responseEncoding) config.responseEncoding = this.extra.responseEncoding;
-    if (this.extra.xsrfHeaderName) config.xsrfHeaderName = this.extra.xsrfHeaderName;
-    if (this.extra.maxContentLength) config.maxContentLength = this.extra.maxContentLength;
-    if (this.extra.maxRedirects) config.maxRedirects = this.extra.maxRedirects;
-    if (this.extra.xsrfCookieName) config.xsrfCookieName = this.extra.xsrfCookieName;
-    if (this.extra.headers) config.headers = this.extra.headers;
-    if (this.extra.timeout) config.timeout = this.extra.timeout;
-    return config;
+Action.prototype.createRequest = function() {
+    return new Request(this);
 };
+
 /**
  * @description run action and call api
  * @param params api params
@@ -100,8 +68,8 @@ Action.prototype.run = async function(...params) {
     //url params + params in get or delete action
     if (!params) params = [];
     this.validateParams(...params);
-    const config = this.getAxiosConfig(...params);
-    const res = await request(config);
+    const request = this.createRequest(...params);
+    const res = await this.gate.requestGate(request, ...params);
     return res;
 };
 

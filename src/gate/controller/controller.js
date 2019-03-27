@@ -11,8 +11,9 @@ const actionCreator = require('../action/actionCreator');
  * @param baseConfig main config object
  */
 class Controller extends Route {
-    constructor(ctrl, baseRoute, config) {
+    constructor(ctrl, baseRoute, config, gate) {
         super(`${baseRoute}/${ctrl.name}`);
+        this.gate = gate;
         this.actions = validator(ctrl, 'actions') || [];
         this.loadDefaults = validator(ctrl, 'loadDefaults');
         if (this.loadDefaults === undefined || this.loadDefaults === null) this.loadDefaults = true;

@@ -42,7 +42,7 @@ class GateManager {
         if (index < 0) return;
         this.collection.splice(index, 1);
         objectPoped(obj, this.collection.length);
-        return obj;
+        return obj.response || obj;
     }
 }
 

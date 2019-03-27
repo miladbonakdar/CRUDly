@@ -102,10 +102,8 @@ const defaultActionTests = (action, config) => {
     expect(action.method.toLowerCase()).toBe(config.type);
     expect(action.name).toBe(config.name);
     expect(action.extra).toEqual(config);
-    expect(action.parseUrl.__proto__ === Function.prototype).toBe(true);
     expect(action.mergeConfig.__proto__ === Function.prototype).toBe(true);
     expect(action.validateParams.__proto__ === Function.prototype).toBe(true);
-    expect(action.getAxiosConfig.__proto__ === Function.prototype).toBe(true);
     expect(action.run).toBeDefined();
 };
 
@@ -124,17 +122,17 @@ describe('action class test', () => {
             })
         );
 
-        test(
-            'test action 0 getAxiosConfig function',
-            checkFunctions.check(() => {
-                const config = action.getAxiosConfig({ id: 123 });
-                expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe('');
-                expect(config.method).toBe(action.method);
-                expect(config.params).toBeUndefined();
-                expect(config.data).toEqual({ id: 123 });
-            })
-        );
+        // test(
+        //     'test action 0 getAxiosConfig function',
+        //     checkFunctions.check(() => {
+        //         const config = action.getAxiosConfig({ id: 123 });
+        //         expect(config instanceof Object).toBe(true);
+        //         expect(config.url).toBe('');
+        //         expect(config.method).toBe(action.method);
+        //         expect(config.params).toBeUndefined();
+        //         expect(config.data).toEqual({ id: 123 });
+        //     })
+        // );
     });
 
     describe('test action 1', () => {
@@ -151,17 +149,17 @@ describe('action class test', () => {
             })
         );
 
-        test(
-            'test action 1 getAxiosConfig function',
-            checkFunctions.check(() => {
-                const config = action.getAxiosConfig({ id: 123 });
-                expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe('');
-                expect(config.method).toBe(action.method);
-                expect(config.params).toBeUndefined();
-                expect(config.data).toEqual({ id: 123 });
-            })
-        );
+        // test(
+        //     'test action 1 getAxiosConfig function',
+        //     checkFunctions.check(() => {
+        //         const config = action.getAxiosConfig({ id: 123 });
+        //         expect(config instanceof Object).toBe(true);
+        //         expect(config.url).toBe('');
+        //         expect(config.method).toBe(action.method);
+        //         expect(config.params).toBeUndefined();
+        //         expect(config.data).toEqual({ id: 123 });
+        //     })
+        // );
     });
 
     describe('test action 2', () => {
@@ -178,23 +176,23 @@ describe('action class test', () => {
             })
         );
 
-        test(
-            'test action 2 getAxiosConfig function',
-            checkFunctions.check(() => {
-                const config = action.getAxiosConfig(123, 345);
-                expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe('');
-                expect(config.method).toBe(action.method);
-                expect(config.params).toEqual({ id: 123, type: 345 });
-                expect(config.data).toBeUndefined();
-            })
-        );
+        // test(
+        //     'test action 2 getAxiosConfig function',
+        //     checkFunctions.check(() => {
+        //         const config = action.getAxiosConfig(123, 345);
+        //         expect(config instanceof Object).toBe(true);
+        //         expect(config.url).toBe('');
+        //         expect(config.method).toBe(action.method);
+        //         expect(config.params).toEqual({ id: 123, type: 345 });
+        //         expect(config.data).toBeUndefined();
+        //     })
+        // );
 
-        test('test action 2 getAxiosConfig function \'there is no params for this argument\' exception', () => {
-            expect(() => {
-                action.getAxiosConfig(123, 456, 'invalid');
-            }).toThrow('there is no params for this argument');
-        });
+        // test('test action 2 getAxiosConfig function \'there is no params for this argument\' exception', () => {
+        //     expect(() => {
+        //         action.getAxiosConfig(123, 456, 'invalid');
+        //     }).toThrow('there is no params for this argument');
+        // });
     });
 
     describe('test action 3', () => {
@@ -211,17 +209,17 @@ describe('action class test', () => {
             })
         );
 
-        test(
-            'test action 3 getAxiosConfig function',
-            checkFunctions.check(() => {
-                const config = action.getAxiosConfig({ id: 123 });
-                expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe('');
-                expect(config.method).toBe(action.method);
-                expect(config.params).toBeUndefined();
-                expect(config.data).toBeUndefined();
-            })
-        );
+        // test(
+        //     'test action 3 getAxiosConfig function',
+        //     checkFunctions.check(() => {
+        //         const config = action.getAxiosConfig({ id: 123 });
+        //         expect(config instanceof Object).toBe(true);
+        //         expect(config.url).toBe('');
+        //         expect(config.method).toBe(action.method);
+        //         expect(config.params).toBeUndefined();
+        //         expect(config.data).toBeUndefined();
+        //     })
+        // );
     });
 
     describe('test action 4', () => {
@@ -238,17 +236,17 @@ describe('action class test', () => {
             })
         );
 
-        test(
-            'test action 4 getAxiosConfig function',
-            checkFunctions.check(() => {
-                const config = action.getAxiosConfig({ data: 1 });
-                expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe('');
-                expect(config.method).toBe(action.method);
-                expect(config.params).toBeUndefined();
-                expect(config.data).toEqual({ data: 1 });
-            })
-        );
+        // test(
+        //     'test action 4 getAxiosConfig function',
+        //     checkFunctions.check(() => {
+        //         const config = action.getAxiosConfig({ data: 1 });
+        //         expect(config instanceof Object).toBe(true);
+        //         expect(config.url).toBe('');
+        //         expect(config.method).toBe(action.method);
+        //         expect(config.params).toBeUndefined();
+        //         expect(config.data).toEqual({ data: 1 });
+        //     })
+        // );
     });
 
     describe('test action 6', () => {
@@ -265,23 +263,23 @@ describe('action class test', () => {
             })
         );
 
-        test(
-            'test action 6 getAxiosConfig function',
-            checkFunctions.check(() => {
-                const config = action.getAxiosConfig(123);
-                expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe('/testkon');
-                expect(config.method).toBe(action.method);
-                expect(config.params).toEqual({ id: 123 });
-                expect(config.data).toBeUndefined();
-            })
-        );
+        // test(
+        //     'test action 6 getAxiosConfig function',
+        //     checkFunctions.check(() => {
+        //         const config = action.getAxiosConfig(123);
+        //         expect(config instanceof Object).toBe(true);
+        //         expect(config.url).toBe('/testkon');
+        //         expect(config.method).toBe(action.method);
+        //         expect(config.params).toEqual({ id: 123 });
+        //         expect(config.data).toBeUndefined();
+        //     })
+        // );
 
-        test('test action 6 getAxiosConfig function \'there is no params for this argument\' exception', () => {
-            expect(() => {
-                action.getAxiosConfig(123, 456);
-            }).toThrow('there is no params for this argument');
-        });
+        // test('test action 6 getAxiosConfig function \'there is no params for this argument\' exception', () => {
+        //     expect(() => {
+        //         action.getAxiosConfig(123, 456);
+        //     }).toThrow('there is no params for this argument');
+        // });
     });
 
     describe('test action 5', () => {
@@ -298,31 +296,31 @@ describe('action class test', () => {
             })
         );
 
-        test(
-            'test action 5 parse url function',
-            checkFunctions.check(() => {
-                expect(action.parseUrl(action.url, 123, 321, 'ajjab')).toBe('/customAction/123/321/ajjab');
-                expect(action.parseUrl(action.url, 10, 20, 'milawd')).toBe('/customAction/10/20/milawd');
-            })
-        );
+        // test(
+        //     'test action 5 parse url function',
+        //     checkFunctions.check(() => {
+        //         expect(action.parseUrl(action.url, 123, 321, 'ajjab')).toBe('/customAction/123/321/ajjab');
+        //         expect(action.parseUrl(action.url, 10, 20, 'milawd')).toBe('/customAction/10/20/milawd');
+        //     })
+        // );
 
-        test(
-            'test action 5 getAxiosConfig function',
-            checkFunctions.check(() => {
-                const config = action.getAxiosConfig(123, 456, 'ajjab');
-                expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe('/customAction/123/456/ajjab');
-                expect(config.method).toBe(action.method);
-                expect(config.params).toEqual({});
-                expect(config.data).toBeUndefined();
-            })
-        );
+        // test(
+        //     'test action 5 getAxiosConfig function',
+        //     checkFunctions.check(() => {
+        //         const config = action.getAxiosConfig(123, 456, 'ajjab');
+        //         expect(config instanceof Object).toBe(true);
+        //         expect(config.url).toBe('/customAction/123/456/ajjab');
+        //         expect(config.method).toBe(action.method);
+        //         expect(config.params).toEqual({});
+        //         expect(config.data).toBeUndefined();
+        //     })
+        // );
 
-        test('test action 5 getAxiosConfig function \'there is no params for this argument\' exception', () => {
-            expect(() => {
-                action.getAxiosConfig(123, 456, 'invalid', 'param');
-            }).toThrow('there is no params for this argument');
-        });
+        // test('test action 5 getAxiosConfig function \'there is no params for this argument\' exception', () => {
+        //     expect(() => {
+        //         action.getAxiosConfig(123, 456, 'invalid', 'param');
+        //     }).toThrow('there is no params for this argument');
+        // });
     });
 
     describe('test action 7', () => {
@@ -339,31 +337,31 @@ describe('action class test', () => {
             })
         );
 
-        test(
-            'test action 7 parse url function',
-            checkFunctions.check(() => {
-                expect(action.parseUrl(action.url, 123, 321)).toBe('/remove/123/321');
-                expect(action.parseUrl(action.url, 'milad', 'bonakdar')).toBe('/remove/milad/bonakdar');
-                expect(action.parseUrl(action.url, 'milad', 123123, 123123)).toBe('/remove/milad/123123');
-            })
-        );
+        // test(
+        //     'test action 7 parse url function',
+        //     checkFunctions.check(() => {
+        //         expect(action.parseUrl(action.url, 123, 321)).toBe('/remove/123/321');
+        //         expect(action.parseUrl(action.url, 'milad', 'bonakdar')).toBe('/remove/milad/bonakdar');
+        //         expect(action.parseUrl(action.url, 'milad', 123123, 123123)).toBe('/remove/milad/123123');
+        //     })
+        // );
 
-        test(
-            'test action 7 getAxiosConfig function',
-            checkFunctions.check(() => {
-                const config = action.getAxiosConfig(123, 456);
-                expect(config instanceof Object).toBe(true);
-                expect(config.url).toBe('/remove/123/456');
-                expect(config.method).toBe(action.method);
-                expect(config.params).toEqual({});
-                expect(config.data).toBeUndefined();
-            })
-        );
+        // test(
+        //     'test action 7 getAxiosConfig function',
+        //     checkFunctions.check(() => {
+        //         const config = action.getAxiosConfig(123, 456);
+        //         expect(config instanceof Object).toBe(true);
+        //         expect(config.url).toBe('/remove/123/456');
+        //         expect(config.method).toBe(action.method);
+        //         expect(config.params).toEqual({});
+        //         expect(config.data).toBeUndefined();
+        //     })
+        // );
 
-        test('test action 7 getAxiosConfig function \'there is no params for this argument\' exception', () => {
-            expect(() => {
-                action.getAxiosConfig(123, 456, 'invalid param');
-            }).toThrow('there is no params for this argument');
-        });
+        // test('test action 7 getAxiosConfig function \'there is no params for this argument\' exception', () => {
+        //     expect(() => {
+        //         action.getAxiosConfig(123, 456, 'invalid param');
+        //     }).toThrow('there is no params for this argument');
+        // });
     });
 });
