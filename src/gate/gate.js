@@ -11,28 +11,28 @@ const requestFunc = require('../utils/requestFunc');
  * @description gate class
  * @param config main config file
  */
-class Gate extends Route {
-    constructor(config, generalEventsBindableObject) {
-        if (!config) {
-            throw new Error(
-                'config file for controllers does not exist. please pass a valid config file to the Gate controller'
-            );
-        }
-        super(config.root); //set this object route default "/"
-        config.controllers = validator(config, 'controllers') || [];
-        this.controllers = []; //list of controllers object
-        config.actions = validator(config, 'actions') || [];
-        this.actions = []; //list of actions object
-        this.config = config;
-        Object.freeze(this.config);
-        this.gate = this;
-        this.gateManager = new GateManager(300);
-        this._generalEventsBindableObject = generalEventsBindableObject;
-        //create actions from config file
-        if (Array.isArray(config)) this.addActions(this.config);
-        else createControllers.bind(this)(); //create controllers from config file
+const Gate = function(config, generalEventsBindableObject) {
+    if (!config) {
+        throw new Error(
+            'config file for controllers does not exist. please pass a valid config file to the Gate controller'
+        );
     }
-}
+    Route.call(this, config.root); //set this object route default "/"
+    config.controllers = validator(config, 'controllers') || [];
+    this.controllers = []; //list of controllers object
+    config.actions = validator(config, 'actions') || [];
+    this.actions = []; //list of actions object
+    this.config = config;
+    Object.freeze(this.config);
+    this.gate = this;
+    this.gateManager = new GateManager(300);
+    this._generalEventsBindableObject = generalEventsBindableObject;
+    //create actions from config file
+    if (Array.isArray(config)) this.addActions(this.config);
+    else createControllers.bind(this)(); //create controllers from config file
+};
+Gate.prototype = Object.create(Route.prototype);
+Gate.prototype.constructor = Gate;
 
 Gate.prototype.statics = {};
 
@@ -162,7 +162,6 @@ Gate.prototype.requestPoped = function(request, collectionLeght) {
 
     request.response = afterEachRes ? afterEachRes : request.response;
 };
-
 
 /**
  * @description add controllers listed in the config object to the gate object

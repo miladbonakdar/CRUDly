@@ -10,17 +10,17 @@ const addAction = require('../action/addAction');
  * @param baseRoute base api route
  * @param baseConfig main config object
  */
-class Controller extends Route {
-    constructor(ctrl, baseRoute, config, gate) {
-        super(`${baseRoute}/${ctrl.name}`);
-        this.gate = gate;
-        this.actions = validator(ctrl, 'actions') || [];
-        this.loadDefaults = validator(ctrl, 'loadDefaults');
-        if (this.loadDefaults === undefined || this.loadDefaults === null) this.loadDefaults = true;
-        this.config = config;
-        this.addActions(this.actions);
-    }
-}
+const Controller = function(ctrl, baseRoute, config, gate) {
+    Route.call(this, `${baseRoute}/${ctrl.name}`);
+    this.gate = gate;
+    this.actions = validator(ctrl, 'actions') || [];
+    this.loadDefaults = validator(ctrl, 'loadDefaults');
+    if (this.loadDefaults === undefined || this.loadDefaults === null) this.loadDefaults = true;
+    this.config = config;
+    this.addActions(this.actions);
+};
+Controller.prototype = Object.create(Route.prototype);
+Controller.prototype.constructor = Controller;
 
 /**
  * @description you can add actions to the gate object

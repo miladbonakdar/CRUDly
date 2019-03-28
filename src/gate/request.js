@@ -6,29 +6,32 @@ const cuid = require('cuid');
 /**
  *FIXME: description and test
  */
-class Request extends Route {
-    constructor(options) {
-        if(!options) throw new Error('options to create request is not valid');
-        super(options.url);
-        this.url = validator(options, 'url', 'the url should be specified');
-        this.body = validator(options, 'body') || null;
-        this.params = validator(options, 'params') || {};
-        this.urlParams = validator(options, 'urlParams') || {};
-        this.method = validator(options, 'method') || 'get';
-        this.config = validator(options, 'config') || {};
-        this.extra = validator(options, 'extra') || {};
-        this.id = cuid();
-        this.craetedOn = new Date();
-        this.startedOn = null;
-        this.responsedOn = null;
-        this._isPending = false;
-        this.response = null;
-        this.axiosConfig = null;
-    }
-    get isPending() {
+const Request = function(options) {
+    if (!options) throw new Error('options to create request is not valid');
+    Route.call(this, options.url);
+    this.url = validator(options, 'url', 'the url should be specified');
+    this.body = validator(options, 'body') || null;
+    this.params = validator(options, 'params') || {};
+    this.urlParams = validator(options, 'urlParams') || {};
+    this.method = validator(options, 'method') || 'get';
+    this.config = validator(options, 'config') || {};
+    this.extra = validator(options, 'extra') || {};
+    this.id = cuid();
+    this.craetedOn = new Date();
+    this.startedOn = null;
+    this.responsedOn = null;
+    this._isPending = false;
+    this.response = null;
+    this.axiosConfig = null;
+};
+Request.prototype = Object.create(Route.prototype);
+Request.prototype.constructor = Request;
+
+Object.defineProperty(Request.prototype, 'isPending', {
+    get() {
         return this._isPending;
     }
-}
+});
 
 Request.prototype.getUrl = function() {
     return this.url;

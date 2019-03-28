@@ -87,7 +87,7 @@ const each = function(obj, iterator) {
     return obj;
 };
 
-module.exports = {
+const utils = {
     dateDifference,
     inBrowser: typeof window !== 'undefined',
     error,
@@ -107,3 +107,5 @@ module.exports = {
     when,
     each
 };
+
+module.exports = utils;

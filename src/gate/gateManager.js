@@ -4,17 +4,17 @@ const Request = require('./request');
 /**
  *FIXME: description and test
  */
-class GateManager {
-    constructor(maxObjectLifeTime = 0 /* in seconds. 0 means for ever */) {
-        this.collection = [];
-        this.maxObjectLifeTime = maxObjectLifeTime;
-    }
+const GateManager = function(maxObjectLifeTime = 0 /* in seconds. 0 means for ever */) {
+    this.collection = [];
+    this.maxObjectLifeTime = maxObjectLifeTime;
+};
 
-    get isRequestPending() {
+Object.defineProperty(GateManager.prototype, 'isRequestPending', {
+    get() {
         this.pruneObjects();
         return this.collection.length != 0;
     }
-}
+});
 
 GateManager.prototype.pruneObjects = function() {
     if (this.maxObjectLifeTime <= 0) return;

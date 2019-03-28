@@ -5,27 +5,25 @@ const Headers = require('./headers');
 const cuid = require('cuid');
 const { isString, isBlob } = require('../utils/utils');
 
-class Response {
-    constructor(body, { url, headers, status, statusText, config }) {
-        this.url = url;
-        this.ok = status >= 200 && status < 300;
-        this.status = status || 0;
-        this.statusText = statusText || '';
-        this.headers = new Headers(headers);
-        this.body = body;
-        this.id = cuid();
-        this.config = config;
+const Response = function(body, { url, headers, status, statusText, config }) {
+    this.url = url;
+    this.ok = status >= 200 && status < 300;
+    this.status = status || 0;
+    this.statusText = statusText || '';
+    this.headers = new Headers(headers);
+    this.body = body;
+    this.id = cuid();
+    this.config = config;
 
-        if (isString(body)) {
-            this.bodyText = body;
-        } else if (isBlob(body)) {
-            this.bodyBlob = body;
-            if (isBlobText(body)) {
-                this.bodyText = blobText(body);
-            }
+    if (isString(body)) {
+        this.bodyText = body;
+    } else if (isBlob(body)) {
+        this.bodyBlob = body;
+        if (isBlobText(body)) {
+            this.bodyText = blobText(body);
         }
     }
-}
+};
 
 Response.prototype.blob = function() {
     return when(this.bodyBlob);

@@ -8,7 +8,7 @@ const actionConfig = require('./utils/actionConfigCreator');
  * @param config main config object
  */
 //copy functions to the crudly object
-let crudly = function(config) {
+const crudly = function(config) {
     return new gate(config);
 };
 /**

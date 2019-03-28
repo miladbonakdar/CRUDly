@@ -24,11 +24,10 @@ test(
         expect(request.method).toBe('get');
         expect(request.body).toBe('body');
         expect(request._isPending).toBe(false);
-        expect(request.body).toBe('body');
         expect(request.axiosConfig).toEqual(null);
         expect(request.extra).toEqual({});
         expect(request.config).toEqual({});
-        expect(request.urlParams).toEqual([]);
-        expect(request.params).toEqual([]);
+        expect(request.urlParams).toEqual([':id']);
+        expect(request.params).toEqual(['name']);
     })
 );

@@ -8,25 +8,25 @@ const urlParser = require('../../utils/urlParser');
  * @param action valid action config
  * @param baseRoute base action route
  */
-class Action extends Route {
-    constructor(action, baseRoute) {
-        if (!action) throw new Error('Action config is not valid');
-        if (baseRoute === undefined || baseRoute === null)
-            throw new Error('Base route is not valid');
-        if (action.url && !action.url.startsWith('/')) action.url = `/${action.url}`;
-        super(`${baseRoute}${action.url ? action.url : ''}`);
-        this.params = action.params || [];
-        this.method = (action.type || 'get').toLowerCase();
-        this.name = action.name;
-        this.urlParams = [];
-        this.extra = action;
-        if (action.loadDefaultConfig != undefined && action.loadDefaultConfig != null) {
-            this.loadDefaultConfig = action.loadDefaultConfig;
-        } else this.loadDefaultConfig = true;
+const Action = function(action, baseRoute) {
+    if (!action) throw new Error('Action config is not valid');
+    if (baseRoute === undefined || baseRoute === null) throw new Error('Base route is not valid');
+    if (action.url && !action.url.startsWith('/')) action.url = `/${action.url}`;
+    Route.call(this, `${baseRoute}${action.url ? action.url : ''}`);
+    this.params = action.params || [];
+    this.method = (action.type || 'get').toLowerCase();
+    this.name = action.name;
+    this.urlParams = [];
+    this.extra = action;
+    if (action.loadDefaultConfig != undefined && action.loadDefaultConfig != null) {
+        this.loadDefaultConfig = action.loadDefaultConfig;
+    } else this.loadDefaultConfig = true;
 
-        if (this.method === 'get' || this.method === 'delete') urlParser.bind(this)();
-    }
-}
+    if (this.method === 'get' || this.method === 'delete') urlParser.bind(this)();
+};
+Action.prototype = Object.create(Route.prototype);
+Action.prototype.constructor = Action;
+
 /**
  * @description merge the given config to the local config object
  * @param config action config for merge

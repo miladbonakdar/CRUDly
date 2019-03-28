@@ -1,8 +1,8 @@
 const requestOptions = {
     url: 'url',
     body: 'body',
-    params: [],
-    urlParams: [],
+    params: ['name'],
+    urlParams: [':id'],
     method: 'get',
     config: {},
     extra: {},

@@ -1,12 +1,9 @@
-
 const { each, trim, toLower } = require('../utils/utils');
 
-class Headers {
-    constructor(headers) {
-        this.map = {};
-        each(headers, (value, name) => this.append(name, value));
-    }
-}
+const Headers = function(headers) {
+    this.map = {};
+    each(headers, (value, name) => this.append(name, value));
+};
 
 Headers.prototype.has = function(name) {
     return getName(this.map, name) !== null;
