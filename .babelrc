@@ -6,12 +6,11 @@
                 "targets": {
                     "node": "current",
                     "esmodules": true
-                }
+                },
+                "useBuiltIns": "entry"
             }
         ]
     ],
-    "plugins": ["@babel/plugin-proposal-object-rest-spread"],
-    "ignore": [
-        "node_modules"
-    ]
+    "plugins": [],
+    "ignore": ["node_modules"]
 }
