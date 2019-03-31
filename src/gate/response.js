@@ -1,9 +1,6 @@
-/**
- *FIXME: description and test
- */
 const Headers = require('./headers');
 const cuid = require('cuid');
-const { isString, isBlob } = require('../utils/utils');
+const { isString, isBlob, when } = require('../utils/utils');
 
 const Response = function(body, { url, headers, status, statusText, config }) {
     this.url = url;
