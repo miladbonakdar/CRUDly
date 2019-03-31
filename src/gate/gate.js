@@ -136,12 +136,12 @@ Gate.prototype.requestGate = async function(request, ...params) {
     if (!request instanceof Request)
         throw new Error('the request param must be instance of Request type');
     //befor any and befor each
-    this.gateManager.push(request, this.requestPushed);
+    this.gateManager.push(request, this.requestPushed.bind(this));
     const res = await requestFunc(request.trigger(...params));
     request.respondWith(res);
 
     //after all and after each
-    return this.gateManager.pop(request, this.requestPoped);
+    return this.gateManager.pop(request, this.requestPoped.bind(this));
 };
 
 /**
@@ -163,6 +163,7 @@ Gate.prototype.requestPushed = function(request, collectionLeght) {
  */
 Gate.prototype.requestPoped = function(request, collectionLeght) {
     let afterEachRes = null;
+    debugger;
     if (collectionLeght === 0 && typeof this.afterAllRequests === 'function')
         this._generalEventsBindableObject
             ? this.afterAllRequests.bind(this._generalEventsBindableObject)()
