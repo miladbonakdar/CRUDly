@@ -1,3 +1,5 @@
+'use strict';
+
 const utils = require('../utils/axiosStatics');
 const Controller = require('./controller/controller');
 const validator = require('../utils/dataValidator');

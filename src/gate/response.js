@@ -1,3 +1,5 @@
+'use strict';
+
 const Headers = require('./headers');
 const cuid = require('cuid');
 const { isString, isBlob, when } = require('../utils/utils');

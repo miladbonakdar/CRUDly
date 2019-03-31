@@ -1,11 +1,10 @@
+'use strict';
+
 const Route = require('./route');
 const validator = require('../utils/dataValidator');
 const Response = require('./response');
 const cuid = require('cuid');
 
-/**
- *FIXME: description and test
- */
 const Request = function(options) {
     if (!options) throw new Error('options to create request is not valid');
     Route.call(this, options.url);

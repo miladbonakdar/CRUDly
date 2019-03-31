@@ -1,3 +1,5 @@
+'use strict';
+
 const statics = require('./statics');
 
 /**
