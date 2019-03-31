@@ -15,14 +15,17 @@ const dateDifference = function(dateFrom, dateTo, type = 's') {
         return (dateTo.getTime() - dateFrom.getTime()) / 3600000;
     }
 };
+
 const error = function(msg) {
     if (typeof console !== 'undefined') {
         console.error(msg);
     }
 };
+
 const trim = function(str) {
     return str ? str.replace(/^\s*|\s*$/g, '') : '';
 };
+
 const trimEnd = function(str, chars) {
     if (str && chars === undefined) {
         return str.replace(/\s+$/, '');
@@ -34,33 +37,43 @@ const trimEnd = function(str, chars) {
 
     return str.replace(new RegExp(`[${chars}]+$`), '');
 };
+
 const toLower = function(str) {
     return str ? str.toLowerCase() : '';
 };
+
 const toUpper = function(str) {
     return str ? str.toUpperCase() : '';
 };
+
 const isString = function(val) {
     return typeof val === 'string';
 };
+
 const isBoolean = function(val) {
     return val === true || val === false;
 };
+
 const isFunction = function(val) {
     return typeof val === 'function';
 };
+
 const isObject = function(obj) {
     return obj !== null && typeof obj === 'object';
 };
+
 const isPlainObject = function(obj) {
     return isObject(obj) && Object.getPrototypeOf(obj) == Object.prototype;
 };
+
 const isBlob = function(obj) {
     return typeof Blob !== 'undefined' && obj instanceof Blob;
 };
+
 const isFormData = function(obj) {
     return typeof FormData !== 'undefined' && obj instanceof FormData;
 };
+
 const when = function(value, fulfilled, rejected) {
     var promise = Promise.resolve(value);
 
@@ -70,6 +83,7 @@ const when = function(value, fulfilled, rejected) {
 
     return promise.then(fulfilled, rejected);
 };
+
 const each = function(obj, iterator) {
     var i, key;
 

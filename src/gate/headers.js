@@ -20,14 +20,14 @@ Headers.prototype.getAll = function(name) {
 };
 
 Headers.prototype.set = function(name, value) {
-    this.map[normalizeName(getName(this.map, name) || name)] = [trim(value)];
+    this.map[normalizeName(getName(this.map, name) || name)] = [value];
 };
 
 Headers.prototype.append = function(name, value) {
     var list = this.map[getName(this.map, name)];
 
     if (list) {
-        list.push(trim(value));
+        list.push(value);
     } else {
         this.set(name, value);
     }
