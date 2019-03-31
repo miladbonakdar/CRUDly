@@ -18,7 +18,7 @@ test(
 test(
     'check route prototypes',
     checkFunctions.check(() => {
-        testRoute = new Route('/api/v1');
+        let testRoute = new Route('/api/v1');
         expect(testRoute.getRoute.__proto__ == Function.prototype).toBe(true);
         expect(testRoute.getUrl.__proto__ == Function.prototype).toBe(true);
         expect(

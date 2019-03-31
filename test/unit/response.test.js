@@ -3,7 +3,7 @@ const Headers = require('../../src/gate/headers');
 const { check, checkForException } = require('../checkFunctions');
 
 describe('response object test', () => {
-    res = null;
+    let res = null;
     beforeAll(() => {
         res = new Response('body', { url: 'url', status: 200, statusText: 'ok', config: {} });
     });

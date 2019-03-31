@@ -7,7 +7,7 @@
         "dev": "webpack --config webpack.dev.js",
         "test": "jest",
         "build": "webpack --config webpack.prod.js",
-        "prepublish": "npm run test",
+        "prepublish": "yarn run test && yarn run build",
         "up": "yarn upgrade-interactive --latest"
     },
     "repository": {
@@ -27,8 +27,10 @@
     },
     "homepage": "https://github.com/miladbonakdar/CRUDly#readme",
     "devDependencies": {
-        "@babel/core": "^7.2.2",
+        "@babel/core": "^7.4.0",
+        "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
         "@babel/preset-env": "^7.2.3",
+        "babel-jest": "^24.5.0",
         "babel-loader": "^8.0.5",
         "babel-minify-webpack-plugin": "^0.3.1",
         "body-parser": "^1.18.3",
@@ -36,7 +38,7 @@
         "eslint-config-node": "^4.0.0",
         "eslint-plugin-node": "^8.0.0",
         "express": "^4.16.4",
-        "jest": "^23.6.0",
+        "jest": "^24.5.0",
         "terser-webpack-plugin": "^1.2.2",
         "uglifyjs-webpack-plugin": "^2.1.1",
         "webpack": "^4.28.1",

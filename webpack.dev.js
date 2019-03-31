@@ -11,6 +11,7 @@ module.exports = merge(common, {
         path: path.join(__dirname, 'dist'),
         filename: 'crudly.js',
         library: 'crudly',
-        libraryTarget: 'commonjs'
+        libraryTarget: 'umd',
+        umdNamedDefine: true
     }
 });

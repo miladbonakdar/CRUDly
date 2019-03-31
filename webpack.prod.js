@@ -9,7 +9,8 @@ module.exports = merge(common, {
         path: path.join(__dirname, 'dist'),
         filename: 'crudly.min.js',
         library: 'crudly',
-        libraryTarget: 'commonjs'
+        libraryTarget: 'umd',
+        umdNamedDefine: true
     },
     optimization: {
         minimizer: [new TerserPlugin()]
