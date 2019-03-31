@@ -1,3 +1,4 @@
+'use strict';
 
 /**
  * @description get url params from url template

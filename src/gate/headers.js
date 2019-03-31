@@ -1,3 +1,5 @@
+'use strict';
+
 const { each, trim, toLower } = require('../utils/utils');
 
 const Headers = function(headers) {

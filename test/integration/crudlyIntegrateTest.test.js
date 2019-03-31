@@ -298,6 +298,55 @@ describe('check crudly real integration with api', () => {
                 done();
             });
         });
+
+        describe('check crudly life cycle', () => {
+            test('after all requests function', async done => {
+                myGate.afterAll(() => {
+                    done();
+                });
+
+                const [res1, res2] = await myGate.all([
+                    myGate.posts.update({
+                        firstname: 'milad',
+                        lastname: 'bonakdar'
+                    }),
+                    myGate.posts.get(123123)
+                ]);
+            });
+
+            test('before any requests function', async done => {
+                myGate.beforeAny(() => {
+                    done();
+                });
+                myGate.posts.get(123123);
+            });
+
+            test('before each requests function', async done => {
+                myGate.beforeEach((request) => {
+                    expect(request.url).toBe('/api/v1/posts');
+                    expect(request.method).toBe('get');
+                    done();
+                });
+                myGate.posts.get(123123);
+            });
+
+            test('after each requests function', async done => {
+                myGate.afterEach((response) => {
+                    expect(response.status).toBe(200);
+                    expect(response.url).toBe('/api/v1/posts');
+                    expect(response.statusText).toBe('OK');
+                    expect(response.ok).toBe(true);
+                    return response.data;
+                });
+                const data = await myGate.posts.get(123123);
+                expect(data).toEqual({
+                    message: 'post get successfuly',
+                    query: { id: '123123' }
+                });
+                done();
+            });
+
+        });
     });
 
     describe('check functionality in controller less config file', () => {

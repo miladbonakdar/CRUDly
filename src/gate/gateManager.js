@@ -1,3 +1,5 @@
+'use strict';
+
 const dateDifference = require('../utils/utils').dateDifference;
 const Request = require('./request');
 

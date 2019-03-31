@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * @description validate object and fill the given key property
  * @param data data to check
