@@ -1,7 +1,8 @@
 const { hasOwnProperty } = {},
     { slice } = [];
 
-const dateDifference = function(dateFrom, dateTo = Date(), type = 's') {
+const dateDifference = function(dateFrom, dateTo, type = 's') {
+    dateTo = dateTo ? dateTo : new Date();
     type = type.toLowerCase();
     switch (type) {
     case 'ms':
