@@ -105,6 +105,7 @@ Gate.prototype.addDefaultsActions = function(actions) {
 };
 /**
  * @description add default actions to the just one controller
+ * @param ctrl controller to add actions to
  * @param actions list of default actions
  */
 Gate.prototype.addDefaultsAction = function(ctrl, actions) {
@@ -124,7 +125,10 @@ Gate.prototype.addActions = function(actions) {
 };
 
 /**
- *FIXME: description and test
+ * @description every request will be send from this section.
+ * @param request request object
+ * @param params request parameters
+ * @returns http request response or custom return value
  */
 Gate.prototype.requestGate = async function(request, ...params) {
     if (!request instanceof Request)
@@ -139,7 +143,9 @@ Gate.prototype.requestGate = async function(request, ...params) {
 };
 
 /**
- *FIXME: description and test
+ * @description when new request is going to the serevr it will be called
+ * @param request request object
+ * @param collectionLeght letngh of the correct requests
  */
 Gate.prototype.requestPushed = function(request, collectionLeght) {
     if (collectionLeght === 1 && typeof this.beforeAnyRequest === 'function')
@@ -149,7 +155,9 @@ Gate.prototype.requestPushed = function(request, collectionLeght) {
     if (typeof this.beforeEachRequest === 'function') this.beforeEachRequest(request);
 };
 /**
- *FIXME: description and test
+ * @description when the request is done this function will be called
+ * @param request request object
+ * @param collectionLeght letngh of the correct requests
  */
 Gate.prototype.requestPoped = function(request, collectionLeght) {
     let afterEachRes = null;

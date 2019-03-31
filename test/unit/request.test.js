@@ -15,19 +15,53 @@ test(
         const request = new Request({});
     }, 'the url should be specified -- url is required.')
 );
+describe('create object test', () => {
+    let request = null;
+    beforeAll(() => {
+        request = new Request(requestOptions);
+    });
+    
+    test(
+        'test constractor',
+        check(() => {
+            expect(request.url).toBe('/url/:first/:last');
+            expect(request.method).toBe('get');
+            expect(request.body).toBe('body');
+            expect(request._isPending).toBe(false);
+            expect(request.axiosConfig).toEqual(null);
+            expect(request.extra).toEqual({});
+            expect(request.config).toEqual({});
+            expect(request.urlParams).toEqual([':first', ':last']);
+            expect(request.params).toEqual([]);
+        })
+    );
 
-test(
-    'test constractor',
-    check(() => {
-        const request = new Request(requestOptions);
-        expect(request.url).toBe('url');
-        expect(request.method).toBe('get');
-        expect(request.body).toBe('body');
-        expect(request._isPending).toBe(false);
-        expect(request.axiosConfig).toEqual(null);
-        expect(request.extra).toEqual({});
-        expect(request.config).toEqual({});
-        expect(request.urlParams).toEqual([':id']);
-        expect(request.params).toEqual(['name']);
-    })
-);
+    test(
+        'test request parse url function',
+        check(() => {
+            expect(request.parseUrl(request.url, 123, 321)).toBe('/url/123/321');
+            expect(request.parseUrl(request.url, 'milad', 'bonakdar')).toBe('/url/milad/bonakdar');
+            expect(request.parseUrl(request.url, 'milad', 123123, 123123)).toBe(
+                '/url/milad/123123'
+            );
+        })
+    );
+
+    test(
+        'test getAxiosConfig function',
+        check(() => {
+            const config = request.makeConfig(123, 456);
+            expect(config instanceof Object).toBe(true);
+            expect(config.url).toBe('/url/123/456');
+            expect(config.method).toBe(request.method);
+            expect(config.params).toEqual({});
+            expect(config.data).toBeUndefined();
+        })
+    );
+
+    test('test action 7 getAxiosConfig function \'there is no params for this argument\' exception', () => {
+        expect(() => {
+            request.makeConfig(123, 456, 'invalid param');
+        }).toThrow('there is no params for this argument');
+    });
+});

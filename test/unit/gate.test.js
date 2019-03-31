@@ -59,13 +59,13 @@ describe('gate standard object check', () => {
     test(
         'check gate functions',
         checkFunctions.check(() => {
-            expect(gate.addController.__proto__ === Function.prototype).toBe(true);
-            expect(gate.addAction.__proto__ === Function.prototype).toBe(true);
-            expect(gate.isRequestPending.__proto__ === Function.prototype).toBe(true);
-            expect(gate.afterAll.__proto__ === Function.prototype).toBe(true);
-            expect(gate.beforeAny.__proto__ === Function.prototype).toBe(true);
-            expect(gate.addDefaultsActions.__proto__ === Function.prototype).toBe(true);
-            expect(gate.addDefaultsAction.__proto__ === Function.prototype).toBe(true);
+            expect(typeof gate.addController === 'function').toBe(true);
+            expect(typeof gate.addAction === 'function').toBe(true);
+            expect(typeof gate.isRequestPending === 'function').toBe(true);
+            expect(typeof gate.afterAll === 'function').toBe(true);
+            expect(typeof gate.beforeAny === 'function').toBe(true);
+            expect(typeof gate.addDefaultsActions === 'function').toBe(true);
+            expect(typeof gate.addDefaultsAction === 'function').toBe(true);
         })
     );
 
@@ -85,24 +85,61 @@ describe('gate standard object check', () => {
     );
 
     test(
+        'check for exception : the request param must be instance of Request type',
+        checkFunctions.checkForException(() => {
+            gate.requestGate({});
+        }, 'the request param must be instance of Request type')
+    );
+
+    test(
         'check gate afterAll function',
         checkFunctions.check(() => {
+            expect(gate.afterAll).toBeDefined();
+            expect(typeof gate.afterAll === 'function').toBe(true);
             gate.afterAll(() => {
                 console.log('after all function');
             });
             expect(gate.afterAllRequests).toBeDefined();
-            expect(gate.afterAllRequests.__proto__ === Function.prototype).toBe(true);
+            expect(typeof gate.afterAllRequests === 'function').toBe(true);
         })
     );
 
     test(
         'check gate beforeAny function',
         checkFunctions.check(() => {
+            expect(gate.beforeAny).toBeDefined();
+            expect(typeof gate.beforeAny === 'function').toBe(true);
             gate.beforeAny(() => {
                 console.log('before any function');
             });
             expect(gate.beforeAnyRequest).toBeDefined();
-            expect(gate.beforeAnyRequest.__proto__ === Function.prototype).toBe(true);
+            expect(typeof gate.beforeAnyRequest === 'function').toBe(true);
+        })
+    );
+
+    test(
+        'check gate afterEach function',
+        checkFunctions.check(() => {
+            expect(gate.afterEach).toBeDefined();
+            expect(typeof gate.afterEach === 'function').toBe(true);
+            gate.afterEach(() => {
+                console.log('after each function');
+            });
+            expect(gate.afterEachRequest).toBeDefined();
+            expect(typeof gate.afterEachRequest === 'function').toBe(true);
+        })
+    );
+
+    test(
+        'check gate beforeEach function',
+        checkFunctions.check(() => {
+            expect(gate.beforeEach).toBeDefined();
+            expect(typeof gate.beforeEach === 'function').toBe(true);
+            gate.beforeEach(() => {
+                console.log('before Each function');
+            });
+            expect(gate.beforeEachRequest).toBeDefined();
+            expect(typeof gate.beforeEachRequest === 'function').toBe(true);
         })
     );
 });
