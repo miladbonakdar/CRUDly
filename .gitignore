@@ -61,5 +61,3 @@ typings/
 .next
 
 *.cache.*
-# just for development
-*.md

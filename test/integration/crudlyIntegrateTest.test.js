@@ -1,6 +1,6 @@
 const serverBuilder = require('./serverBuilder');
 const testData = require('../data/gateTest.data');
-const Crudly = require('../../src/crudly');
+const Crudly = require('../../dist/crudly.min');
 
 describe('check crudly real integration with api', () => {
     let myGate = null;

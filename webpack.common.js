@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     entry: ['@babel/polyfill', path.resolve(__dirname, 'index.js')],
-    watch: true,
+    watch: false,
     module: {
         rules: [
             {
