@@ -85,6 +85,7 @@ Request.prototype.makeConfig = function(...params) {
     if (this.extra.xsrfCookieName) this.axiosConfig.xsrfCookieName = this.extra.xsrfCookieName;
     if (this.extra.headers) this.axiosConfig.headers = this.extra.headers;
     if (this.extra.timeout) this.axiosConfig.timeout = this.extra.timeout;
+    if (this.extra.proxy) this.axiosConfig.proxy = this.extra.proxy;
     return this.axiosConfig;
 };
 

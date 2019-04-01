@@ -65,12 +65,16 @@ Action.prototype.createRequest = function() {
  * @param params api params
  */
 Action.prototype.run = async function(...params) {
-    //url params + params in get or delete action
-    if (!params) params = [];
-    this.validateParams(...params);
-    const request = this.createRequest(...params);
-    const res = await this.gate.requestGate(request, ...params);
-    return res;
+    try {
+        //url params + params in get or delete action
+        if (!params) params = [];
+        this.validateParams(...params);
+        const request = this.createRequest(...params);
+        const res = await this.gate.requestGate(request, ...params);
+        return res;
+    } catch (error) {
+        throw error;
+    }
 };
 
 module.exports = Action;
