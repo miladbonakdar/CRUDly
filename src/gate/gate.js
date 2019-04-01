@@ -28,7 +28,7 @@ const Gate = function(config, generalEventsBindableObject) {
     Object.freeze(this.config);
     this.gate = this;
     this.gateManager = new GateManager(300);
-    this._generalEventsBindableObject = generalEventsBindableObject;
+    this._generalEventsBindableObject = generalEventsBindableObject || this;
     //create actions from config file
     if (Array.isArray(config)) this.addActions(this.config);
     else createControllers.bind(this)(); //create controllers from config file
@@ -163,7 +163,6 @@ Gate.prototype.requestPushed = function(request, collectionLeght) {
  */
 Gate.prototype.requestPoped = function(request, collectionLeght) {
     let afterEachRes = null;
-    debugger;
     if (collectionLeght === 0 && typeof this.afterAllRequests === 'function')
         this._generalEventsBindableObject
             ? this.afterAllRequests.bind(this._generalEventsBindableObject)()

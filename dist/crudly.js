@@ -96,17 +96,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "./index.js":
-/*!******************!*\
-  !*** ./index.js ***!
-  \******************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("module.exports = __webpack_require__(/*! ./src/crudly */ \"./src/crudly.js\");\n\n//# sourceURL=webpack://crudly/./index.js?");
-
-/***/ }),
-
 /***/ "./node_modules/@babel/polyfill/lib/index.js":
 /*!***************************************************!*\
   !*** ./node_modules/@babel/polyfill/lib/index.js ***!
@@ -3748,7 +3737,7 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval(" //the gate class\n\nvar gate = __webpack_require__(/*! ./gate/gate */ \"./src/gate/gate.js\");\n\nvar defaultActions = __webpack_require__(/*! ./utils/defaultActions */ \"./src/utils/defaultActions.js\");\n\nvar actionConfig = __webpack_require__(/*! ./utils/actionConfigCreator */ \"./src/utils/actionConfigCreator.js\");\n/**\r\n * @description crudly lib function that will create your api gate\r\n * @param config main config object\r\n */\n//copy functions to the crudly object\n\n\nvar crudly = function crudly(config) {\n  return new gate(config);\n};\n/**\r\n * @description gate class object that can be used for creatin multiple gates\r\n * @param config main config object\r\n */\n\n\ncrudly.gate = gate; //gate class that can be use to create new instance for new gate\n\ncrudly.standardCrudActions = defaultActions; //list of default standard actions you can make with REST\n\ncrudly.actionConfig = actionConfig; //function to make creating action config easier\n\nmodule.exports = crudly;\n\n//# sourceURL=webpack://crudly/./src/crudly.js?");
+eval(" //the gate class\n\nvar gate = __webpack_require__(/*! ./gate/gate */ \"./src/gate/gate.js\");\n\nvar actionConfig = __webpack_require__(/*! ./utils/actionConfigCreator */ \"./src/utils/actionConfigCreator.js\");\n/**\r\n * @description crudly lib function that will create your api gate\r\n * @param config main config object\r\n */\n//copy functions to the crudly object\n\n\nvar crudly = function crudly(config) {\n  return new gate(config);\n};\n/**\r\n * @description gate class object that can be used for creatin multiple gates\r\n * @param config main config object\r\n */\n\n\ncrudly.gate = gate; //gate class that can be use to create new instance for new gate\n\ncrudly.actionConfig = actionConfig; //function to make creating action config easier\n\nmodule.exports = crudly;\n\n//# sourceURL=webpack://crudly/./src/crudly.js?");
 
 /***/ }),
 
@@ -3860,6 +3849,17 @@ eval("\n/**\r\n * @description route base class\r\n * @param routeUrl route url\
 
 /***/ }),
 
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__(/*! ./crudly */ \"./src/crudly.js\");\n\n//# sourceURL=webpack://crudly/./src/index.js?");
+
+/***/ }),
+
 /***/ "./src/utils/actionConfigCreator.js":
 /*!******************************************!*\
   !*** ./src/utils/actionConfigCreator.js ***!
@@ -3893,18 +3893,6 @@ eval("\n\nvar axios = __webpack_require__(/*! axios */ \"./node_modules/axios/in
 
 "use strict";
 eval("\n/**\r\n * @description validate object and fill the given key property\r\n * @param data data to check\r\n * @param dataPropertyKey the key of the object to check\r\n * @param exception throw exception if key is not defaind in the object\r\n */\n\nvar validator = function validator(data, dataPropertyKey) {\n  var exception = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;\n\n  if (exception) {\n    if (!data) throw new Error(exception);\n    if (!data[dataPropertyKey] || data[dataPropertyKey].length == 0) throw new Error(\"\".concat(exception, \" -- \").concat(dataPropertyKey, \" is required.\"));\n  } else {\n    if (!data) return null;\n    if (data[dataPropertyKey] === undefined, data[dataPropertyKey] === null) return null;\n  }\n\n  return data[dataPropertyKey];\n};\n\nmodule.exports = validator;\n\n//# sourceURL=webpack://crudly/./src/utils/dataValidator.js?");
-
-/***/ }),
-
-/***/ "./src/utils/defaultActions.js":
-/*!*************************************!*\
-  !*** ./src/utils/defaultActions.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-eval(" //function to create action config\n\nvar actionConfigCreator = __webpack_require__(/*! ./actionConfigCreator */ \"./src/utils/actionConfigCreator.js\");\n\nvar get = actionConfigCreator('get', 'get', ['id'], null);\nvar post = actionConfigCreator('post', 'create', null, null);\nvar put = actionConfigCreator('put', 'update', null, null);\nvar patch = actionConfigCreator('patch', 'patch', null, null);\nvar remove = actionConfigCreator('delete', 'delete', ['id'], null);\nvar head = actionConfigCreator('head', 'head', null, null);\nvar getAll = actionConfigCreator('get', null, null, null);\nvar defaultActions = {\n  all: [get, post, put, patch, remove, head, getAll],\n  get: get,\n  post: post,\n  put: put,\n  patch: patch,\n  delete: remove,\n  head: head,\n  getAll: getAll\n};\nmodule.exports = defaultActions;\n\n//# sourceURL=webpack://crudly/./src/utils/defaultActions.js?");
 
 /***/ }),
 
@@ -3957,13 +3945,13 @@ eval("\n\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof S
 /***/ }),
 
 /***/ 0:
-/*!****************************************!*\
-  !*** multi @babel/polyfill ./index.js ***!
-  \****************************************/
+/*!********************************************!*\
+  !*** multi @babel/polyfill ./src/index.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! @babel/polyfill */\"./node_modules/@babel/polyfill/lib/index.js\");\nmodule.exports = __webpack_require__(/*! C:\\Users\\Milawd\\source\\repos\\CRUDly\\index.js */\"./index.js\");\n\n\n//# sourceURL=webpack://crudly/multi_@babel/polyfill_./index.js?");
+eval("__webpack_require__(/*! @babel/polyfill */\"./node_modules/@babel/polyfill/lib/index.js\");\nmodule.exports = __webpack_require__(/*! C:\\Users\\Milawd\\source\\repos\\CRUDly\\src\\index.js */\"./src/index.js\");\n\n\n//# sourceURL=webpack://crudly/multi_@babel/polyfill_./src/index.js?");
 
 /***/ })
 

@@ -13,6 +13,8 @@ module.exports = merge(common, {
         umdNamedDefine: true
     },
     optimization: {
-        minimizer: [new TerserPlugin()]
+        minimizer: [
+            new TerserPlugin()
+        ]
     }
 });

@@ -8,7 +8,6 @@ test(
         expect(crudly.__proto__ === Function.prototype).toBe(true);
         expect(crudly.gate).toBeDefined();
         expect(crudly.actionConfig).toBeDefined();
-        expect(crudly.standardCrudActions).toBeDefined();
-        expect(Object.keys(crudly).length).toBe(3);
+        expect(Object.keys(crudly).length).toBe(2);
     })
 );
