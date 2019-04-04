@@ -16,7 +16,7 @@ const addAction = function(actionConfig) {
     if (!actionConfig.name) actionConfig.name = statics.actionTypeMaps[actionConfig.type];
     if (this[actionConfig.name]) throw new Error('this action was created before');
 
-    let newAction = new Action(actionConfig, this.route);
+    let newAction = new Action(actionConfig, this.url);
     this.actions.push(newAction);
     newAction.gate = this.gate;
     newAction.config = this.config;

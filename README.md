@@ -77,7 +77,7 @@ let response = await gate.users.create({ username: 'test', pass: '123' });
 await gate.users.delete(123);
 ```
 
-> **NOTE:** `async/await` is part of ECMAScript 2017 and is not supported in Internet
+> **NOTE:** `async/await` is a part of ECMAScript 2017 and is not supported in Internet
 > Explorer and older browsers, so use with caution.
 
 ## Create CRUDly gate
@@ -139,11 +139,47 @@ gate.delete(1234)
 
 You can see it helps you to call your APIs easier and you don't have to remember each API route and method.
 
-> **NOTE:** If you confiused about the function names see [Methods map table](#Methods-map-table).
+> **NOTE:** If you are confiused about the function names see [Methods map table](#Methods-map-table).
 
-## Action config fields
+## Default-actions
 
-fields with `?` are unnecessary. The `type` and `url` fields are the minimum action config fields.
+## Gate
+
+### Gate config fields
+
+The `controllers` field is the minimum gate config field.
+
+> fields with `?` are unnecessary.
+
+| field                 | type       | info                                                                                          |
+| --------------------- | ---------- | --------------------------------------------------------------------------------------------- |
+| controllers           | **Array**  | List of [Controller configs](#Controller-config-fields)                                       |
+| root?                 | **String** | Base route of the API. Default is `/`                                                         |
+| defaultActionsConfig? | **Object** | Default [Action configs fields](#Action-config-fields) that will be merged in each action     |
+| defaultActions?       | **Array**  | List of default [Action configs](#Action-config-fields) that will be added to each controller |
+
+## Controller
+
+### Controller config fields
+
+The `name` field is the minimum controller config field. The actions can be null because the list also fill with [Default actions](#Default-actions).
+
+> fields with `?` are unnecessary.
+
+| field         | type        | info                                                                          |
+| ------------- | ----------- | ----------------------------------------------------------------------------- |
+| name          | **String**  | It will be controller object name                                             |
+| actions?      | **Array**   | List of [Action configs](#Action-config-fields)                               |
+| url?          | **String**  | Controller url. If it not specified it will be `/{controller name}`           |
+| loadDefaults? | **Boolean** | If true it will load the [Default actions](#Default-actions). Default is true |
+
+## Action
+
+### Action config fields
+
+The `type` and `url` fields are the minimum action config fields.
+
+> fields with `?` are unnecessary.
 
 | field              | type        | info                                                               |
 | ------------------ | ----------- | ------------------------------------------------------------------ |
@@ -151,7 +187,10 @@ fields with `?` are unnecessary. The `type` and `url` fields are the minimum act
 | url                | **String**  | Action url. In internal calls it Always start with `/`             |
 | name?              | **String**  | It will be gate or controller function name                        |
 | params?            | **Array**   | Array of the action url query params                               |
-| loadDefaultConfig? | **Boolean** | Merge config to default action config. default is true             |
+| headers?           | **Object**  | Headers are custom headers to be sent                              |
+| timeout?           | **Number**  | Specifies the number of milliseconds before the request times out  |
+| proxy?             | **Object**  | Defines the hostname and port of the proxy server                  |
+| loadDefaultConfig? | **Boolean** | Merge config to default action config. Default is true             |
 | auth?              | **Object**  | Indicates that HTTP Basic auth should be used                      |
 | responseType?      | **String**  | Indicates the type of data that the server will respond with       |
 | responseEncoding?  | **String**  | Indicates encoding to use for decoding responses                   |
@@ -159,15 +198,12 @@ fields with `?` are unnecessary. The `type` and `url` fields are the minimum act
 | maxContentLength?  | **Number**  | Defines the max size of the http response content in bytes allowed |
 | maxRedirects?      | **Number**  | Defines the maximum number of redirects to follow in node.js       |
 | xsrfCookieName?    | **String**  | The name of the cookie to use as a value for xsrf token            |
-| headers?           | **Object**  | Headers are custom headers to be sent                              |
-| timeout?           | **Number**  | Specifies the number of milliseconds before the request times out  |
-| proxy?             | **Object**  | Defines the hostname and port of the proxy server                  |
 
 > **NOTE:** for more information about fields you an see [axios github page](https://github.com/axios/axios).
 
 ## Methods map table
 
-You may saw actions with no name in the config will also have names. You can see the post method will get `create` name.  
+You may see untitled actions in the config which also have names. You can see the post method will get `create` name.  
 This is the complete table of the methods and default names.
 
 | method | name     |

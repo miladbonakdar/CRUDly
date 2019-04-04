@@ -41,7 +41,7 @@ describe('addAction function tests', () => {
         checkFunctions.check(() => {
             testData.actionList.forEach(item => {
                 const fakeThis = {
-                    route: '/',
+                    url: '/',
                     actions: [],
                     config: { testData: 1 },
                     gate: { testData: 2 }

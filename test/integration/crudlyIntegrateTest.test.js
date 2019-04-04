@@ -322,7 +322,7 @@ describe('check crudly real integration with api', () => {
             });
 
             test('before each requests function', async done => {
-                myGate.beforeEach((request) => {
+                myGate.beforeEach(request => {
                     expect(request.url).toBe('/api/v1/posts');
                     expect(request.method).toBe('get');
                     done();
@@ -331,7 +331,7 @@ describe('check crudly real integration with api', () => {
             });
 
             test('after each requests function', async done => {
-                myGate.afterEach((response) => {
+                myGate.afterEach(response => {
                     expect(response.status).toBe(200);
                     expect(response.url).toBe('/api/v1/posts');
                     expect(response.statusText).toBe('OK');
@@ -345,7 +345,6 @@ describe('check crudly real integration with api', () => {
                 });
                 done();
             });
-
         });
     });
 

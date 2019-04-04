@@ -3,6 +3,7 @@
 const Route = require('../route');
 const Request = require('../request');
 const urlParser = require('../../utils/urlParser');
+const { urlValidator } = require('../../utils/utils');
 /**
  * @description Action class
  * @param action valid action config
@@ -11,7 +12,7 @@ const urlParser = require('../../utils/urlParser');
 const Action = function(action, baseRoute) {
     if (!action) throw new Error('Action config is not valid');
     if (baseRoute === undefined || baseRoute === null) throw new Error('Base route is not valid');
-    if (action.url && !action.url.startsWith('/')) action.url = `/${action.url}`;
+    action.url = urlValidator(action.url);
     Route.call(this, `${baseRoute}${action.url ? action.url : ''}`);
     this.params = action.params || [];
     this.method = (action.type || 'get').toLowerCase();

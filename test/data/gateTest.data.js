@@ -8,6 +8,7 @@ const config = {
         {
             name: 'users',
             loadDefaults: true,
+            url: '/users',
             actions: [
                 { type: 'post' },
                 { type: 'put' },

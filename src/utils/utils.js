@@ -104,6 +104,12 @@ const each = function(obj, iterator) {
     return obj;
 };
 
+const urlValidator = function(url, exception = null) {
+    if (url && !url.startsWith('/')) url = `/${url}`;
+    if (!url && exception) throw new Error(exception);
+    return url;
+};
+
 const utils = {
     dateDifference,
     inBrowser: typeof window !== 'undefined',
@@ -122,7 +128,8 @@ const utils = {
     isBlob,
     isFormData,
     when,
-    each
+    each,
+    urlValidator
 };
 
 module.exports = utils;

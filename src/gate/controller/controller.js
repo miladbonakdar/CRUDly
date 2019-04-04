@@ -3,6 +3,7 @@
 const validator = require('../../utils/dataValidator');
 const Route = require('../route');
 const addAction = require('../action/addAction');
+const { urlValidator } = require('../../utils/utils');
 
 /**
  * @description controller class
@@ -11,7 +12,8 @@ const addAction = require('../action/addAction');
  * @param baseConfig main config object
  */
 const Controller = function(ctrl, baseRoute, config, gate) {
-    Route.call(this, `${baseRoute}/${ctrl.name}`);
+    ctrl.url = urlValidator(ctrl.url);
+    Route.call(this, ctrl.url ? `${baseRoute}${ctrl.url}` : `${baseRoute}/${ctrl.name}`);
     this.gate = gate;
     this.actions = validator(ctrl, 'actions') || [];
     this.loadDefaults = validator(ctrl, 'loadDefaults');

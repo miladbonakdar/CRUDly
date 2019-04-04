@@ -159,3 +159,12 @@ test(
         expect(typeof utils.each).toBe('function');
     })
 );
+
+test(
+    'urlValidator test',
+    check(() => {
+        expect(utils.urlValidator).toBeDefined();
+        expect(typeof utils.urlValidator).toBe('function');
+        expect(utils.urlValidator('users')).toBe('/users');
+    })
+);
