@@ -16,7 +16,7 @@ const requestFunc = require('../utils/requestFunc');
 const Gate = function(config, generalEventsBindableObject) {
     if (!config) {
         throw new Error(
-            'config file for controllers does not exist. please pass a valid config file to the Gate controller'
+            'config file is not valid. Please make sure you passed valid config object'
         );
     }
     Route.call(this, config.root); //set this object route default "/"

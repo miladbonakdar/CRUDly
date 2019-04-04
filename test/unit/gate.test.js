@@ -6,7 +6,7 @@ test(
     'check for invalid creation of the gate',
     checkFunctions.checkForException(() => {
         new Gate();
-    }, 'config file for controllers does not exist. please pass a valid config file to the Gate controller')
+    }, 'config file is not valid. Please make sure you passed valid config object')
 );
 
 test(

@@ -141,7 +141,167 @@ You can see it helps you to call your APIs easier and you don't have to remember
 
 > **NOTE:** If you are confiused about the function names see [Methods map table](#Methods-map-table).
 
-## Default-actions
+2. The next way to create your gate is to pass a valid config object (recommended). It will give you more futures and options to work aroud. For example, you can specifiy the route of your API or set Default actions](#Default-actions). Let's see:
+
+```js
+const crudly = require('crudly');
+
+const config = {
+    root: '/api/v1', //root of your api. default is '/'
+    defaultActionsConfig: {
+        timeout: 1000 //each action will have this property
+    },
+    // this is actions that will be in te gate object
+    actions: [{ type: 'post', url: '/users/users' }, { type: 'put', url: '/users/users' }],
+    controllers: [
+        {
+            //this will create users object in the gate
+            //and actions associated with it
+            name: 'users',
+            url: '/users',
+            actions: [
+                { type: 'post', timeout: 2000 }, //also you can change default config
+                { type: 'put', loadDefaultConfig: false }, //or ignore the default config
+                {
+                    type: 'delete',
+                    url: '/:id'
+                }
+            ]
+        },
+        {
+            name: 'posts',
+            actions: [
+                { type: 'post', timeout: 2000 },
+                { type: 'put', loadDefaultConfig: false },
+                {
+                    type: 'delete',
+                    url: '/:id'
+                },
+                { type: 'get', params: ['id'] }, //posts?id=123123
+                { type: 'patch' }
+            ]
+        }
+    ]
+};
+// create your gate like this
+const gate = crudly(config);
+// then you have gate with 3 actions
+
+gate.create({ username: 'test1', pass: '1234' })
+    .then(function(response) {
+        console.log(response);
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+
+gate.users
+    .create({ username: 'test2', pass: '4321' })
+    .then(function(response) {
+        console.log(response);
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+
+gate.posts
+    .delete('postid')
+    .then(function(response) {
+        console.log(response);
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+
+gate.users
+    .delete(1234)
+    .then(function(response) {
+        console.log(response);
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+
+//... and so on
+```
+
+> You can read about config properties here: [Gate config fields](#Gate-config-fields)
+
+It was Simple and flexible. Also, you can see the delete, put and post actions are the same in both controllers.
+For making the config object better and easier you can set [Default actions](#Default-actions) array and both controllers will have thease actions.
+
+## Default actions
+
+Lets make the above example better. `defaultActions` is an array that will add its elements to the controllers.
+The config can be changed to this object:
+
+```js
+const config = {
+    root: '/api/v1',
+    defaultActionsConfig: {
+        timeout: 1000
+    },
+    actions: [{ type: 'post', url: '/users/users' }, { type: 'put', url: '/users/users' }],
+    defaultActions: [
+        { type: 'post', timeout: 2000 },
+        { type: 'put', loadDefaultConfig: false },
+        {
+            type: 'delete',
+            url: '/:id'
+        }
+    ],
+    controllers: [
+        {
+            name: 'users',
+            url: '/users',
+            actions: []
+        },
+        {
+            name: 'posts',
+            actions: [
+                { type: 'get', params: ['id'] }, //posts?id=123123
+                { type: 'patch' }
+            ]
+        }
+    ]
+};
+```
+
+It will be the same as the previous config file. You can see the `users` controller action's is empty, but it has the delete action. And in the post controller you just have to add two more missing actions.
+
+<span style="color:orange">**problem:**</span> But if you want one more controller and the actions are all different from these two controllers?  
+Consider setting controller and it just has the getSetting action.
+The above config wont be changed, you just have to add this controller like this:
+
+```js
+const config = {
+    //...
+    controllers: [
+        {
+            name: 'users',
+            url: '/users',
+            actions: []
+        },
+        {
+            name: 'posts',
+            actions: [
+                { type: 'get', params: ['id'] }, //posts?id=123123
+                { type: 'patch' }
+            ]
+        },
+        {
+            name: 'setting',
+            url: '/setting',
+            loadDefaults: false,
+            actions: [{ type: 'get', name: 'getSetting', url: '/getSetting' }]
+        }
+    ]
+};
+```
+
+`loadDefaults` property will help you to fix this problem.
+
+## Interceptors
 
 ## Gate
 
@@ -217,6 +377,8 @@ This is the complete table of the methods and default names.
 
 > **NOTE:** You can always pass the name in the action config to ignore default names.  
 > <span style="color:orange">**Caution:**</span> Names must be uniqe in each section (controller or gate).
+
+## Axios functions
 
 ## Resources
 
