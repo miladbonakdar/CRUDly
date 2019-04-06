@@ -52,24 +52,19 @@ Gate.prototype.addController = function(ctrl) {
     if (this.config.defaultActions && this.config.defaultActions.length != 0)
         this.addDefaultsAction(this[ctrl.name], this.config.defaultActions);
 };
+
 /**
  * @description you can add actions to the gate object
  * @param action action you want to add
  */
 Gate.prototype.addAction = addAction;
+
 /**
  * @description check if is there any request pending now
  * @returns boolean indicate that any request is pending or not
  */
 Gate.prototype.isRequestPending = function() {
     return this.gateManager.isRequestPending();
-};
-/**
- * @description runs after all pending requests are done and you have data and params
- * @param fn function you want to execute
- */
-Gate.prototype.afterAll = function(fn) {
-    this.afterAllRequests = fn;
 };
 
 /**
@@ -94,6 +89,14 @@ Gate.prototype.beforeEach = function(fn) {
  */
 Gate.prototype.afterEach = function(fn) {
     this.afterEachRequest = fn;
+};
+
+/**
+ * @description runs after all pending requests are done and you have data and params
+ * @param fn function you want to execute
+ */
+Gate.prototype.afterAll = function(fn) {
+    this.afterAllRequests = fn;
 };
 
 /**
@@ -168,12 +171,12 @@ Gate.prototype.requestPushed = function(request, collectionLeght) {
  */
 Gate.prototype.requestPoped = function(request, collectionLeght) {
     let afterEachRes = null;
+    if (typeof this.afterEachRequest === 'function' && request.response)
+        afterEachRes = this.afterEachRequest(request.response);
     if (collectionLeght === 0 && typeof this.afterAllRequests === 'function')
         this._generalEventsBindableObject
             ? this.afterAllRequests.bind(this._generalEventsBindableObject)()
             : this.afterAllRequests();
-    if (typeof this.afterEachRequest === 'function' && request.response)
-        afterEachRes = this.afterEachRequest(request.response);
 
     request.response = afterEachRes ? afterEachRes : request.response;
 };

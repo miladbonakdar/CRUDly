@@ -303,6 +303,71 @@ const config = {
 
 ## Interceptors
 
+We have four events that will call in the request lifecycle.
+
+| lifecycle | name         | info                                                    |
+| --------- | ------------ | ------------------------------------------------------- |
+| 1         | `beforeAny`  | It will be called before any request was sent to server |
+| 2         | `beforeEach` | Before each request, it will be called                  |
+| 3         | `afterEach`  | After each request, it will be called                   |
+| 4         | `afterAll`   | It will be called if all pending requests are done      |
+
+> You can set all these events on the gate object.
+
+### beforeAny
+
+```js
+gate.beforeAny(() => {
+    console.log('before any request');
+});
+```
+
+### beforeEach
+
+Here you can check if request URL is valid or not.
+
+```js
+gate.beforeEach(request => {
+    if (!request.url.startsWith('somthing_valid')) throw new Error('url is not valid');
+});
+```
+
+Or change request properties.
+
+```js
+gate.beforeEach(request => {
+    if (!request.method == 'get')
+        request.setProperty('headers', { 'content-type': 'application/json' });
+});
+```
+
+### afterEach
+
+After each request, you can check the result to be valid or maybe you just want a part of the response.
+You just have to return part of the response.
+
+```js
+gate.afterEach(response => {
+    if (response.ok) return response.data;
+});
+```
+
+Or maybe transform the result.
+
+```js
+gate.afterEach(response => {
+    if (response.ok) return response.blob();
+});
+```
+
+### afterAll
+
+```js
+gate.afterAll(() => {
+    console.log('after all requests');
+});
+```
+
 ## Gate
 
 ### Gate config fields
@@ -377,6 +442,10 @@ This is the complete table of the methods and default names.
 
 > **NOTE:** You can always pass the name in the action config to ignore default names.  
 > <span style="color:orange">**Caution:**</span> Names must be uniqe in each section (controller or gate).
+
+## Request
+
+## Response
 
 ## Axios functions
 

@@ -9,6 +9,8 @@ New Functionality:
 Fixes:
 
 -   Request gate error handling fixed
+-   Request lifecycle enhanced
+-   Response setPropery function added
 
 ### 1.1.0 (Apr 1, 2019)
 

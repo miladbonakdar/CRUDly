@@ -47,13 +47,17 @@ Request.prototype.getResponse = function() {
 Request.prototype.respondWith = function(response) {
     this._isPending = false;
     this.responsedOn = new Date();
-    this.response = new Response(response.data, {
-        url: this.getUrl(),
-        headers: response.headers,
-        status: response.status,
-        statusText: response.statusText,
-        config: response.config
-    });
+    this.response = new Response(
+        response.data,
+        {
+            url: this.getUrl(),
+            headers: response.headers,
+            status: response.status,
+            statusText: response.statusText,
+            config: response.config
+        },
+        this
+    );
     return this.response;
 };
 
@@ -108,6 +112,19 @@ Request.prototype.trigger = function(...params) {
     this._isPending = true;
     this.startedOn = this.startedOn || new Date();
     return this.axiosConfig || this.makeConfig(...params);
+};
+
+/***
+ * @description change propery of the request object
+ * @param propertyName property name
+ * @param value propery value
+ */
+Request.prototype.setProperty = function(propertyName, value) {
+    if(this.hasOwnProperty(propertyName)){
+        this[propertyName] = value;
+        return;
+    }
+    this.extra[propertyName] = value;
 };
 
 module.exports = Request;

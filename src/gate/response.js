@@ -4,7 +4,7 @@ const Headers = require('./headers');
 const cuid = require('cuid');
 const { isString, isBlob, when } = require('../utils/utils');
 
-const Response = function(body, { url, headers, status, statusText, config }) {
+const Response = function(body, { url, headers, status, statusText, config }, request) {
     this.url = url;
     this.ok = status >= 200 && status < 300;
     this.status = status || 0;
@@ -12,6 +12,7 @@ const Response = function(body, { url, headers, status, statusText, config }) {
     this.headers = new Headers(headers);
     this.body = body;
     this.id = cuid();
+    this.request = request;
     this.config = config;
 
     if (isString(body)) {

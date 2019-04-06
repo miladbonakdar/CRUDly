@@ -20,7 +20,7 @@ describe('create object test', () => {
     beforeAll(() => {
         request = new Request(requestOptions);
     });
-    
+
     test(
         'test constractor',
         check(() => {
@@ -44,6 +44,16 @@ describe('create object test', () => {
             expect(request.parseUrl(request.url, 'milad', 123123, 123123)).toBe(
                 '/url/milad/123123'
             );
+        })
+    );
+
+    test(
+        'test request set property function',
+        check(() => {
+            request.setProperty('body', { key: 'new body object' });
+            expect(request.body).toEqual({ key: 'new body object' });
+            request.setProperty('timeout', 5000);
+            expect(request.extra.timeout).toEqual(5000);
         })
     );
 

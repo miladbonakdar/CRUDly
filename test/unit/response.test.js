@@ -1,12 +1,24 @@
 const Response = require('../../src/gate/response');
 const Headers = require('../../src/gate/headers');
 const { check, checkForException } = require('../checkFunctions');
+const fakeRequest = { id: 123456789 };
 
 describe('response object test', () => {
     let res = null;
     beforeAll(() => {
-        res = new Response('body', { url: 'url', status: 200, statusText: 'ok', config: {} });
+        res = new Response(
+            'body',
+            { url: 'url', status: 200, statusText: 'ok', config: {} },
+            fakeRequest
+        );
     });
+    
+    test(
+        'check response functions',
+        check(() => {
+            expect(res.request).toEqual(fakeRequest);
+        })
+    );
 
     test(
         'check response functions',
