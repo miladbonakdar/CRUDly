@@ -6,8 +6,8 @@
 [![install size](https://img.shields.io/bundlephobia/minzip/crudly.svg?style=flat-square)](https://www.npmjs.org/crudly)
 [![license](https://img.shields.io/github/license/miladbonakdar/crudly.svg?style=flat-square)](https://github.com/miladbonakdar/CRUDly)
 [![downloads](https://img.shields.io/npm/dm/crudly.svg?style=flat-square)](https://www.npmjs.org/crudly)  
-Centralized promise based HTTP client for the browser and node.js .
-You just need to create your own gate  
+Promise based HTTP request library for browser and node.js.
+**CRUDly** gives you a gate object to manage all your API routes.  
 Wrapper on [Axios](https://github.com/axios/axios)
 
 ## Features
@@ -44,6 +44,52 @@ Using cdn:
 <script src="https://unpkg.com/crudly/dist/crudly.min.js"></script>
 <!-- for development-->
 <script src="https://unpkg.com/crudly/dist/crudly.js"></script>
+```
+
+## CRUDly in a nutshell
+
+The `crudlyObj` in the example below is the object that the **CRUDly** created for you. It has `users` controller with some actions (get,create) and `auth` controller. It also has its own action (getSiteSetting).  
+**CRUDly** gives you a gate object to manage all your API routes.
+
+All you have to do is pass a valid config object to the `crudly` function:
+
+```js
+const crudly = require('crudly');
+
+const config = {
+    actions: [{ type: 'get', url: '/setting', name: 'getSiteSetting' }], // route: your-website/setting
+    controllers: [
+        {
+            name: 'users',
+            actions: [
+                { type: 'get', url: '/:id' }, // method: get route: your-website/users/:id
+                { type: 'post' }, // method: post route: your-website/users
+                { type: 'delete', url: '/:id' } // method: delete route: your-website/users/:id
+            ]
+        },
+        {
+            name: 'auth',
+            actions: [{ type: 'post', name: 'login' }] // method: post route: your-website/auth
+        }
+    ]
+};
+// create your gate like this
+const crudlyObj = crudly(config);
+```
+
+And then nice centralized gate object:
+
+```js
+// method: get route: your-website/users/:id
+let user = await crudlyObj.users.get(123);
+// method: post route: your-website/auth
+let token = await crudlyObj.auth.login({ username: 'milawd', pass: '123456' });
+// method: post route: your-website/users
+let response = await crudlyObj.users.create({ username: 'test', pass: '123' });
+// method: delete route: your-website/users/:id
+await crudlyObj.users.delete(123);
+// method: post route: your-website/setting
+let siteSetting = await crudlyObj.getSiteSetting();
 ```
 
 ## Example
@@ -103,10 +149,7 @@ const crudly = require('crudly');
 const config = [
     { type: 'post', url: '/api/v1/users' },
     { type: 'put', url: '/api/v1/users' },
-    {
-        type: 'delete',
-        url: '/api/v1/users/:id'
-    }
+    { type: 'delete', url: '/api/v1/users/:id' }
 ];
 // create your gate like this
 const gate = crudly(config);
@@ -141,7 +184,7 @@ You can see it helps you to call your APIs easier and you don't have to remember
 
 > **NOTE:** If you are confiused about the function names see [Methods map table](#Methods-map-table).
 
-2. The next way to create your gate is to pass a valid config object (recommended). It will give you more futures and options to work aroud. For example, you can specifiy the route of your API or set Default actions](#Default-actions). Let's see:
+2. The next way to create your gate is to pass a valid config object (recommended). It will give you more futures and options to work aroud. For example, you can specifiy the route of your API or set [Default actions](#Default-actions). Let's see:
 
 ```js
 const crudly = require('crudly');
@@ -513,7 +556,7 @@ gate.beforeEach(request => {
 
 ## Response
 
-The response object contains these functions
+The response object contains these functions.
 
 | name | params | return                 | description                                                        |
 | ---- | ------ | ---------------------- | ------------------------------------------------------------------ |
@@ -553,8 +596,8 @@ gate.users
 
 ## Axios functions
 
-You can also have axios functions like get,put,post... in the gate object.  
-(we dont recomend this because the core concept of the crudly is to ignore these fuctions)
+You can also have Axios functions like get, put, post... in the gate object.
+(we don't recommend this because the core concept of the crudly is to ignore these functions)
 
 ```js
 const data = await gate.statics.get('http://localhost/api/v1/posts?id=123');
