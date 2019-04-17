@@ -1,6 +1,6 @@
 {
     "name": "crudly",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "pure javascript helper to call your API in human readable way",
     "main": "index.js",
     "scripts": {
