@@ -93,7 +93,7 @@ import crudly from 'crudly';
 const gate = crudly(config);
 ```
 
-### How to create config file :
+### How to create config file
 
 1. Consider you just have 3 simple APIs. Best way to create your gate is to pass an array of the actions you want.
 
@@ -383,6 +383,46 @@ The `controllers` field is the minimum gate config field.
 | defaultActionsConfig? | **Object** | Default [Action configs fields](#Action-config-fields) that will be merged in each action     |
 | defaultActions?       | **Array**  | List of default [Action configs](#Action-config-fields) that will be added to each controller |
 
+### Gate functions
+
+You can check if there is uncompleted request by isRequestPending method.
+
+```js
+if (!gate.isRequestPending()) {
+    console.log('there is no pending request');
+}
+```
+
+Add new action to the gate object:
+
+```js
+//add new action
+gate.addAction({ type: 'post', name: 'testAddAction', url: '/api/v1/users' });
+//then use
+const res = await gate.testAddAction({ username: 'test', pass: '123' });
+```
+
+Add new controller to the gate object:
+
+```js
+//add new controller
+gate.addController({ name: 'companies', url: '/companies', actions: [{ type: 'post', url: '/' ]});
+//then use
+const res = await gate.companies.create({ companyName: 'test', postCode: '123 1234' });
+//it also will take care of the default actions
+//so if you were added some default actions before you can use it now
+const res = await gate.companies.delete(123456);
+```
+
+If you want to merge requests:
+
+```js
+const [createRes, user] = await gate.all([
+    gate.companies.create({ companyName: 'test', postCode: '123 1234' }),
+    gate.users.get(123123)
+]);
+```
+
 ## Controller
 
 ### Controller config fields
@@ -445,9 +485,94 @@ This is the complete table of the methods and default names.
 
 ## Request
 
+The request object contains these functions
+
+| name        | params               | return   | description                                                     |
+| ----------- | -------------------- | -------- | --------------------------------------------------------------- |
+| getUrl      | []                   | `string` | Get the url of the request                                      |
+| getBody     | []                   | `Object` | Get the body of the request                                     |
+| getResponse | []                   | `Object` | If the request is complited it will returns the response object |
+| setProperty | [propertyName,Value] | `string` | It can change or set the propery of the request                 |
+
+example:
+
+```js
+gate.beforeEach(request => {
+    if (!request.method == 'get')
+        request.setProperty('headers', { 'content-type': 'application/json' });
+});
+
+//or
+
+gate.beforeEach(request => {
+    if (!request.method == 'patch') request.setProperty('method', 'post');
+});
+
+//...
+```
+
 ## Response
 
+The response object contains these functions
+
+| name | params | return                 | description                                                        |
+| ---- | ------ | ---------------------- | ------------------------------------------------------------------ |
+| blob | []     | `Promise<ArrayBuffer>` | Returns promise that it will resolve the data as a array buffer    |
+| text | []     | `Promise<string>`      | Returns promise that it will resolve the data as a string          |
+| json | []     | `Promise<any>`         | Returns promise that it will resolve the data as javascript object |
+
+example:
+
+```js
+gate.photos
+    .get(1234)
+    .then(function(response) {
+        response.blob();
+    })
+    .then(function(arrayBuffer) {
+        console.log(arrayBuffer);
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+
+gate.users
+    .get(1234)
+    .then(function(response) {
+        response.json();
+    })
+    .then(function(user) {
+        console.log(user);
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+
+//...
+```
+
 ## Axios functions
+
+You can also have axios functions like get,put,post... in the gate object.  
+(we dont recomend this because the core concept of the crudly is to ignore these fuctions)
+
+```js
+const data = await gate.statics.get('http://localhost/api/v1/posts?id=123');
+//or
+const res = await gate.statics.post('http://localhost/api/v1/users', { testData: 1 });
+//...
+```
+
+### list of axios functions
+
+| method | name     |
+| ------ | -------- |
+| get    | `get`    |
+| put    | `put`    |
+| post   | `post`   |
+| delete | `delete` |
+| patch  | `patch`  |
+| head   | `head`   |
 
 ## Resources
 
