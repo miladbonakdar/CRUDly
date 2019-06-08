@@ -43,6 +43,10 @@ const buildUsers = function(app, root) {
     app.get(`${root}getTestkon`, (req, res) => {
         res.json({ message: 'users getTestkon', query: req.query });
     });
+    
+    app.post(`${root}unauth`, (req, res) => {
+        res.status(401).send('unauthorized');
+    });
 };
 
 const buildTodos = function(app, root) {

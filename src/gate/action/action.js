@@ -35,7 +35,7 @@ Action.prototype.constructor = Action;
  */
 Action.prototype.mergeConfig = function(config, overrideWithThis = false) {
     if (!config) throw new Error('the config object is invalid');
-    if (!config instanceof Object) throw new Error('config must be an object');
+    if (!(config instanceof Object)) throw new Error('config must be an object');
     Object.keys(config).forEach(key => {
         if (overrideWithThis) this.extra[key] = config[key];
         else if (!this.extra[key]) this.extra[key] = config[key];

@@ -136,7 +136,7 @@ Gate.prototype.addActions = function(actions) {
  * @returns http request response or custom return value
  */
 Gate.prototype.requestGate = async function(request, ...params) {
-    if (!request instanceof Request)
+    if (!(request instanceof Request))
         throw new Error('the request param must be instance of Request type');
     //befor any and befor each
     this.gateManager.push(request, this.requestPushed.bind(this));
@@ -144,7 +144,7 @@ Gate.prototype.requestGate = async function(request, ...params) {
         const res = await requestFunc(request.trigger(...params));
         request.respondWith(res);
     } catch (error) {
-        throw error;
+        request.respondWith(error.response);
     } finally {
         //after all and after each
         const res = this.gateManager.pop(request, this.requestPoped.bind(this));

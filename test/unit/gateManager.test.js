@@ -1,5 +1,6 @@
 const GateMnager = require('../../src/gate/gateManager');
 const { check, checkForException } = require('../checkFunctions');
+const Request = require('../../src/gate/request');
 
 describe('gate manager object test', () => {
     let manager = null;
@@ -18,7 +19,14 @@ describe('gate manager object test', () => {
 
     test('check isRequestPending function', done => {
         expect(manager.isRequestPending).toBe(false);
-        manager.push({ name: 'test', id: 1, startedOn: new Date() });
+        var test = manager.push(
+            new Request({
+                startedOn: new Date(),
+                url: 'test',
+                name: 'test',
+                id: 1
+            })
+        );
         expect(manager.isRequestPending).toBe(true);
         setTimeout(() => {
             expect(manager.isRequestPending).toBe(false);
@@ -27,18 +35,28 @@ describe('gate manager object test', () => {
     });
 
     test('check push functions', done => {
-        manager.push({ name: 'test', id: 1, startedOn: new Date() }, () => {
+        const req = new Request({
+            url: 'test',
+            name: 'test',
+            startedOn: new Date()
+        });
+        manager.push(req, () => {
             done();
         });
         expect(manager.isRequestPending).toBe(true);
-        manager.pop({ id: 1 });
+        manager.pop({ id:  req.id });
         expect(manager.isRequestPending).toBe(false);
     });
 
     test('check pop functions', done => {
-        manager.push({ name: 'test', id: 1, startedOn: new Date() });
+        const req = new Request({
+            url: 'test',
+            name: 'test',
+            startedOn: new Date()
+        });
+        manager.push(req);
         expect(manager.isRequestPending).toBe(true);
-        manager.pop({ id: 1 }, () => {
+        manager.pop({ id: req.id }, () => {
             done();
         });
         expect(manager.isRequestPending).toBe(false);

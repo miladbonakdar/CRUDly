@@ -34,6 +34,11 @@ const config = {
                     name: 'testGet',
                     url: '/getTestkon',
                     params: ['id', 'name']
+                },
+                {
+                    type: 'post',
+                    name: 'unauth',
+                    url: '/unauth'
                 }
             ]
         },

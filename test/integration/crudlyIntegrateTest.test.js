@@ -1,6 +1,7 @@
 const serverBuilder = require('./serverBuilder');
 const testData = require('../data/gateTest.data');
 const Crudly = require('../../dist/crudly.min');
+// const Crudly = require('../../src/index');
 
 describe('check crudly real integration with api', () => {
     let myGate = null;
@@ -226,6 +227,15 @@ describe('check crudly real integration with api', () => {
                 });
                 done();
             });
+
+            test('controller users ,action unauth ,method post', async done => {
+                const res = await myGate.users.unauth({});
+                expect(res).toBeDefined();
+                expect(res.status).toBe(401);
+                expect(res.data).toEqual('unauthorized');
+                done();
+            });
+
         });
 
         describe('check crudly integrate with posts controller', () => {

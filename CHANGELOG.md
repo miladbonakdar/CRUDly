@@ -1,9 +1,10 @@
 # Changelog
 
-## Next 1.2.0
+## 1.1.2 (Apr 17F, 2019)
 
 New Functionality:
 
+-   Documents complited
 -   url for controller class
 
 Fixes:

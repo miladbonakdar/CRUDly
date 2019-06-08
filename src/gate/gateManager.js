@@ -40,7 +40,7 @@ GateManager.prototype.pruneObjects = function() {
  * @param objectPushed object pushed callback function
  */
 GateManager.prototype.push = function(obj, objectPushed) {
-    if (!obj instanceof Request) return null;
+    if (!(obj instanceof Request)) return null;
     this.collection.push(obj);
     if (typeof objectPushed == 'function') objectPushed(obj, this.collection.length);
     return obj;
