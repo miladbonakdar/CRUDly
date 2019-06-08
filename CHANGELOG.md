@@ -1,5 +1,13 @@
 # Changelog
 
+
+## 1.1.3 (Apr 17F, 2019)
+
+Fixes:
+
+-   afterAll interceptor problem solved
+-   request error handling enhanced
+
 ## 1.1.2 (Apr 17F, 2019)
 
 New Functionality:
