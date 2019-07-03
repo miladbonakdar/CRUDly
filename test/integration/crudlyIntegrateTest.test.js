@@ -113,6 +113,24 @@ describe('check crudly real integration with api', () => {
 
                 done();
             });
+
+            test('check for 404 exception', async done => {
+                try {
+                    const res = await myGate.statics.get('http://localhost/api/v1/exception');
+                } catch (error) {
+                    expect(error).toBeDefined();
+                    expect(error.response.status).toBe(404);
+                }
+                done();
+            });
+
+            test('check for 404 exception with es5 catch', async done => {
+                myGate.statics.get('http://localhost/api/v1/exception').catch(error => {
+                    expect(error).toBeDefined();
+                    expect(error.response.status).toBe(404);
+                    done();
+                });
+            });
         });
 
         describe('check crudly integrate with users controller', () => {
@@ -229,13 +247,27 @@ describe('check crudly real integration with api', () => {
             });
 
             test('controller users ,action unauth ,method post', async done => {
-                const res = await myGate.users.unauth({});
-                expect(res).toBeDefined();
-                expect(res.status).toBe(401);
-                expect(res.data).toEqual('unauthorized');
-                done();
+                try {
+                    const res = await myGate.users.unauth({});
+                } catch (error) {
+                    expect(error).toBeDefined();
+                    expect(error.status).toBe(401);
+                    expect(error.data).toEqual('unauthorized');
+                } finally {
+                    done();
+                }
             });
 
+            test('controller users ,action error ,method get exception', async done => {
+                try {
+                    const res = await myGate.users.error();
+                } catch (error) {
+                    expect(error).toBeDefined();
+                    expect(error.status).toBe(500);
+                } finally {
+                    done();
+                }
+            });
         });
 
         describe('check crudly integrate with posts controller', () => {

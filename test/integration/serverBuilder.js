@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const buildUsers = function(app, root) {
     root += 'users/';
@@ -42,6 +43,11 @@ const buildUsers = function(app, root) {
 
     app.get(`${root}getTestkon`, (req, res) => {
         res.json({ message: 'users getTestkon', query: req.query });
+    });
+
+    app.get(`${root}error`, (req, res) => {
+        res.status(500);
+        res.json({ message: 'something goes wrong', query: req.query });
     });
     
     app.post(`${root}unauth`, (req, res) => {
@@ -119,6 +125,7 @@ const serverBuilder = function(root = '/api/v1/', port = 80, startCallBack = nul
     let app = express();
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(cors());
     build(app, root);
     app.listen(port, startCallBack);
     return app;

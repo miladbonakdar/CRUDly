@@ -22,6 +22,7 @@ const Request = function(options) {
     this._isPending = false;
     this.response = null;
     this.axiosConfig = null;
+    this.hasError = false;
 };
 Request.prototype = Object.create(Route.prototype);
 Request.prototype.constructor = Request;
@@ -44,8 +45,9 @@ Request.prototype.getResponse = function() {
     return this.response;
 };
 
-Request.prototype.respondWith = function(response) {
+Request.prototype.respondWith = function(response, hasError) {
     this._isPending = false;
+    this.hasError = hasError === true;
     this.responsedOn = new Date();
     this.response = new Response(
         response.data,
@@ -120,7 +122,7 @@ Request.prototype.trigger = function(...params) {
  * @param value propery value
  */
 Request.prototype.setProperty = function(propertyName, value) {
-    if(this.hasOwnProperty(propertyName)){
+    if (this.hasOwnProperty(propertyName)) {
         this[propertyName] = value;
         return;
     }

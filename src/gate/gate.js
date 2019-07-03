@@ -144,11 +144,15 @@ Gate.prototype.requestGate = async function(request, ...params) {
         const res = await requestFunc(request.trigger(...params));
         request.respondWith(res);
     } catch (error) {
-        request.respondWith(error.response);
+        request.respondWith(error.response, true);
     } finally {
         //after all and after each
         const res = this.gateManager.pop(request, this.requestPoped.bind(this));
-        if (res) return res;
+
+        if (res) {
+            if (request.hasError) throw res;
+            else return res;
+        } else throw new Error('Request does not exist');
     }
 };
 

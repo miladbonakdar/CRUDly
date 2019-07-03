@@ -39,7 +39,12 @@ const config = {
                     type: 'post',
                     name: 'unauth',
                     url: '/unauth'
-                }
+                },
+                {
+                    type: 'get',
+                    name: 'error',
+                    url: '/error'
+                },
             ]
         },
         {
@@ -180,7 +185,7 @@ const actionList = [
     { type: 'patch' }
 ];
 
-module.exports = {
+var testData = {
     testConfig: config,
     controllerLessConfig,
     arrayConfig,
@@ -189,3 +194,5 @@ module.exports = {
     testActions,
     actionList
 };
+if (typeof module !== 'undefined' && module.exports)
+    module.exports = testData;
