@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Crudly sandbox</title>
+    </head>
+    <body>
+        <script src="../../dist/crudly.js"></script>
+        <script src="../data/gateTest.data.js"></script>
+        <script>
+            testData.testConfig.root = 'http://localhost:9595';
+            var myGate = crudly(testData.testConfig);
+            myGate.statics.get('http://localhost:9595/api/v1/exception').catch(error => {
+                console.log(error);
+            });
+            (async function() {
+                try {
+                    var test = await myGate.users.error();
+                } catch (error) {
+                    console.log(error);
+                }
+            })();
+        </script>
+    </body>
+</html>
